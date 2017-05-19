@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_black"
+            android:orientation="vertical">
+
+            <com.zego.instanttalk2.ui.widgets.ViewLive
+                android:id="@+id/vl_big_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:isBigView="true"
+                />
+
+
+            <LinearLayout
+                android:id="@+id/ll_viewlist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_150"
+                    android:orientation="horizontal">
+
+                    <com.zego.instanttalk2.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+
+                    <com.zego.instanttalk2.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+
+                    <com.zego.instanttalk2.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+
+                    <com.zego.instanttalk2.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_150"
+                    android:orientation="horizontal">
+
+                    <com.zego.instanttalk2.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+
+                    <com.zego.instanttalk2.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+
+                    <com.zego.instanttalk2.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+
+                    <com.zego.instanttalk2.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_150"
+                    android:orientation="horizontal">
+
+                    <com.zego.instanttalk2.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+
+                    <com.zego.instanttalk2.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+
+                    <com.zego.instanttalk2.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+
+                    <com.zego.instanttalk2.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_150"
+                    android:orientation="horizontal">
+
+                    <com.zego.instanttalk2.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+
+                    <com.zego.instanttalk2.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+
+                    <com.zego.instanttalk2.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+
+                    <com.zego.instanttalk2.ui.widgets.ViewLive
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"/>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlyt_control_header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/llyt_control"
+                android:layout_width="@dimen/dimen_200"
+                android:layout_height="@dimen/dimen_50"
+                android:layout_alignParentRight="true"
+                android:background="@android:color/transparent">
+
+                <TextView
+                    android:id="@+id/tv_log_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/log"
+                    android:textColor="@color/sl_btn"
+                    android:textSize="@dimen/text_size_5"/>
+
+                <TextView
+                    android:id="@+id/tv_publish_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/publish_setting"
+                    android:textColor="@color/sl_btn"
+                    android:textSize="@dimen/text_size_5"/>
+
+                <TextView
+                    android:id="@+id/tv_close"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/close"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_5"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/dimen_50"
+                >
+
+                <TextView
+                    android:id="@+id/tv_main_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/text_size_3"
+                    tools:text="Main Title"/>
+
+                <TextView
+                    android:id="@+id/tv_sub_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_5"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/text_size_2"
+                    tools:text="Sub Title"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </FrameLayout>
+
+    <com.zego.instanttalk2.ui.widgets.PublishSettingsPannel
+        android:id="@+id/publishSettingsPannel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#60ffffff"
+        android:minHeight="100dp"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="1dp"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        >
+
+    </com.zego.instanttalk2.ui.widgets.PublishSettingsPannel>
+
+</android.support.design.widget.CoordinatorLayout>
+
+

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/llyt_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_50"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="@dimen/dimen_50"
+            android:layout_height="@dimen/dimen_50"
+            android:background="@drawable/sl_btn_blue"
+            android:gravity="center"
+            android:text="@string/cancel_group_chat"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_4"/>
+
+        <View
+            style="@style/VerticalDivider"
+            android:layout_marginBottom="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_toRightOf="@id/tv_cancel"
+            android:background="@color/text_disable"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/select_friends"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_5"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_ok"
+            android:layout_width="@dimen/dimen_50"
+            android:layout_height="@dimen/dimen_50"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/sl_btn_blue"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="@string/start_to_group_chat"
+            android:textColor="@color/sl_text"
+            android:textSize="@dimen/text_size_4"/>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rlv_user_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/llyt_header"
+        android:layout_marginTop="@dimen/dimen_10">
+
+
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>

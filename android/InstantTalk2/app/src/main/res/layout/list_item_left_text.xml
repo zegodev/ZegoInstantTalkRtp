@@ -1,0 +1,29 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+     >
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="@dimen/dimen_40"
+        android:layout_height="@dimen/dimen_40"
+        tools:src="@mipmap/emoji_86"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_marginLeft="@dimen/dimen_5"
+         />
+    
+    <TextView
+        android:id="@+id/tv_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv_avatar"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_size_3"
+        android:background="@drawable/chatfrom_bg_normal"
+        android:gravity="center_vertical"
+        tools:text="hellohellohellohellohellohellohellohello"
+        android:maxEms="15"
+        />
+
+</RelativeLayout>

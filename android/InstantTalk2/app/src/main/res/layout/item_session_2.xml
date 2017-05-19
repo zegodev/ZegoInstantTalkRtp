@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_60">
+
+    <RelativeLayout
+        android:id="@+id/rlyt_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/sl_btn">
+
+        <ImageView
+            android:id="@+id/iv_avatar_1"
+            android:layout_width="@dimen/dimen_60"
+            android:layout_height="@dimen/dimen_30"
+            android:layout_marginLeft="@dimen/dimen_5"
+            android:layout_marginTop="@dimen/dimen_5"
+            android:src="@mipmap/ic_group_talk"/>
+
+        <ImageView
+            android:id="@+id/iv_avatar_2"
+            android:layout_width="@dimen/dimen_60"
+            android:layout_height="@dimen/dimen_30"
+            android:layout_below="@id/iv_avatar_1"
+            android:layout_marginBottom="@dimen/dimen_5"
+            android:layout_marginLeft="@dimen/dimen_5"
+            android:src="@mipmap/ic_group_talk"/>
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_8"
+            android:layout_toRightOf="@id/iv_avatar_1"
+            android:ellipsize="end"
+            android:maxEms="8"
+            android:maxLines="1"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_size_5"
+            tools:text="我我我我我我我我我我我我我我我我我我我我我我我我我我我我我"/>
+
+        <TextView
+            android:id="@+id/tv_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dimen_5"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_toRightOf="@id/iv_avatar_1"
+            android:ellipsize="end"
+            android:maxEms="14"
+            android:maxLines="1"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_size_4"
+            tools:text="发布于18分钟前发布于18分钟前发布于18分钟前发布于18分钟前发布于18分钟前发布于18分钟前发布于18分钟前"/>
+
+
+        <TextView
+            android:id="@+id/tv_created_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/tv_user_name"
+            android:layout_marginRight="@dimen/dimen_8"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_size_2"
+            tools:text="3分钟前"/>
+
+
+        <TextView
+            android:id="@+id/tv_unread_count"
+            android:layout_width="@dimen/dimen_18"
+            android:layout_height="@dimen/dimen_18"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/tv_msg"
+            android:layout_marginRight="@dimen/dimen_8"
+            android:background="@drawable/circle_red_light"
+            android:gravity="center"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_1"
+            tools:text="1"/>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

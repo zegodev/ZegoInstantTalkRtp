@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_multi_users_chat"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_40"
+        android:background="@drawable/sl_item"
+        android:gravity="center"
+        android:text="@string/multi_users_chat"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_size_4"/>
+
+    <View style="@style/HorizontalDivider"/>
+
+    <TextView
+        android:id="@+id/tv_multi_users_video_chat"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_40"
+        android:background="@drawable/sl_item"
+        android:gravity="center"
+        android:text="@string/multi_users_video_chat"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_size_4"/>
+</LinearLayout>

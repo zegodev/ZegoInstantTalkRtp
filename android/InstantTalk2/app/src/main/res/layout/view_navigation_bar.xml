@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/dimen_50"
+              android:orientation="vertical">
+
+    <View style="@style/HorizontalDivider"/>
+
+    <LinearLayout android:id="@+id/llyt_root"
+                  xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="@dimen/dimen_50"
+                  android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sl_item">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_42"
+                android:layout_height="@dimen/dimen_29"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="1dp"
+                android:src="@mipmap/ic_friends"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="1dp"
+                android:textSize="@dimen/text_size_3"
+                tools:text="朋友"/>
+        </RelativeLayout>
+
+        <View style="@style/VerticalDivider"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sl_item">
+
+            <ImageView
+                android:id="@+id/iv_message"
+                android:layout_width="@dimen/dimen_40"
+                android:layout_height="@dimen/dimen_24"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:src="@mipmap/ic_message"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="1dp"
+                android:textSize="@dimen/text_size_3"
+                tools:text="消息"/>
+
+            <TextView
+                android:id="@+id/tv_unread_count"
+                android:layout_width="@dimen/dimen_18"
+                android:layout_height="@dimen/dimen_18"
+                android:layout_marginLeft="-10dp"
+                android:layout_marginTop="@dimen/dimen_1"
+                android:layout_toRightOf="@id/iv_message"
+                android:background="@drawable/circle_red_light"
+                android:gravity="center"
+                android:textColor="@color/text_white"
+                android:textSize="@dimen/text_size_1"
+                android:visibility="invisible"
+                tools:text="1"/>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

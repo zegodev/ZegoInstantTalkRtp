@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
+    <string name="app_name">InstantTalk2</string>
+
+    <string name="recent">just now</string>
+    <string name="minutes_ago">&#160;minutes ago</string>
+    <string name="hours_ago">&#160;hours ago</string>
+    <string name="day_ago">&#160;days ago</string>
+    <string name="year_ago">&#160;years ago</string>
+
+    <string name="user_id">UserID:</string>
+    <string name="user_name">UserName:</string>
+    <string name="user_avatar">Avatar:</string>
+    <string name="switch_avatar">Switch</string>
+    <string name="modify_user_name">Modify</string>
+    <string name="modify_video_configs">SaveConfigs</string>
+    <string name="modify_appid_and_appsign">Modify</string>
+    <string name="quality_options">QualityOptions:</string>
+    <string name="upload_log">Upload Log</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="about">About</string>
+    <string name="upload_log_successfully">Log has been uploaded successfully</string>
+    <string name="modify_video_configs_successfully">Modify video configs successfully</string>
+    <string name="modify_appid_and_appsign_successfully">Modify appID and appSign successfully</string>
+    <string name="multi_users">GroupChat</string>
+    <string name="multi_users_chat">Group Text Chat</string>
+    <string name="multi_users_video_chat">Group Video Chat</string>
+    <string name="select_friends">Select Friends</string>
+    <string name="delete_session">Delete Session</string>
+
+    <string name="resolution_prefix">Resolution&#160;<xliff:g id="value">%1$s</xliff:g></string>
+    <string name="fps_prefix">FrameRate&#160;<xliff:g id="value">%1$s</xliff:g></string>
+    <string name="bitrate_prefix">BitRate&#160;<xliff:g id="value">%1$s</xliff:g></string>
+
+    <string name="hint_pull_refresh">Pulling to refresh data^_^</string>
+    <string name="app_loading_more">loading…</string>
+    <string name="app_no_more_data">no more data…</string>
+    <string name="log">Log</string>
+    <string name="zego">ZEGO</string>
+    <string name="advanced">Advanced</string>
+
+    <string name="textOn">On</string>
+    <string name="textOff">Off</string>
+    <string name="back">Back</string>
+    <string name="close">Close</string>
+    <string name="publish_setting">Settings</string>
+    <string name="test_env">TestEnvironment:</string>
+    <string name="appid">appID:</string>
+    <string name="appkey">appKey:</string>
+    <string name="front_camera">Front Camera</string>
+    <string name="camera">Camera</string>
+    <string name="speaker">Speaker</string>
+    <string name="background_music">Backgroud Music</string>
+    <string name="mic">Microphone</string>
+    <string name="flashlight">Flashlight</string>
+    <string name="beauty">Beauty</string>
+    <string name="filter">Filter</string>
+    <string name="start_publishing">Live</string>
+    <string name="request_to_join">Join</string>
+    <string name="stop_publishing">Stop</string>
+
+    <!--video chat-->
+    <string name="hint">Hint</string>
+    <string name="someone_is_requesting_to_chat_with_you"><xliff:g id="value">%1$s</xliff:g>&#160;is requesting to chat with you, allow?"</string>
+    <string name="notification">Notification</string>
+    <string name="someone_requested_to_chat_with_you"><xliff:g id="value">%1$s</xliff:g>&#160;requested_to_chat_with_you!"</string>
+    <string name="someone_sent_you_a_text_message"><xliff:g id="value">%1$s</xliff:g>&#160;sent_you_a_text_message!</string>
+    <string name="Allow">Allow</string>
+    <string name="Deny">Deny</string>
+    <string name="do_you_really_want_to_leave_the_chat_room">Do you really want to leave the chat room?</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
+
+    <!--log-->
+    <string name="please_wait">Wait...</string>
+    <string name="live_quality">Quality:&#160;<xliff:g id="value">%1$s</xliff:g></string>
+
+    <!--一对一聊天中-->
+    <string name="video_chat">Video Chat</string>
+    <string name="start_to_group_chat">Start</string>
+    <string name="cancel_group_chat">Cancel</string>
+
+    <string name="myself">Myself:&#160;<xliff:g id="value">%1$s</xliff:g></string>
+    <string name="waiting_for_response">Waiting for responsing...</string>
+    <string name="someone_accepted_your_request"><xliff:g id="value">%1$s</xliff:g>:&#160;accepted your request!</string>
+    <string name="someone_refused_your_request"><xliff:g id="value">%1$s</xliff:g>:&#160;refused your request!</string>
+    <string name="all_friends_refused_your_request">All friends refused your request!</string>
+
+    <string name="login_chat_room_success">login chat room successfully!</string>
+    <string name="login_chat_room_fail">login chat room failed!</string>
+
+    <string name="start_to_login_room">start to login room(roomID:<xliff:g id="value">%1$s</xliff:g>)</string>
+    <string name="login_room_success">login room successfully(roomID:<xliff:g id="value">%1$s</xliff:g>)</string>
+    <string name="login_private_room_failed">login room failed(roomID:<xliff:g id="value">%1$s</xliff:g>)</string>
+
+    <string name="someone_created_stream"><xliff:g id="value">%1$s</xliff:g>:&#160;created stream(streamID:<xliff:g id="value">%2$s</xliff:g>)</string>
+    <string name="someone_deleted_stream"><xliff:g id="value">%1$s</xliff:g>:&#160;deleted stream(streamID:<xliff:g id="value">%2$s</xliff:g>)</string>
+    <string name="stream_existed">stream(<xliff:g id="value">%1$s</xliff:g>) existed!</string>
+
+    <string name="start_to_publish_stream">Start to publish stream(streamID:<xliff:g id="value">%1$s</xliff:g>)</string>
+    <string name="stop_publising_stream">Stop publishing stream(streamID:<xliff:g id="value">%1$s</xliff:g>)</string>
+    <string name="publish_stream_success">Publish stream success(streamID:<xliff:g id="value">%1$s</xliff:g>)</string>
+    <string name="publish_stream_failed">Publish stream failed(streamID:<xliff:g id="value">%1$s</xliff:g>)--errCode:<xliff:g id="value">%2$s</xliff:g></string>
+
+    <string name="start_to_play_stream">Start to play stream(streamID:<xliff:g id="value">%1$s</xliff:g>)</string>
+    <string name="stop_playing_stream">Stop playing stream(streamID:<xliff:g id="value">%1$s</xliff:g>)</string>
+    <string name="play_stream_success">Play stream success(streamID:<xliff:g id="value">%1$s</xliff:g>)</string>
+    <string name="play_stream_failed">Play stream failed(streamID:<xliff:g id="value">%1$s</xliff:g>)--errCode:<xliff:g id="value">%2$s</xliff:g></string>
+
+    <string name="chatting">Chatting...</string>
+    <string name="chat_finished">Chat finished</string>
+    <string name="someone_has_entered_the_room"><xliff:g id="value">%1$s</xliff:g>:&#160;has entered the room</string>
+    <string name="someone_has_left_the_room"><xliff:g id="value">%1$s</xliff:g>:&#160;has left the room</string>
+    <string name="all_friends_have_left_the_room">All friends left the room!</string>
+    <string name="you_have_disconnected">You have been disconnected!</string>
+
+    <string name="room_id_is_empty">Room ID is empty!</string>
+
+    <string name="setting_item_version">VERSION</string>
+    <string name="setting_item_account">ACCOUNT</string>
+    <string name="setting_item_video">VIDEO</string>
+    <string name="setting_item_advanced">ADVANCED</string>
+    <string name="setting_item_about">ABOUT</string>
+    <string name="you_can_not_send_an_empty_message">You can not send an empty message</string>
+    <string name="user_name_can_not_be_empty">UserName can not be empty</string>
+    <string name="only_n_friends_can_be_invited_one_time">Only <xliff:g id="value">%1$s</xliff:g> friends can be invited one time</string>
+    <string name="your_friend_has_canceled_the_chat"><xliff:g id="value">%1$s</xliff:g>&#160;canceled the chat</string>
+
+    <string name="external_capture">External Capture</string>
+    <string name="external_render">External Render</string>
+    <string name="external_filter">External Filter</string>
+    <string name="hardware_encode">Hardware Encode</string>
+    <string name="hardware_decode">Hardware_Decode</string>
+    <string name="rate_control">Rate Control</string>
+    <string name="preview_mirror">Preview Mirror</string>
+    <string name="capture_mirror">Capture Mirror</string>
+    <string name="sdk_version">SDK:</string>
+    <string name="action_settings">Settings</string>
+    <string name="demo_version">Version:&#160;</string>
+    <string name="allow_camera_permission">Please allow the camera permission</string>
+    <string name="open_recorder_permission">Please allow the record audio permission</string>
+    <string name="do_you_really_want_to_leave">Do you really want to leave?</string>
+    <string name="mute">Mute</string>
+    <string name="member_list_is_empty">member list is empty</string>
+    <string name="create_chat_group_failed">create group chat failed!</string>
+</resources>
