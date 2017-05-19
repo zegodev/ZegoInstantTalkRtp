@@ -1,0 +1,1053 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EF110E121D337ED3000620CD /* ZegoMessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF110E111D337ED3000620CD /* ZegoMessageTableViewController.m */; };
+		EF110E151D33B691000620CD /* ZegoVideoTalkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF110E141D33B691000620CD /* ZegoVideoTalkViewController.m */; };
+		EF110E1E1D34C1A0000620CD /* ZegoLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF110E1D1D34C1A0000620CD /* ZegoLiveViewController.m */; };
+		EF110E211D34C1D5000620CD /* ZegoAnchorOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF110E201D34C1D5000620CD /* ZegoAnchorOptionViewController.m */; };
+		EF110E341D362B30000620CD /* ZegoFriendSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF110E331D362B30000620CD /* ZegoFriendSelectViewController.m */; };
+		EF110E371D363530000620CD /* ZegoCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = EF110E361D363530000620CD /* ZegoCheckBox.m */; };
+		EF32D6981D643B4C00A764FC /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF32D6961D643B4C00A764FC /* TencentOpenAPI.framework */; };
+		EF32D6991D643B4C00A764FC /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF32D6961D643B4C00A764FC /* TencentOpenAPI.framework */; };
+		EF32D69A1D643B4C00A764FC /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EF32D6971D643B4C00A764FC /* TencentOpenApi_IOS_Bundle.bundle */; };
+		EF32D69B1D643B4C00A764FC /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EF32D6971D643B4C00A764FC /* TencentOpenApi_IOS_Bundle.bundle */; };
+		EF32D70B1D659CCE00A764FC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EF32D70A1D659CCE00A764FC /* libz.tbd */; };
+		EF32D70D1D659CD900A764FC /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EF32D70C1D659CD900A764FC /* libstdc++.tbd */; };
+		EF32D70F1D659CE100A764FC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF32D70E1D659CE100A764FC /* CoreGraphics.framework */; };
+		EF32D7111D659CF000A764FC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF32D7101D659CF000A764FC /* Security.framework */; };
+		EF32D7131D659DAD00A764FC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EF32D7121D659DAD00A764FC /* libsqlite3.tbd */; };
+		EF32D7151D659DBC00A764FC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF32D7141D659DBC00A764FC /* SystemConfiguration.framework */; };
+		EF4184781D3E095E00B2A383 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF4184771D3E095E00B2A383 /* silence.mp3 */; };
+		EF41847B1D3E097700B2A383 /* ZegoBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = EF41847A1D3E097700B2A383 /* ZegoBackground.m */; };
+		EF41847E1D3F149600B2A383 /* ZegoMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF41847D1D3F149600B2A383 /* ZegoMenuViewController.m */; };
+		EF4184851D41F13100B2A383 /* ZegoBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = EF41847A1D3E097700B2A383 /* ZegoBackground.m */; };
+		EF4184871D41F13100B2A383 /* ZegoStretchyTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A3C1D2E745700715B6B /* ZegoStretchyTextView.m */; };
+		EF4184881D41F13100B2A383 /* ZegoChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A391D2E594900715B6B /* ZegoChatViewController.m */; };
+		EF4184891D41F13100B2A383 /* ZegoMessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF110E111D337ED3000620CD /* ZegoMessageTableViewController.m */; };
+		EF41848A1D41F13100B2A383 /* ZegoChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A421D2F447000715B6B /* ZegoChatTableViewCell.m */; };
+		EF41848C1D41F13100B2A383 /* ZegoVideoTalkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF110E141D33B691000620CD /* ZegoVideoTalkViewController.m */; };
+		EF41848D1D41F13100B2A383 /* video_capture_external_demo.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A1F1D2DF83900715B6B /* video_capture_external_demo.m */; };
+		EF41848E1D41F13100B2A383 /* ZegoVideoCaptureFromImage.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A211D2DF83900715B6B /* ZegoVideoCaptureFromImage.m */; };
+		EF4184901D41F13100B2A383 /* ZegoAVKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A151D2DF76000715B6B /* ZegoAVKitManager.m */; };
+		EF4184911D41F13100B2A383 /* ZegoAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A251D2DF92D00715B6B /* ZegoAboutViewController.m */; };
+		EF4184921D41F13100B2A383 /* ZegoTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A0F1D2DF2E700715B6B /* ZegoTabBarViewController.m */; };
+		EF4184931D41F13100B2A383 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7139C91D2DEFD200715B6B /* AppDelegate.m */; };
+		EF4184941D41F13100B2A383 /* ZegoChatInput.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A3F1D2E80C200715B6B /* ZegoChatInput.m */; };
+		EF4184951D41F13100B2A383 /* ZegoLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFFBF7541D3887A8002FD7F2 /* ZegoLogTableViewController.m */; };
+		EF4184961D41F13100B2A383 /* ZegoFriendTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A361D2E45E200715B6B /* ZegoFriendTableViewController.m */; };
+		EF4184971D41F13100B2A383 /* ZegoAdvancedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A271D2DF92D00715B6B /* ZegoAdvancedTableViewController.m */; };
+		EF4184981D41F13100B2A383 /* ZegoDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A2D1D2E082800715B6B /* ZegoDataCenter.m */; };
+		EF4184991D41F13100B2A383 /* ZegoMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF41847D1D3F149600B2A383 /* ZegoMenuViewController.m */; };
+		EF41849A1D41F13100B2A383 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7139C61D2DEFD200715B6B /* main.m */; };
+		EF41849B1D41F13100B2A383 /* ZegoCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = EF110E361D363530000620CD /* ZegoCheckBox.m */; };
+		EF41849D1D41F13100B2A383 /* ZegoFriendSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF110E331D362B30000620CD /* ZegoFriendSelectViewController.m */; };
+		EF41849E1D41F13100B2A383 /* ZegoLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF110E1D1D34C1A0000620CD /* ZegoLiveViewController.m */; };
+		EF41849F1D41F13100B2A383 /* ZegoAnchorOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF110E201D34C1D5000620CD /* ZegoAnchorOptionViewController.m */; };
+		EF4184A01D41F13100B2A383 /* ZegoSetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A121D2DF6F000715B6B /* ZegoSetTableViewController.m */; };
+		EF4184A11D41F13100B2A383 /* ZegoSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A181D2DF76A00715B6B /* ZegoSettings.m */; };
+		EF4184A31D41F13100B2A383 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A0A1D2DF20600715B6B /* VideoToolbox.framework */; };
+		EF4184A41D41F13100B2A383 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A081D2DF1FC00715B6B /* AVFoundation.framework */; };
+		EF4184A51D41F13100B2A383 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A061D2DF1F300715B6B /* CoreMedia.framework */; };
+		EF4184A61D41F13100B2A383 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A041D2DF1E800715B6B /* CoreTelephony.framework */; };
+		EF4184A71D41F13100B2A383 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A021D2DF1DE00715B6B /* libiconv.tbd */; };
+		EF4184AB1D41F13100B2A383 /* Avatar.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF713A2A1D2E008200715B6B /* Avatar.xcassets */; };
+		EF4184AE1D41F13100B2A383 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EFFBF7721D3C74A1002FD7F2 /* Localizable.strings */; };
+		EF4184AF1D41F13100B2A383 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF4184771D3E095E00B2A383 /* silence.mp3 */; };
+		EF4184B01D41F13100B2A383 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF7139D61D2DEFD200715B6B /* LaunchScreen.storyboard */; };
+		EF4184B11D41F13100B2A383 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF7139D41D2DEFD200715B6B /* Assets.xcassets */; };
+		EF4184B21D41F13100B2A383 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF7139D11D2DEFD200715B6B /* Main.storyboard */; };
+		EF4184BE1D41F1EB00B2A383 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EF4184BD1D41F1EB00B2A383 /* libresolv.tbd */; };
+		EF7139C71D2DEFD200715B6B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7139C61D2DEFD200715B6B /* main.m */; };
+		EF7139CA1D2DEFD200715B6B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7139C91D2DEFD200715B6B /* AppDelegate.m */; };
+		EF7139D31D2DEFD200715B6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF7139D11D2DEFD200715B6B /* Main.storyboard */; };
+		EF7139D51D2DEFD200715B6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF7139D41D2DEFD200715B6B /* Assets.xcassets */; };
+		EF7139D81D2DEFD200715B6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF7139D61D2DEFD200715B6B /* LaunchScreen.storyboard */; };
+		EF713A031D2DF1DE00715B6B /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A021D2DF1DE00715B6B /* libiconv.tbd */; };
+		EF713A051D2DF1E800715B6B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A041D2DF1E800715B6B /* CoreTelephony.framework */; };
+		EF713A071D2DF1F300715B6B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A061D2DF1F300715B6B /* CoreMedia.framework */; };
+		EF713A091D2DF1FC00715B6B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A081D2DF1FC00715B6B /* AVFoundation.framework */; };
+		EF713A0B1D2DF20600715B6B /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A0A1D2DF20600715B6B /* VideoToolbox.framework */; };
+		EF713A101D2DF2E700715B6B /* ZegoTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A0F1D2DF2E700715B6B /* ZegoTabBarViewController.m */; };
+		EF713A131D2DF6F000715B6B /* ZegoSetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A121D2DF6F000715B6B /* ZegoSetTableViewController.m */; };
+		EF713A161D2DF76000715B6B /* ZegoAVKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A151D2DF76000715B6B /* ZegoAVKitManager.m */; };
+		EF713A191D2DF76A00715B6B /* ZegoSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A181D2DF76A00715B6B /* ZegoSettings.m */; };
+		EF713A221D2DF83900715B6B /* video_capture_external_demo.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A1F1D2DF83900715B6B /* video_capture_external_demo.m */; };
+		EF713A231D2DF83900715B6B /* ZegoVideoCaptureFromImage.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A211D2DF83900715B6B /* ZegoVideoCaptureFromImage.m */; };
+		EF713A281D2DF92D00715B6B /* ZegoAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A251D2DF92D00715B6B /* ZegoAboutViewController.m */; };
+		EF713A291D2DF92D00715B6B /* ZegoAdvancedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A271D2DF92D00715B6B /* ZegoAdvancedTableViewController.m */; };
+		EF713A2B1D2E008200715B6B /* Avatar.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF713A2A1D2E008200715B6B /* Avatar.xcassets */; };
+		EF713A2E1D2E082800715B6B /* ZegoDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A2D1D2E082800715B6B /* ZegoDataCenter.m */; };
+		EF713A371D2E45E200715B6B /* ZegoFriendTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A361D2E45E200715B6B /* ZegoFriendTableViewController.m */; };
+		EF713A3A1D2E594900715B6B /* ZegoChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A391D2E594900715B6B /* ZegoChatViewController.m */; };
+		EF713A3D1D2E745700715B6B /* ZegoStretchyTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A3C1D2E745700715B6B /* ZegoStretchyTextView.m */; };
+		EF713A401D2E80C200715B6B /* ZegoChatInput.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A3F1D2E80C200715B6B /* ZegoChatInput.m */; };
+		EF713A431D2F447000715B6B /* ZegoChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A421D2F447000715B6B /* ZegoChatTableViewCell.m */; };
+		EF71EA371E7248FD00723EF7 /* ZegoLiveRoom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD76D5E1E5EC93000AC8081 /* ZegoLiveRoom.framework */; };
+		EF71EA391E72526700723EF7 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF71EA381E72526700723EF7 /* Bugly.framework */; };
+		EF71EA3A1E7252E000723EF7 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF71EA381E72526700723EF7 /* Bugly.framework */; };
+		EFD76D601E5EC94600AC8081 /* ZegoLiveRoom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD76D5E1E5EC93000AC8081 /* ZegoLiveRoom.framework */; };
+		EFD76D611E5EC94600AC8081 /* ZegoLiveRoom.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EFD76D5E1E5EC93000AC8081 /* ZegoLiveRoom.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EFFBF7551D3887A8002FD7F2 /* ZegoLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFFBF7541D3887A8002FD7F2 /* ZegoLogTableViewController.m */; };
+		EFFBF7701D3C74A1002FD7F2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EFFBF7721D3C74A1002FD7F2 /* Localizable.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EFD76D621E5EC94600AC8081 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EFD76D611E5EC94600AC8081 /* ZegoLiveRoom.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		EF110E101D337ED3000620CD /* ZegoMessageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoMessageTableViewController.h; sourceTree = "<group>"; };
+		EF110E111D337ED3000620CD /* ZegoMessageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoMessageTableViewController.m; sourceTree = "<group>"; };
+		EF110E131D33B691000620CD /* ZegoVideoTalkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoVideoTalkViewController.h; sourceTree = "<group>"; };
+		EF110E141D33B691000620CD /* ZegoVideoTalkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoVideoTalkViewController.m; sourceTree = "<group>"; };
+		EF110E1C1D34C1A0000620CD /* ZegoLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoLiveViewController.h; sourceTree = "<group>"; };
+		EF110E1D1D34C1A0000620CD /* ZegoLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoLiveViewController.m; sourceTree = "<group>"; };
+		EF110E1F1D34C1D5000620CD /* ZegoAnchorOptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoAnchorOptionViewController.h; sourceTree = "<group>"; };
+		EF110E201D34C1D5000620CD /* ZegoAnchorOptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoAnchorOptionViewController.m; sourceTree = "<group>"; };
+		EF110E321D362B30000620CD /* ZegoFriendSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoFriendSelectViewController.h; sourceTree = "<group>"; };
+		EF110E331D362B30000620CD /* ZegoFriendSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoFriendSelectViewController.m; sourceTree = "<group>"; };
+		EF110E351D363530000620CD /* ZegoCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoCheckBox.h; sourceTree = "<group>"; };
+		EF110E361D363530000620CD /* ZegoCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoCheckBox.m; sourceTree = "<group>"; };
+		EF32D6961D643B4C00A764FC /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
+		EF32D6971D643B4C00A764FC /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
+		EF32D69E1D643C5400A764FC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		EF32D6A01D643C6D00A764FC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		EF32D70A1D659CCE00A764FC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		EF32D70C1D659CD900A764FC /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		EF32D70E1D659CE100A764FC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EF32D7101D659CF000A764FC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		EF32D7121D659DAD00A764FC /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		EF32D7141D659DBC00A764FC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EF4184771D3E095E00B2A383 /* silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = silence.mp3; sourceTree = "<group>"; };
+		EF4184791D3E097700B2A383 /* ZegoBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoBackground.h; sourceTree = "<group>"; };
+		EF41847A1D3E097700B2A383 /* ZegoBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoBackground.m; sourceTree = "<group>"; };
+		EF41847C1D3F149600B2A383 /* ZegoMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoMenuViewController.h; sourceTree = "<group>"; };
+		EF41847D1D3F149600B2A383 /* ZegoMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoMenuViewController.m; sourceTree = "<group>"; };
+		EF4184BB1D41F13100B2A383 /* InstantTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = InstantTalk.app; path = InstantTalk2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF4184BD1D41F1EB00B2A383 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		EF7139C21D2DEFD200715B6B /* InstantTalk2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstantTalk2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF7139C61D2DEFD200715B6B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EF7139C81D2DEFD200715B6B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		EF7139C91D2DEFD200715B6B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		EF7139D21D2DEFD200715B6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EF7139D41D2DEFD200715B6B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EF7139D71D2DEFD200715B6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EF7139D91D2DEFD200715B6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF713A021D2DF1DE00715B6B /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		EF713A041D2DF1E800715B6B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		EF713A061D2DF1F300715B6B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		EF713A081D2DF1FC00715B6B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		EF713A0A1D2DF20600715B6B /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		EF713A0E1D2DF2E700715B6B /* ZegoTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoTabBarViewController.h; sourceTree = "<group>"; };
+		EF713A0F1D2DF2E700715B6B /* ZegoTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoTabBarViewController.m; sourceTree = "<group>"; };
+		EF713A111D2DF6F000715B6B /* ZegoSetTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoSetTableViewController.h; sourceTree = "<group>"; };
+		EF713A121D2DF6F000715B6B /* ZegoSetTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoSetTableViewController.m; sourceTree = "<group>"; };
+		EF713A141D2DF76000715B6B /* ZegoAVKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoAVKitManager.h; sourceTree = "<group>"; };
+		EF713A151D2DF76000715B6B /* ZegoAVKitManager.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ZegoAVKitManager.m; sourceTree = "<group>"; };
+		EF713A171D2DF76A00715B6B /* ZegoSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoSettings.h; sourceTree = "<group>"; };
+		EF713A181D2DF76A00715B6B /* ZegoSettings.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ZegoSettings.m; sourceTree = "<group>"; };
+		EF713A1E1D2DF83900715B6B /* video_capture_external_demo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = video_capture_external_demo.h; sourceTree = "<group>"; };
+		EF713A1F1D2DF83900715B6B /* video_capture_external_demo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = video_capture_external_demo.m; sourceTree = "<group>"; };
+		EF713A201D2DF83900715B6B /* ZegoVideoCaptureFromImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoVideoCaptureFromImage.h; sourceTree = "<group>"; };
+		EF713A211D2DF83900715B6B /* ZegoVideoCaptureFromImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoVideoCaptureFromImage.m; sourceTree = "<group>"; };
+		EF713A241D2DF92D00715B6B /* ZegoAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoAboutViewController.h; sourceTree = "<group>"; };
+		EF713A251D2DF92D00715B6B /* ZegoAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoAboutViewController.m; sourceTree = "<group>"; };
+		EF713A261D2DF92D00715B6B /* ZegoAdvancedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoAdvancedTableViewController.h; sourceTree = "<group>"; };
+		EF713A271D2DF92D00715B6B /* ZegoAdvancedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoAdvancedTableViewController.m; sourceTree = "<group>"; };
+		EF713A2A1D2E008200715B6B /* Avatar.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Avatar.xcassets; sourceTree = "<group>"; };
+		EF713A2C1D2E082800715B6B /* ZegoDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoDataCenter.h; sourceTree = "<group>"; };
+		EF713A2D1D2E082800715B6B /* ZegoDataCenter.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ZegoDataCenter.m; sourceTree = "<group>"; };
+		EF713A351D2E45E200715B6B /* ZegoFriendTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoFriendTableViewController.h; sourceTree = "<group>"; };
+		EF713A361D2E45E200715B6B /* ZegoFriendTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoFriendTableViewController.m; sourceTree = "<group>"; };
+		EF713A381D2E594900715B6B /* ZegoChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoChatViewController.h; sourceTree = "<group>"; };
+		EF713A391D2E594900715B6B /* ZegoChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoChatViewController.m; sourceTree = "<group>"; };
+		EF713A3B1D2E745700715B6B /* ZegoStretchyTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoStretchyTextView.h; sourceTree = "<group>"; };
+		EF713A3C1D2E745700715B6B /* ZegoStretchyTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoStretchyTextView.m; sourceTree = "<group>"; };
+		EF713A3E1D2E80C200715B6B /* ZegoChatInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoChatInput.h; sourceTree = "<group>"; };
+		EF713A3F1D2E80C200715B6B /* ZegoChatInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoChatInput.m; sourceTree = "<group>"; };
+		EF713A411D2F447000715B6B /* ZegoChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoChatTableViewCell.h; sourceTree = "<group>"; };
+		EF713A421D2F447000715B6B /* ZegoChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoChatTableViewCell.m; sourceTree = "<group>"; };
+		EF71EA381E72526700723EF7 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
+		EFAC2FDE1D4AFA76000A7885 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		EFAC2FDF1D4AFA76000A7885 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		EFB92AC41D48C77E009195CF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EFD76D5E1E5EC93000AC8081 /* ZegoLiveRoom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZegoLiveRoom.framework; path = libs/ZegoLiveRoom.framework; sourceTree = "<group>"; };
+		EFD76D631E5EC95C00AC8081 /* ZegoLiveRoom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZegoLiveRoom.framework; sourceTree = "<group>"; };
+		EFFBF7531D3887A8002FD7F2 /* ZegoLogTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoLogTableViewController.h; sourceTree = "<group>"; };
+		EFFBF7541D3887A8002FD7F2 /* ZegoLogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoLogTableViewController.m; sourceTree = "<group>"; };
+		EFFBF7711D3C74A1002FD7F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EF4184A21D41F13100B2A383 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF71EA3A1E7252E000723EF7 /* Bugly.framework in Frameworks */,
+				EF71EA371E7248FD00723EF7 /* ZegoLiveRoom.framework in Frameworks */,
+				EF32D6991D643B4C00A764FC /* TencentOpenAPI.framework in Frameworks */,
+				EF4184BE1D41F1EB00B2A383 /* libresolv.tbd in Frameworks */,
+				EF4184A31D41F13100B2A383 /* VideoToolbox.framework in Frameworks */,
+				EF4184A41D41F13100B2A383 /* AVFoundation.framework in Frameworks */,
+				EF4184A51D41F13100B2A383 /* CoreMedia.framework in Frameworks */,
+				EF4184A61D41F13100B2A383 /* CoreTelephony.framework in Frameworks */,
+				EF4184A71D41F13100B2A383 /* libiconv.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF7139BF1D2DEFD200715B6B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF32D7151D659DBC00A764FC /* SystemConfiguration.framework in Frameworks */,
+				EFD76D601E5EC94600AC8081 /* ZegoLiveRoom.framework in Frameworks */,
+				EF71EA391E72526700723EF7 /* Bugly.framework in Frameworks */,
+				EF32D7131D659DAD00A764FC /* libsqlite3.tbd in Frameworks */,
+				EF32D7111D659CF000A764FC /* Security.framework in Frameworks */,
+				EF32D70F1D659CE100A764FC /* CoreGraphics.framework in Frameworks */,
+				EF32D70D1D659CD900A764FC /* libstdc++.tbd in Frameworks */,
+				EF32D70B1D659CCE00A764FC /* libz.tbd in Frameworks */,
+				EF713A0B1D2DF20600715B6B /* VideoToolbox.framework in Frameworks */,
+				EF32D6981D643B4C00A764FC /* TencentOpenAPI.framework in Frameworks */,
+				EF713A091D2DF1FC00715B6B /* AVFoundation.framework in Frameworks */,
+				EF713A071D2DF1F300715B6B /* CoreMedia.framework in Frameworks */,
+				EF713A051D2DF1E800715B6B /* CoreTelephony.framework in Frameworks */,
+				EF713A031D2DF1DE00715B6B /* libiconv.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EF32D6951D643B4C00A764FC /* thirdLib */ = {
+			isa = PBXGroup;
+			children = (
+				EF71EA381E72526700723EF7 /* Bugly.framework */,
+				EF32D6961D643B4C00A764FC /* TencentOpenAPI.framework */,
+				EF32D6971D643B4C00A764FC /* TencentOpenApi_IOS_Bundle.bundle */,
+			);
+			path = thirdLib;
+			sourceTree = "<group>";
+		};
+		EF7139B91D2DEFD200715B6B = {
+			isa = PBXGroup;
+			children = (
+				EF7139DF1D2DF18700715B6B /* framework */,
+				EF7139C41D2DEFD200715B6B /* InstantTalk */,
+				EF7139C31D2DEFD200715B6B /* Products */,
+				EFD76D5D1E5EC93000AC8081 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		EF7139C31D2DEFD200715B6B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EF7139C21D2DEFD200715B6B /* InstantTalk2.app */,
+				EF4184BB1D41F13100B2A383 /* InstantTalk.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EF7139C41D2DEFD200715B6B /* InstantTalk */ = {
+			isa = PBXGroup;
+			children = (
+				EF713A1D1D2DF83900715B6B /* advanced */,
+				EF7139C81D2DEFD200715B6B /* AppDelegate.h */,
+				EF7139C91D2DEFD200715B6B /* AppDelegate.m */,
+				EF713A2C1D2E082800715B6B /* ZegoDataCenter.h */,
+				EF713A2D1D2E082800715B6B /* ZegoDataCenter.m */,
+				EF713A0E1D2DF2E700715B6B /* ZegoTabBarViewController.h */,
+				EF713A0F1D2DF2E700715B6B /* ZegoTabBarViewController.m */,
+				EF713A111D2DF6F000715B6B /* ZegoSetTableViewController.h */,
+				EF713A121D2DF6F000715B6B /* ZegoSetTableViewController.m */,
+				EF713A241D2DF92D00715B6B /* ZegoAboutViewController.h */,
+				EF713A251D2DF92D00715B6B /* ZegoAboutViewController.m */,
+				EF713A261D2DF92D00715B6B /* ZegoAdvancedTableViewController.h */,
+				EF713A271D2DF92D00715B6B /* ZegoAdvancedTableViewController.m */,
+				EF713A351D2E45E200715B6B /* ZegoFriendTableViewController.h */,
+				EF713A361D2E45E200715B6B /* ZegoFriendTableViewController.m */,
+				EF110E101D337ED3000620CD /* ZegoMessageTableViewController.h */,
+				EF110E111D337ED3000620CD /* ZegoMessageTableViewController.m */,
+				EF713A381D2E594900715B6B /* ZegoChatViewController.h */,
+				EF713A391D2E594900715B6B /* ZegoChatViewController.m */,
+				EF713A411D2F447000715B6B /* ZegoChatTableViewCell.h */,
+				EF713A421D2F447000715B6B /* ZegoChatTableViewCell.m */,
+				EF110E131D33B691000620CD /* ZegoVideoTalkViewController.h */,
+				EF110E141D33B691000620CD /* ZegoVideoTalkViewController.m */,
+				EF110E1C1D34C1A0000620CD /* ZegoLiveViewController.h */,
+				EF110E1D1D34C1A0000620CD /* ZegoLiveViewController.m */,
+				EF110E1F1D34C1D5000620CD /* ZegoAnchorOptionViewController.h */,
+				EF110E201D34C1D5000620CD /* ZegoAnchorOptionViewController.m */,
+				EF110E321D362B30000620CD /* ZegoFriendSelectViewController.h */,
+				EF110E331D362B30000620CD /* ZegoFriendSelectViewController.m */,
+				EFFBF7531D3887A8002FD7F2 /* ZegoLogTableViewController.h */,
+				EFFBF7541D3887A8002FD7F2 /* ZegoLogTableViewController.m */,
+				EF41847C1D3F149600B2A383 /* ZegoMenuViewController.h */,
+				EF41847D1D3F149600B2A383 /* ZegoMenuViewController.m */,
+				EF713A141D2DF76000715B6B /* ZegoAVKitManager.h */,
+				EF713A151D2DF76000715B6B /* ZegoAVKitManager.m */,
+				EF713A171D2DF76A00715B6B /* ZegoSettings.h */,
+				EF713A181D2DF76A00715B6B /* ZegoSettings.m */,
+				EF713A3B1D2E745700715B6B /* ZegoStretchyTextView.h */,
+				EF713A3C1D2E745700715B6B /* ZegoStretchyTextView.m */,
+				EF713A3E1D2E80C200715B6B /* ZegoChatInput.h */,
+				EF713A3F1D2E80C200715B6B /* ZegoChatInput.m */,
+				EF110E351D363530000620CD /* ZegoCheckBox.h */,
+				EF110E361D363530000620CD /* ZegoCheckBox.m */,
+				EF4184791D3E097700B2A383 /* ZegoBackground.h */,
+				EF41847A1D3E097700B2A383 /* ZegoBackground.m */,
+				EF7139D11D2DEFD200715B6B /* Main.storyboard */,
+				EFFBF7721D3C74A1002FD7F2 /* Localizable.strings */,
+				EF7139D41D2DEFD200715B6B /* Assets.xcassets */,
+				EF713A2A1D2E008200715B6B /* Avatar.xcassets */,
+				EF4184771D3E095E00B2A383 /* silence.mp3 */,
+				EF7139D61D2DEFD200715B6B /* LaunchScreen.storyboard */,
+				EF7139D91D2DEFD200715B6B /* Info.plist */,
+				EF7139C51D2DEFD200715B6B /* Supporting Files */,
+			);
+			path = InstantTalk;
+			sourceTree = "<group>";
+		};
+		EF7139C51D2DEFD200715B6B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EF7139C61D2DEFD200715B6B /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EF7139DF1D2DF18700715B6B /* framework */ = {
+			isa = PBXGroup;
+			children = (
+				EF32D6951D643B4C00A764FC /* thirdLib */,
+				EF7139E01D2DF1A400715B6B /* libs */,
+				EF32D7141D659DBC00A764FC /* SystemConfiguration.framework */,
+				EF32D7121D659DAD00A764FC /* libsqlite3.tbd */,
+				EF32D7101D659CF000A764FC /* Security.framework */,
+				EF32D70E1D659CE100A764FC /* CoreGraphics.framework */,
+				EF32D70C1D659CD900A764FC /* libstdc++.tbd */,
+				EF32D70A1D659CCE00A764FC /* libz.tbd */,
+				EF4184BD1D41F1EB00B2A383 /* libresolv.tbd */,
+				EF713A0A1D2DF20600715B6B /* VideoToolbox.framework */,
+				EF713A081D2DF1FC00715B6B /* AVFoundation.framework */,
+				EF713A061D2DF1F300715B6B /* CoreMedia.framework */,
+				EF713A041D2DF1E800715B6B /* CoreTelephony.framework */,
+				EF713A021D2DF1DE00715B6B /* libiconv.tbd */,
+			);
+			name = framework;
+			sourceTree = "<group>";
+		};
+		EF7139E01D2DF1A400715B6B /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				EFD76D631E5EC95C00AC8081 /* ZegoLiveRoom.framework */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		EF713A1D1D2DF83900715B6B /* advanced */ = {
+			isa = PBXGroup;
+			children = (
+				EF713A1E1D2DF83900715B6B /* video_capture_external_demo.h */,
+				EF713A1F1D2DF83900715B6B /* video_capture_external_demo.m */,
+				EF713A201D2DF83900715B6B /* ZegoVideoCaptureFromImage.h */,
+				EF713A211D2DF83900715B6B /* ZegoVideoCaptureFromImage.m */,
+			);
+			path = advanced;
+			sourceTree = "<group>";
+		};
+		EFD76D5D1E5EC93000AC8081 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EFD76D5E1E5EC93000AC8081 /* ZegoLiveRoom.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EF4184831D41F13100B2A383 /* InstantTalk2iOS7 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF4184B61D41F13100B2A383 /* Build configuration list for PBXNativeTarget "InstantTalk2iOS7" */;
+			buildPhases = (
+				EF71EA361E72483300723EF7 /* Copy ZegoLiveRoom static */,
+				EF4184841D41F13100B2A383 /* Sources */,
+				EF4184A21D41F13100B2A383 /* Frameworks */,
+				EF4184AA1D41F13100B2A383 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = InstantTalk2iOS7;
+			productName = InstantTalk;
+			productReference = EF4184BB1D41F13100B2A383 /* InstantTalk.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EF7139C11D2DEFD200715B6B /* InstantTalk2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF7139DC1D2DEFD200715B6B /* Build configuration list for PBXNativeTarget "InstantTalk2" */;
+			buildPhases = (
+				EFD76D5A1E5EC52E00AC8081 /* Copy ZegoLiveRoom for Development */,
+				EFD76D5B1E5EC55F00AC8081 /* Copy ZegoLiveRoom for Internal Development */,
+				EFD76D5C1E5EC5A600AC8081 /* Copy ZegoLiveRoom for Deployment */,
+				EF7139BE1D2DEFD200715B6B /* Sources */,
+				EF7139BF1D2DEFD200715B6B /* Frameworks */,
+				EF7139C01D2DEFD200715B6B /* Resources */,
+				EFD76D621E5EC94600AC8081 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = InstantTalk2;
+			productName = InstantTalk;
+			productReference = EF7139C21D2DEFD200715B6B /* InstantTalk2.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EF7139BA1D2DEFD200715B6B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = ZEGO;
+				TargetAttributes = {
+					EF4184831D41F13100B2A383 = {
+						DevelopmentTeam = 3WR2G89LR2;
+						ProvisioningStyle = Automatic;
+					};
+					EF7139C11D2DEFD200715B6B = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 3WR2G89LR2;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = EF7139BD1D2DEFD200715B6B /* Build configuration list for PBXProject "InstantTalk2" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				"zh-Hans",
+			);
+			mainGroup = EF7139B91D2DEFD200715B6B;
+			productRefGroup = EF7139C31D2DEFD200715B6B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EF7139C11D2DEFD200715B6B /* InstantTalk2 */,
+				EF4184831D41F13100B2A383 /* InstantTalk2iOS7 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EF4184AA1D41F13100B2A383 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF4184AB1D41F13100B2A383 /* Avatar.xcassets in Resources */,
+				EF4184AE1D41F13100B2A383 /* Localizable.strings in Resources */,
+				EF4184AF1D41F13100B2A383 /* silence.mp3 in Resources */,
+				EF4184B01D41F13100B2A383 /* LaunchScreen.storyboard in Resources */,
+				EF32D69B1D643B4C00A764FC /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+				EF4184B11D41F13100B2A383 /* Assets.xcassets in Resources */,
+				EF4184B21D41F13100B2A383 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF7139C01D2DEFD200715B6B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF713A2B1D2E008200715B6B /* Avatar.xcassets in Resources */,
+				EFFBF7701D3C74A1002FD7F2 /* Localizable.strings in Resources */,
+				EF4184781D3E095E00B2A383 /* silence.mp3 in Resources */,
+				EF7139D81D2DEFD200715B6B /* LaunchScreen.storyboard in Resources */,
+				EF32D69A1D643B4C00A764FC /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+				EF7139D51D2DEFD200715B6B /* Assets.xcassets in Resources */,
+				EF7139D31D2DEFD200715B6B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EF71EA361E72483300723EF7 /* Copy ZegoLiveRoom static */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy ZegoLiveRoom static";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/usr/bin/env python";
+			shellScript = "import os, shutil\n\nif os.path.exists('./libs/ZegoLiveRoom.framework'):\n    shutil.rmtree('./libs/ZegoLiveRoom.framework')\n\nshutil.copytree('./libs/ZegoLiveRoom-all/iphoneos_simulator_static/ZegoLiveRoom.framework', './libs/ZegoLiveRoom.framework')\nwith open('./libs/zegoliveroom.version.txt', 'w') as f:\n    f.write('release static')";
+		};
+		EFD76D5A1E5EC52E00AC8081 /* Copy ZegoLiveRoom for Development */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy ZegoLiveRoom for Development";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/usr/bin/env python";
+			shellScript = "import os, shutil\n\nif not os.path.exists('./libs/ZegoLiveRoom.framework'):\n    shutil.copytree('./libs/ZegoLiveRoom-all/iphoneos_simulator/ZegoLiveRoom.framework', './libs/ZegoLiveRoom.framework')\n    with open('./libs/zegoliveroom.version.txt', 'w') as f:\n        f.write('release iphoneos & simulator')";
+		};
+		EFD76D5B1E5EC55F00AC8081 /* Copy ZegoLiveRoom for Internal Development */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy ZegoLiveRoom for Internal Development";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/usr/bin/env python";
+			shellScript = "import os\n\nhelper_file_name = '../copy_libs.py'\nif os.path.exists(helper_file_name):\n    import imp\n    module_path = os.path.realpath(helper_file_name)\n    copy_libs = imp.load_source('copy_libs', module_path)\n    copy_libs.copy_libs('InstantTalk', 'ZegoLiveRoom', False)\n    with open('./libs/zegoliveroom.version.txt', 'w') as f:\n        f.write('debug iphoneos & simulator')";
+		};
+		EFD76D5C1E5EC5A600AC8081 /* Copy ZegoLiveRoom for Deployment */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy ZegoLiveRoom for Deployment";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = "/usr/bin/env python";
+			shellScript = "import os, shutil\n\ndst_path = './libs/ZegoLiveRoom.framework'\nshutil.rmtree(dst_path, ignore_errors=True)\nshutil.copytree('./libs/ZegoLiveRoom-all/iphoneos/ZegoLiveRoom.framework', dst_path)\n\nwith open('./libs/zegoliveroom.version.txt', 'w') as f:\n    f.write('release iphoneos')";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EF4184841D41F13100B2A383 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF4184851D41F13100B2A383 /* ZegoBackground.m in Sources */,
+				EF4184871D41F13100B2A383 /* ZegoStretchyTextView.m in Sources */,
+				EF4184881D41F13100B2A383 /* ZegoChatViewController.m in Sources */,
+				EF4184891D41F13100B2A383 /* ZegoMessageTableViewController.m in Sources */,
+				EF41848A1D41F13100B2A383 /* ZegoChatTableViewCell.m in Sources */,
+				EF41848C1D41F13100B2A383 /* ZegoVideoTalkViewController.m in Sources */,
+				EF41848D1D41F13100B2A383 /* video_capture_external_demo.m in Sources */,
+				EF41848E1D41F13100B2A383 /* ZegoVideoCaptureFromImage.m in Sources */,
+				EF4184901D41F13100B2A383 /* ZegoAVKitManager.m in Sources */,
+				EF4184911D41F13100B2A383 /* ZegoAboutViewController.m in Sources */,
+				EF4184921D41F13100B2A383 /* ZegoTabBarViewController.m in Sources */,
+				EF4184931D41F13100B2A383 /* AppDelegate.m in Sources */,
+				EF4184941D41F13100B2A383 /* ZegoChatInput.m in Sources */,
+				EF4184951D41F13100B2A383 /* ZegoLogTableViewController.m in Sources */,
+				EF4184961D41F13100B2A383 /* ZegoFriendTableViewController.m in Sources */,
+				EF4184971D41F13100B2A383 /* ZegoAdvancedTableViewController.m in Sources */,
+				EF4184981D41F13100B2A383 /* ZegoDataCenter.m in Sources */,
+				EF4184991D41F13100B2A383 /* ZegoMenuViewController.m in Sources */,
+				EF41849A1D41F13100B2A383 /* main.m in Sources */,
+				EF41849B1D41F13100B2A383 /* ZegoCheckBox.m in Sources */,
+				EF41849D1D41F13100B2A383 /* ZegoFriendSelectViewController.m in Sources */,
+				EF41849E1D41F13100B2A383 /* ZegoLiveViewController.m in Sources */,
+				EF41849F1D41F13100B2A383 /* ZegoAnchorOptionViewController.m in Sources */,
+				EF4184A01D41F13100B2A383 /* ZegoSetTableViewController.m in Sources */,
+				EF4184A11D41F13100B2A383 /* ZegoSettings.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF7139BE1D2DEFD200715B6B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF41847B1D3E097700B2A383 /* ZegoBackground.m in Sources */,
+				EF713A3D1D2E745700715B6B /* ZegoStretchyTextView.m in Sources */,
+				EF713A3A1D2E594900715B6B /* ZegoChatViewController.m in Sources */,
+				EF110E121D337ED3000620CD /* ZegoMessageTableViewController.m in Sources */,
+				EF713A431D2F447000715B6B /* ZegoChatTableViewCell.m in Sources */,
+				EF110E151D33B691000620CD /* ZegoVideoTalkViewController.m in Sources */,
+				EF713A221D2DF83900715B6B /* video_capture_external_demo.m in Sources */,
+				EF713A231D2DF83900715B6B /* ZegoVideoCaptureFromImage.m in Sources */,
+				EF713A161D2DF76000715B6B /* ZegoAVKitManager.m in Sources */,
+				EF713A281D2DF92D00715B6B /* ZegoAboutViewController.m in Sources */,
+				EF713A101D2DF2E700715B6B /* ZegoTabBarViewController.m in Sources */,
+				EF7139CA1D2DEFD200715B6B /* AppDelegate.m in Sources */,
+				EF713A401D2E80C200715B6B /* ZegoChatInput.m in Sources */,
+				EFFBF7551D3887A8002FD7F2 /* ZegoLogTableViewController.m in Sources */,
+				EF713A371D2E45E200715B6B /* ZegoFriendTableViewController.m in Sources */,
+				EF713A291D2DF92D00715B6B /* ZegoAdvancedTableViewController.m in Sources */,
+				EF713A2E1D2E082800715B6B /* ZegoDataCenter.m in Sources */,
+				EF41847E1D3F149600B2A383 /* ZegoMenuViewController.m in Sources */,
+				EF7139C71D2DEFD200715B6B /* main.m in Sources */,
+				EF110E371D363530000620CD /* ZegoCheckBox.m in Sources */,
+				EF110E341D362B30000620CD /* ZegoFriendSelectViewController.m in Sources */,
+				EF110E1E1D34C1A0000620CD /* ZegoLiveViewController.m in Sources */,
+				EF110E211D34C1D5000620CD /* ZegoAnchorOptionViewController.m in Sources */,
+				EF713A131D2DF6F000715B6B /* ZegoSetTableViewController.m in Sources */,
+				EF713A191D2DF76A00715B6B /* ZegoSettings.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		EF7139D11D2DEFD200715B6B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EF7139D21D2DEFD200715B6B /* Base */,
+				EF32D69E1D643C5400A764FC /* zh-Hans */,
+				EF32D6A01D643C6D00A764FC /* en */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EF7139D61D2DEFD200715B6B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EF7139D71D2DEFD200715B6B /* Base */,
+				EFAC2FDE1D4AFA76000A7885 /* zh-Hans */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		EFFBF7721D3C74A1002FD7F2 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EFFBF7711D3C74A1002FD7F2 /* Base */,
+				EFB92AC41D48C77E009195CF /* en */,
+				EFAC2FDF1D4AFA76000A7885 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EF41847F1D41F07F00B2A383 /* iOS7StaticDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: jiang ningbo (SQL7DB2NFY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: jiang ningbo (SQL7DB2NFY)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = iOS7StaticDebug;
+		};
+		EF4184801D41F07F00B2A383 /* iOS7StaticDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Zego Technology Co. Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3WR2G89LR2;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libs",
+					"$(PROJECT_DIR)/thirdLib",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = InstantTalk/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zego.InstantTalk2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = iOS7StaticDebug;
+		};
+		EF4184811D41F09600B2A383 /* iOS7Static */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Zego Technology Co. Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenzhen Zego Technology Co. Ltd.";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "f43d1f20-b1d5-44b8-84ac-afc05c3afe8c";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = iOS7Static;
+		};
+		EF4184821D41F09600B2A383 /* iOS7Static */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Zego Technology Co. Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3WR2G89LR2;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libs",
+					"$(PROJECT_DIR)/thirdLib",
+				);
+				INFOPLIST_FILE = InstantTalk/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zego.InstantTalk2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = iOS7Static;
+		};
+		EF4184B71D41F13100B2A383 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: jiang ningbo (SQL7DB2NFY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3WR2G89LR2;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/thirdLib",
+					"$(PROJECT_DIR)/libs",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/InstantTalk/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zego.InstantTalk2;
+				PRODUCT_NAME = InstantTalk2;
+			};
+			name = Debug;
+		};
+		EF4184B81D41F13100B2A383 /* iOS7StaticDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: jiang ningbo (SQL7DB2NFY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3WR2G89LR2;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/thirdLib",
+					"$(PROJECT_DIR)/libs",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/InstantTalk/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zego.InstantTalk2;
+				PRODUCT_NAME = InstantTalk2;
+			};
+			name = iOS7StaticDebug;
+		};
+		EF4184B91D41F13100B2A383 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Zego Technology Co. Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3WR2G89LR2;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/thirdLib",
+					"$(PROJECT_DIR)/libs",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/InstantTalk/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zego.InstantTalk2;
+				PRODUCT_NAME = InstantTalk2;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Release;
+		};
+		EF4184BA1D41F13100B2A383 /* iOS7Static */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Zego Technology Co. Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3WR2G89LR2;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/thirdLib",
+					"$(PROJECT_DIR)/libs",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/InstantTalk/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zego.InstantTalk2;
+				PRODUCT_NAME = InstantTalk2;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = iOS7Static;
+		};
+		EF7139DA1D2DEFD200715B6B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: jiang ningbo (SQL7DB2NFY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: jiang ningbo (SQL7DB2NFY)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		EF7139DB1D2DEFD200715B6B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Zego Technology Co. Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenzhen Zego Technology Co. Ltd.";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "f43d1f20-b1d5-44b8-84ac-afc05c3afe8c";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EF7139DD1D2DEFD200715B6B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Zego Technology Co. Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3WR2G89LR2;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libs",
+					"$(PROJECT_DIR)/thirdLib",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = InstantTalk/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zego.InstantTalk2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Debug;
+		};
+		EF7139DE1D2DEFD200715B6B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Zego Technology Co. Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3WR2G89LR2;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libs",
+					"$(PROJECT_DIR)/thirdLib",
+				);
+				INFOPLIST_FILE = InstantTalk/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zego.InstantTalk2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EF4184B61D41F13100B2A383 /* Build configuration list for PBXNativeTarget "InstantTalk2iOS7" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF4184B71D41F13100B2A383 /* Debug */,
+				EF4184B81D41F13100B2A383 /* iOS7StaticDebug */,
+				EF4184B91D41F13100B2A383 /* Release */,
+				EF4184BA1D41F13100B2A383 /* iOS7Static */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF7139BD1D2DEFD200715B6B /* Build configuration list for PBXProject "InstantTalk2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF7139DA1D2DEFD200715B6B /* Debug */,
+				EF41847F1D41F07F00B2A383 /* iOS7StaticDebug */,
+				EF7139DB1D2DEFD200715B6B /* Release */,
+				EF4184811D41F09600B2A383 /* iOS7Static */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF7139DC1D2DEFD200715B6B /* Build configuration list for PBXNativeTarget "InstantTalk2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF7139DD1D2DEFD200715B6B /* Debug */,
+				EF4184801D41F07F00B2A383 /* iOS7StaticDebug */,
+				EF7139DE1D2DEFD200715B6B /* Release */,
+				EF4184821D41F09600B2A383 /* iOS7Static */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EF7139BA1D2DEFD200715B6B /* Project object */;
+}

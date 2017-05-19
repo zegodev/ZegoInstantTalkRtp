@@ -1,0 +1,192 @@
+
+/* Class = "UILabel"; text = "Label2"; ObjectID = "1Ej-GV-aON"; */
+"1Ej-GV-aON.text" = "Label2";
+
+/* Class = "UINavigationItem"; title = "ZEGO"; ObjectID = "4Oe-l2-ZA1"; */
+"4Oe-l2-ZA1.title" = "ZEGO";
+
+/* Class = "UILabel"; text = "12"; ObjectID = "4bD-5N-nmQ"; */
+"4bD-5N-nmQ.text" = "12";
+
+/* Class = "UINavigationItem"; title = "ZEGO"; ObjectID = "4mu-4K-Gkl"; */
+"4mu-4K-Gkl.title" = "ZEGO";
+
+/* Class = "UILabel"; text = "多人视频"; ObjectID = "5cL-U6-1Ji"; */
+"5cL-U6-1Ji.text" = "Group Video";
+
+/* Class = "UILabel"; text = "Label1"; ObjectID = "5tV-UO-QwD"; */
+"5tV-UO-QwD.text" = "Label1";
+
+/* Class = "UILabel"; text = "Label3"; ObjectID = "8fj-Xp-TTl"; */
+"8fj-Xp-TTl.text" = "Label3";
+
+/* Class = "UILabel"; text = "关于"; ObjectID = "8wJ-FN-ve8"; */
+"8wJ-FN-ve8.text" = "About";
+
+/* Class = "UIBarButtonItem"; title = "联系我们"; ObjectID = "94g-7X-QH0"; */
+"94g-7X-QH0.title" = "Contact Us";
+
+/* Class = "UIBarButtonItem"; title = "完成"; ObjectID = "9vZ-DR-eK5"; */
+"9vZ-DR-eK5.title" = "Done";
+
+/* Class = "UILabel"; text = "帧率"; ObjectID = "9yl-Cw-Rkw"; */
+"9yl-Cw-Rkw.text" = "Frame Rate";
+
+/* Class = "UITabBarItem"; title = "设置"; ObjectID = "B5z-Up-cvI"; */
+"B5z-Up-cvI.title" = "Setting";
+
+/* Class = "UILabel"; text = "硬件加速"; ObjectID = "Bi6-BH-BLo"; */
+"Bi6-BH-BLo.text" = "Hardware Acceleration";
+
+/* Class = "UINavigationItem"; title = "ZEGO"; ObjectID = "BzJ-v8-Dpk"; */
+"BzJ-v8-Dpk.title" = "ZEGO";
+
+/* Class = "UITableViewSection"; headerTitle = "ACCOUNT"; ObjectID = "CXf-zw-2il"; */
+"CXf-zw-2il.headerTitle" = "ACCOUNT";
+
+/* Class = "UIButton"; normalTitle = "视频"; ObjectID = "Djr-Xl-LKo"; */
+"Djr-Xl-LKo.normalTitle" = "Video";
+
+/* Class = "UIBarButtonItem"; title = "多人"; ObjectID = "EA9-qT-cOy"; */
+"EA9-qT-cOy.title" = "Group";
+
+/* Class = "UITableViewSection"; headerTitle = "ADVANCED"; ObjectID = "EQH-Cs-dq3"; */
+"EQH-Cs-dq3.headerTitle" = "ADVANCED";
+
+/* Class = "UILabel"; text = "码率"; ObjectID = "FVz-qK-I9P"; */
+"FVz-qK-I9P.text" = "Rate";
+
+/* Class = "UILabel"; text = "UserName"; ObjectID = "FlD-XQ-4GR"; */
+"FlD-XQ-4GR.text" = "UserName";
+
+/* Class = "UILabel"; text = "高级设置"; ObjectID = "Hbl-fw-EMe"; */
+"Hbl-fw-EMe.text" = "Advanced";
+
+/* Class = "UILabel"; text = "用户ID"; ObjectID = "I1Z-BV-7uc"; */
+"I1Z-BV-7uc.text" = "User ID";
+
+/* Class = "UITableViewSection"; headerTitle = "ADVANCED"; ObjectID = "JSx-QD-O96"; */
+"JSx-QD-O96.headerTitle" = "ADVANCED";
+
+/* Class = "UILabel"; text = "V1.0.0"; ObjectID = "KR4-oS-ioH"; */
+"KR4-oS-ioH.text" = "V1.0.0";
+
+/* Class = "UILabel"; text = "Upload Log"; ObjectID = "M7Z-nC-fxt"; */
+"M7Z-nC-fxt.text" = "Upload Log";
+
+/* Class = "UINavigationItem"; title = "日志"; ObjectID = "NhF-dW-V9B"; */
+"NhF-dW-V9B.title" = "Log";
+
+/* Class = "UILabel"; text = "分辨率"; ObjectID = "Nvu-76-9xA"; */
+"Nvu-76-9xA.text" = "Resolution";
+
+/* Class = "UITableViewSection"; headerTitle = "VIDEO"; ObjectID = "OFQ-hV-epZ"; */
+"OFQ-hV-epZ.headerTitle" = "VIDEO";
+
+/* Class = "UIButton"; normalTitle = "关闭"; ObjectID = "QDQ-nB-Q2j"; */
+"QDQ-nB-Q2j.normalTitle" = "Close";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Qnm-kc-mKS"; */
+"Qnm-kc-mKS.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "视频"; ObjectID = "RA7-tp-3d3"; */
+"RA7-tp-3d3.title" = "Video";
+
+/* Class = "UIButton"; normalTitle = "日志"; ObjectID = "RNj-CS-Th3"; */
+"RNj-CS-Th3.normalTitle" = "Log";
+
+/* Class = "UINavigationItem"; title = "ZEGO"; ObjectID = "Sk1-Db-ync"; */
+"Sk1-Db-ync.title" = "ZEGO";
+
+/* Class = "UILabel"; text = "APP Sign"; ObjectID = "UBY-b0-xWE"; */
+"UBY-b0-xWE.text" = "APP Sign";
+
+/* Class = "UILabel"; text = "等待对方同意..."; ObjectID = "UrQ-uF-WOF"; */
+"UrQ-uF-WOF.text" = "Waiting for Response...";
+
+/* Class = "UILabel"; text = "UserName"; ObjectID = "X3K-2a-Gm4"; */
+"X3K-2a-Gm4.text" = "UserName";
+
+/* Class = "UIBarButtonItem"; title = "取消"; ObjectID = "XRD-z7-baC"; */
+"XRD-z7-baC.title" = "Cancel";
+
+/* Class = "UINavigationItem"; title = "chat"; ObjectID = "Ysm-Lf-Ide"; */
+"Ysm-Lf-Ide.title" = "chat";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "aY6-JW-lUk"; */
+"aY6-JW-lUk.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "关于"; ObjectID = "bBQ-FT-RTp"; */
+"bBQ-FT-RTp.title" = "About";
+
+/* Class = "UILabel"; text = "视频参数"; ObjectID = "c0V-2a-nk0"; */
+"c0V-2a-nk0.text" = "Quality Options";
+
+/* Class = "UITextField"; placeholder = "User Name"; ObjectID = "fue-M6-J0i"; */
+"fue-M6-J0i.placeholder" = "User Name";
+
+/* Class = "UILabel"; text = "多人聊天"; ObjectID = "g2M-9O-eSE"; */
+"g2M-9O-eSE.text" = "Group Chat";
+
+/* Class = "UIButton"; normalTitle = "发送"; ObjectID = "h8Z-Tf-3Q2"; */
+"h8Z-Tf-3Q2.normalTitle" = "Send";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "hax-Er-cCU"; */
+"hax-Er-cCU.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "选择联系人"; ObjectID = "iZ8-7Z-fyw"; */
+"iZ8-7Z-fyw.title" = "Chose Friends";
+
+/* Class = "UIBarButtonItem"; title = "联系我们"; ObjectID = "j4p-WX-0E7"; */
+"j4p-WX-0E7.title" = "Contact Us";
+
+/* Class = "UILabel"; text = "测试环境"; ObjectID = "jHL-Ox-jaN"; */
+"jHL-Ox-jaN.text" = "Test Environment";
+
+/* Class = "UIButton"; normalTitle = "换一个"; ObjectID = "lU4-tT-pSC"; */
+"lU4-tT-pSC.normalTitle" = "Change";
+
+/* Class = "UIBarButtonItem"; title = "确定"; ObjectID = "lu2-Iq-beP"; */
+"lu2-Iq-beP.title" = "Done";
+
+/* Class = "UITableViewSection"; headerTitle = "ABOUT"; ObjectID = "oO5-9a-Tet"; */
+"oO5-9a-Tet.headerTitle" = "ABOUT";
+
+/* Class = "UITextField"; placeholder = "User ID"; ObjectID = "oYd-aA-ZYo"; */
+"oYd-aA-ZYo.placeholder" = "User ID";
+
+/* Class = "UILabel"; text = "头像"; ObjectID = "qBd-th-pRp"; */
+"qBd-th-pRp.text" = "Avatar";
+
+/* Class = "UILabel"; text = "APP ID"; ObjectID = "qm3-8k-k8d"; */
+"qm3-8k-k8d.text" = "APP ID";
+
+/* Class = "UILabel"; text = "用户名"; ObjectID = "rzz-QO-gEl"; */
+"rzz-QO-gEl.text" = "User Name";
+
+/* Class = "UITabBarItem"; title = "消息"; ObjectID = "sPe-nD-5Ik"; */
+"sPe-nD-5Ik.title" = "Message";
+
+/* Class = "UITabBarItem"; title = "设置"; ObjectID = "t6u-et-YnZ"; */
+"t6u-et-YnZ.title" = "Setting";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "t98-He-NMm"; */
+"t98-He-NMm.normalTitle" = "Setting";
+
+/* Class = "UITableViewSection"; headerTitle = "VERSION"; ObjectID = "ud9-vb-eWY"; */
+"ud9-vb-eWY.headerTitle" = "VERSION";
+
+/* Class = "UIBarButtonItem"; title = "关于"; ObjectID = "ut5-IL-YcK"; */
+"ut5-IL-YcK.title" = "About";
+
+/* Class = "UIBarButtonItem"; title = "联系我们"; ObjectID = "vha-dx-OXJ"; */
+"vha-dx-OXJ.title" = "Contact Us";
+
+/* Class = "UILabel"; text = "UserName"; ObjectID = "whU-P1-32O"; */
+"whU-P1-32O.text" = "UserName";
+
+/* Class = "UITabBarItem"; title = "好友"; ObjectID = "yNy-t1-iIT"; */
+"yNy-t1-iIT.title" = "Friend";
+
+/* Class = "UINavigationItem"; title = "ZEGO"; ObjectID = "yR0-cH-bgd"; */
+"yR0-cH-bgd.title" = "ZEGO";
