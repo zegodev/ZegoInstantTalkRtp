@@ -16,6 +16,7 @@ static ZegoLiveRoomApi *g_ZegoApi = nil;
 NSData *g_signKey = nil;
 uint32_t g_appID = 0;
 
+
 BOOL g_useTestEnv = NO;
 BOOL g_useAlphaEnv = NO;
 
@@ -58,6 +59,11 @@ static NSData* ConvertStringToSign(NSString* strSign);
         
         NSData * appSign = [self zegoAppSignFromServer];
         g_ZegoApi = [[ZegoLiveRoomApi alloc] initWithAppID:[self appID] appSignature:appSign];
+        
+        if ([self appID] == 1739272706)
+        {
+            [g_ZegoApi setLatencyMode:ZEGOAPI_LATENCY_MODE_LOW];
+        }
         
         [self setupHardwareAcceleratedAndRateControl];
 

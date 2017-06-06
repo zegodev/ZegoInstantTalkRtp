@@ -126,7 +126,15 @@ NSString *const kUserUnreadCountUpdateNotification  = @"unreadCountUpdate";
         return;
     }
     
+    if (self.isLoging)
+    {
+        [self addLogString:NSLocalizedString(@"当前正在登录", nil)];
+        return;
+    }
+    
     [[ZegoInstantTalk api] setChatRoomDelegate:self];
+    
+    _isLoging = YES;
     
     [[ZegoInstantTalk api] loginChatRoomWithCompletion:^(int errorCode) {
         if (errorCode == 0)
@@ -142,6 +150,7 @@ NSString *const kUserUnreadCountUpdateNotification  = @"unreadCountUpdate";
             [self addLogString:logString];
         }
         
+        _isLoging = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoginNotification object:nil userInfo:@{@"Result": @(self.isLogin)}];
     }];
     

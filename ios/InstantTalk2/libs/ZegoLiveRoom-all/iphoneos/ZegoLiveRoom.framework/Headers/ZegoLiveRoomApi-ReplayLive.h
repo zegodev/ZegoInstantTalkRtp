@@ -11,17 +11,26 @@
 
 @interface ZegoLiveRoomApi (ReplayLive)
 
-/// \brief 初始化ReplayLive 
-/// \note必须在InitSDK前调用
+/**
+ 初始化 ReplayLive
+ 
+ @attention 必须在 InitSDK 前调用
+ */
 + (void)prepareReplayLiveCapture;
 
-/// \brief 处理视频数据
-/// \params sampleBuffer ReplayLiveKit返回的视频数据
+/**
+ 处理视频数据
+
+ @param sampleBuffer ReplayLiveKit 返回的视频数据
+ */
 - (void)handleVideoInputSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 
-/// \brief 处理音频数据
-/// \params sampleBuffer ReplayLiveKit返回的音频数据
-/// \params sampleBufferType 类型 RPSampleBufferTypeAudioApp, RPSampleBufferTypeAudioMic
+/**
+ 处理音频数据
+
+ @param sampleBuffer ReplayLiveKit 返回的音频数据
+ @param sampleBufferType 类型 RPSampleBufferTypeAudioApp, RPSampleBufferTypeAudioMic
+ */
 - (void)handleAudioInputSampleBuffer:(CMSampleBufferRef)sampleBuffer withType:(RPSampleBufferType)sampleBufferType;
 
 @end

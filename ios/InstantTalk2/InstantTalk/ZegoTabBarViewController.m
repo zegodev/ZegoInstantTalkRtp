@@ -95,7 +95,7 @@
 
 - (void)navigationTitleTap:(UIGestureRecognizer *)gestureRecognizer
 {
-    if (![ZegoDataCenter sharedInstance].isLogin)
+    if (![ZegoDataCenter sharedInstance].isLogin && ![ZegoDataCenter sharedInstance].isLoging)
         [[ZegoDataCenter sharedInstance] loginRoom];
 }
 

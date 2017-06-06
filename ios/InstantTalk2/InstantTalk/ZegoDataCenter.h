@@ -45,6 +45,7 @@ extern NSString *const kUserUnreadCountUpdateNotification;
 + (instancetype)sharedInstance;
 
 @property (nonatomic, assign, readonly) BOOL isLogin;
+@property (nonatomic, assign, readonly) BOOL isLoging;
 
 //当前在线用户列表
 @property (nonatomic, strong, readonly) NSMutableArray<ZegoUser*> *userList;
