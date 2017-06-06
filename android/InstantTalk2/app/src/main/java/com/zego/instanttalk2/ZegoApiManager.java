@@ -92,6 +92,11 @@ public class ZegoApiManager {
             // sdk初始化失败
             Toast.makeText(ZegoApplication.sApplicationContext, "Zego SDK初始化失败!", Toast.LENGTH_LONG).show();
         }
+
+        if (appID == 1739272706) {
+            mZegoLiveRoom.setLatencyMode(1);
+        }
+
         // 初始化设置级别为"High"
         mZegoAvConfig = new ZegoAvConfig(ZegoAvConfig.Level.High);
         mZegoLiveRoom.setAVConfig(mZegoAvConfig);

@@ -220,6 +220,11 @@ public class BizLivePresenter {
             }
 
             @Override
+            public void onRecvEndJoinLiveCommand(String fromUserID, String fromUserName, String roomID) {
+
+            }
+
+            @Override
             public void onVideoSizeChangedTo(String streamID, int width, int height) {
             }
         });
