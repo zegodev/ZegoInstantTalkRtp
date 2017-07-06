@@ -29,9 +29,13 @@ ZEGO_EXTERN NSString *const kZegoRtmpUrlListKey;        /**< rtmp 播放 url 列
 ZEGO_EXTERN NSString *const kZegoHlsUrlListKey;         /**< hls 播放 url 列表，值为 NSArray<NSString *> */
 ZEGO_EXTERN NSString *const kZegoFlvUrlListKey;         /**< flv 播放 url 列表，值为 NSArray<NSString *> */
 
+ZEGO_EXTERN NSString *const kZegoMixNonExistsStreamIDKey;   /**< 混流不存在的流名，值为 NSString* */
+ZEGO_EXTERN NSString *const kZegoMixStreamReqSeqKey;        /**< 混流请求 seq，值为 @(int) */
+
 /** 混流配置项，调用 [ZegoLiveRoomApi (Publisher) -setMixStreamConfig:] 设置 */
 ZEGO_EXTERN NSString *const kZegoMixStreamIDKey;        /**< 混流ID，值为 NSString */
 ZEGO_EXTERN NSString *const kZegoMixStreamResolution;   /**< 混流输出大小，值为 NSValue */
+
 
 /** 自定义推流配置项，调用 [ZegoLiveRoomApi (Publisher) -setPublishConfig:] 设置 */
 ZEGO_EXTERN NSString *const kPublishCustomTarget;       /**< 自定义转推 RTMP 地址 */
@@ -39,6 +43,8 @@ ZEGO_EXTERN NSString *const kPublishCustomTarget;       /**< 自定义转推 RTM
 /** 设备项 */
 ZEGO_EXTERN NSString *const kZegoDeviceCameraName;      /**< 摄像头设备 */
 ZEGO_EXTERN NSString *const kZegoDeviceMicrophoneName;  /**< 麦克风设备 */
+
+ZEGO_EXTERN NSString *const kZegoConfigKeepAudioSesionActive;  /**< AudioSession相关配置信息的key, 值为 NSString */
 
 /** 成员角色 */
 typedef enum

@@ -135,7 +135,7 @@
 
  @param config 配置，目前支持的配置有kZegoMixStreamIDKey，kZegoMixStreamResolution，详见 ZegoLiveRoomApiDefines.h
  @return true 成功，false 失败
- @attention 如果第一主播选择发布混流模式，发布直播前，需调用此 API 进行混流设置
+ @attention 如果主播选择发布混流模式，发布直播前，需调用此 API 进行混流设置
  @note 设置成功后，调用者会收到 [ZegoLivePublisherDelegate -onMixStreamConfigUpdate:mixStream:streamInfo:] 回调
  */
 - (bool)setMixStreamConfig:(NSDictionary *)config;
@@ -149,6 +149,17 @@
  @note 混流结束后，要先调用此 API 将流列表清空结束混流，然后调用 [ZegoLiveRoomApi (Publisher) stopPublishing] 结束直播。
  */
 - (bool)updateMixInputStreams:(NSArray<ZegoMixStreamInfo*> *)lstMixStreamInfo;
+
+
+/**
+ 开始混流
+
+ @param completeMixConfig 混流配置
+ @param seq 请求序号，回调会带回次 seq
+ @return true 成功，等待回调，false 失败
+ @note 每次需要更新混流配置时，都可以调用此接口；如果需要多次调用，可以通过传入不同的 seq 区分回调
+ */
+- (bool)mixStream:(ZegoCompleteMixStreamConfig *)completeMixConfig seq:(int)seq;
 
 /**
  硬件编码开关
@@ -425,6 +436,7 @@
 
  @param enable 是否开启
  @return true 成功，false 失败
+ @note 默认关闭
  */
 - (bool)enableAGC:(bool)enable;
 
@@ -445,33 +457,23 @@
 + (void)setVideoFilterFactory:(id<ZegoVideoFilterFactory>)factory;
 
 /**
- 设置音频前处理函数
-
- @param prep 前处理函数指针
- @attention 必须在 InitSDK 前调用，不能置空
- @note 调用者调用此 API 设置音频前处理函数。SDK 会在音频编码前调用，inData 为输入的音频原始数据，outData 为函数处理后数据
- @note 单通道，位深为 16 bit
- */
-+ (void)setAudioPrep:(void(*)(const short* inData, int inSamples, int sampleRate, short *outData))prep;
-
-/**
  发送媒体次要信息开关
 
- @param bStart true 开启, false 关闭
- @param bOnlyAudioPublish true 纯音频直播，不传输视频数据, false 音视频直播，传输视频数据
- @attention bOnlyAudioPublish 开关在 bStart 开关开启时才生效
+ @param start true 开启, false 关闭
+ @param onlyAudioPublish true 纯音频直播，不传输视频数据, false 音视频直播，传输视频数据
+ @attention onlyAudioPublish 开关在 start 开关开启时才生效
  */
-- (void)setMediaSideFlags:(bool) bStart bOnlyAudioPublish:(bool) bOnlyAudioPublish;
+- (void)setMediaSideFlags:(bool)start onlyAudioPublish:(bool)onlyAudioPublish;
 
 /**
  发送媒体次要信息
 
  @param inData 媒体次要信息数据
  @param dataLen 数据长度
- @param bPacket 是否外部已经打包好包头，true 已打包, false 未打包
+ @param packet 是否外部已经打包好包头，true 已打包, false 未打包
  @attention 主播端开启媒体次要信息开关，并调用此 API 发送媒体次要信息后，观众端在 [ZegoLiveRoomApi (Player) -setMediaSideCallback:] 设置的回调中获取媒体次要信息
  */
-- (void)sendMediaSideInfo:(const char *)inData dataLen:(int)dataLen bPacket:(bool)bPacket;
+- (void)sendMediaSideInfo:(const unsigned char *)inData dataLen:(int)dataLen packet:(bool)packet;
 
 /**
  设置延迟模式
@@ -480,6 +482,32 @@
  @note 在推流前调用
  */
 - (void)setLatencyMode:(ZegoAPILatencyMode)mode;
+
+/**
+ 设置混音音量
+
+ @param volume 0~100
+ */
+- (void)setAuxVolume:(int)volume;
+
+/**
+ 是否开启离散音频包发送
+
+ @param enable true 开启，此时关闭麦克风后，不会发送静音包；false 关闭，此时关闭麦克风后会发送静音包
+                    默认状态下，关闭麦克风后会发送静音包
+ @note 在推流前调用，只有纯 UDP 方案才可以调用此接口
+ */
+- (void)enableDTX:(bool)enable;
+
+/**
+ 是否开启流量控制
+ 
+ @param enable true 开启；false 关闭
+ @param properties 流量控制属性 (帧率，分辨率）可以多选, 参考ZegoAPITrafficControlProperty定义
+ @note 在推流前调用，在纯 UDP 方案才可以调用此接口
+ @note 默认开启流量控制，property为ZEGOAPI_TRAFFIC_FPS
+*/
+- (void)enableTrafficControl:(bool)enable properties:(NSUInteger)properties;
 
 @end
 
@@ -527,8 +555,8 @@
  @param streamID 发布流 ID
  @param fps 帧率(frame rate)
  @param kbs 码率(bit rate) kb/s
- @attention startPublish 后，该 API 会被多次回调
  @note 调用者可以在此回调中获取当前的视频质量数据，加以处理
+ @attention 不建议使用，请用 onPublishQualityUpdate:quality: 代替
  */
 - (void)onPublishQualityUpdate:(int)quality stream:(NSString *)streamID videoFPS:(double)fps videoBitrate:(double)kbs;
 
@@ -538,6 +566,8 @@
 
  @param streamID streamID 发布流 ID
  @param quality quality 参考ZegoApiPublishQuality定义
+ @attention startPublish 后，该 API 会被多次回调
+ @note 调用者可以在此回调中获取当前的视频质量数据，加以处理
  */
 - (void)onPublishQualityUpdate:(NSString *)streamID quality:(ZegoApiPublishQuality)quality;
 

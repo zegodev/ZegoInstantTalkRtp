@@ -118,11 +118,13 @@
     {
         ZegoTabBarViewController *tabController = (ZegoTabBarViewController *)rootViewController;
         [tabController addObserver];
+        
+        if (![[ZegoDataCenter sharedInstance] isLogin] && ![[ZegoDataCenter sharedInstance] isLoging])
+        {
+            [tabController setViewControllersTitle:NSLocalizedString(@"ZEGO(登录中...)", nil)];
+            [[ZegoDataCenter sharedInstance] loginRoom];
+        }
     }
-    
-    if (![[ZegoDataCenter sharedInstance] isLogin] && ![[ZegoDataCenter sharedInstance] isLoging])
-        [[ZegoDataCenter sharedInstance] loginRoom];
-    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

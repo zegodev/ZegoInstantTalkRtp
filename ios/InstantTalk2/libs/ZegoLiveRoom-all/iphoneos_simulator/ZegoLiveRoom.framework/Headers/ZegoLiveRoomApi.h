@@ -224,6 +224,14 @@ typedef void(^ZegoCustomCommandBlock)(int errorCode, NSString *roomID);
  */
 - (bool)setAVEngineDelegate:(id<ZegoAVEngineDelegate>)avEngineDelegate;
 
+/**
+ 设置配置信息
+ 
+ @param config 配置信息
+ @attention    必须在init sdk前调用
+ */
++ (void)setConfig:(NSString *)config;
+
 @end
 
 

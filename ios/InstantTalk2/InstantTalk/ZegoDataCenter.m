@@ -44,47 +44,50 @@ NSString *const kUserUnreadCountUpdateNotification  = @"unreadCountUpdate";
 @end
 
 @interface ZegoDataCenter () <ZegoChatRoomDelegate>
-//日志记录
+
+// 重新定义为可读写
+@property (nonatomic, strong, readwrite) NSMutableArray<ZegoUser*> *userList;
+@property (nonatomic, strong, readwrite) NSMutableArray<ZegoSession *> *sessionList;
+
+// 日志记录
 @property (nonatomic, strong) NSMutableArray *logArray;
 
-//接收到的请求视频列表
+// 接收到的请求视频列表
 @property (nonatomic, strong) NSMutableDictionary<NSNumber*, ZegoRequestTalkInfo*> *receivedRequestList;
 
-//发送的视频请求用户列表
+// 发送的视频请求用户列表
 @property (nonatomic, strong) NSMutableArray *waitingRequestUserList;
-//发送的视频seq, 如果requestSeq不为0，再次请求其他通话，需要先cancel
+// 发送的视频seq, 如果requestSeq不为0，再次请求其他通话，需要先cancel
 @property (nonatomic, assign) NSUInteger requestSeq;
 
 @end
 
 @implementation ZegoDataCenter
 
-+ (instancetype)sharedInstance
-{
-    static ZegoDataCenter *gInstance = nil;
-    
+static ZegoDataCenter *gInstance;
+
++ (instancetype)sharedInstance {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        gInstance = [[ZegoDataCenter alloc] init];
+        if (gInstance == nil) {
+            gInstance = [[ZegoDataCenter alloc] init];
+        }
     });
     
     return gInstance;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self)
     {
         self.logArray = [NSMutableArray array];
-        _userList = [[NSMutableArray alloc] init];
+        self.userList = [[NSMutableArray alloc] init];
         self.receivedRequestList = [NSMutableDictionary dictionary];
         self.waitingRequestUserList = [NSMutableArray array];
         self.requestSeq = 0;
         
         [self loadSessionList];
-        if (_sessionList == nil)
-            _sessionList = [[NSMutableArray alloc] init];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onChangeAppID:) name:@"RoomInstanceClear" object:nil];
         
@@ -98,6 +101,7 @@ NSString *const kUserUnreadCountUpdateNotification  = @"unreadCountUpdate";
 - (void)onChangeAppID:(NSNotification *)notification
 {
     _isLogin = NO;
+    _isLoging = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:kUserDisconnectNotification object:self userInfo:nil];
 }
 
@@ -165,8 +169,12 @@ NSString *const kUserUnreadCountUpdateNotification  = @"unreadCountUpdate";
         return;
     }
     
-    [[ZegoInstantTalk api] logoutChatRoom];
-    _isLogin = NO;
+    BOOL logoutSuccess = [[ZegoInstantTalk api] logoutChatRoom];
+    if (logoutSuccess) {
+        _isLogin = NO;
+        self.sessionList = nil;
+        self.userList = nil;
+    }
     
     [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"离开房间", nil)]];
 }
@@ -482,6 +490,8 @@ NSString *const kUserUnreadCountUpdateNotification  = @"unreadCountUpdate";
         }
     }
     
+    NSLog(@"111userList count: %lu", (unsigned long)self.userList.count);
+    
     //通知界面更新
     [[NSNotificationCenter defaultCenter] postNotificationName:kUserUpdateNotification object:self userInfo:nil];
 }
@@ -722,4 +732,21 @@ NSString *const kUserUnreadCountUpdateNotification  = @"unreadCountUpdate";
     NSLog(@"share result %d", result);
 #endif
 }
+
+#pragma mark - Getter
+- (NSMutableArray *)userList {
+    if (!_userList) {
+        _userList = [[NSMutableArray alloc] initWithCapacity:1];
+    }
+    return _userList;
+}
+
+- (NSMutableArray *)sessionList {
+    if (!_sessionList) {
+        _sessionList = [[NSMutableArray alloc] initWithCapacity:1];
+    }
+    return _sessionList;
+}
+
+
 @end

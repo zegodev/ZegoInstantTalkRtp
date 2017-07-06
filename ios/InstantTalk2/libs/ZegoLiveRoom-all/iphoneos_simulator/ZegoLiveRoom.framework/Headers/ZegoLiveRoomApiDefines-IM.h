@@ -20,7 +20,7 @@ typedef enum
 {
     ZEGO_USER_ADD = 1,          /**< 新增 */
     ZEGO_USER_DELETE,           /**< 删除 */
-} ZegoUserUpateFlag;
+} ZegoUserUpdateFlag;
 
 /** 消息类型 */
 typedef enum
@@ -52,7 +52,7 @@ typedef enum
 
 @property (nonatomic, copy) NSString *userID;               /**< 用户 ID */
 @property (nonatomic, copy) NSString *userName;             /**< 用户名 */
-@property (nonatomic, assign) ZegoUserUpateFlag updateFlag; /**< 用户更新属性 */
+@property (nonatomic, assign) ZegoUserUpdateFlag updateFlag; /**< 用户更新属性 */
 @property (nonatomic, assign) int role;                     /**< 角色 */
 
 @end

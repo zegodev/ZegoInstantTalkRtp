@@ -15,4 +15,6 @@
 - (void)removeObserver;
 - (void)showRequestVideoAlert:(ZegoRequestTalkInfo *)request;
 
+- (void)setViewControllersTitle:(NSString *)title;
+
 @end

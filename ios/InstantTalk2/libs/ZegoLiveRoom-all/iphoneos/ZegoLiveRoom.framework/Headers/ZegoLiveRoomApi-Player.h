@@ -217,10 +217,10 @@
 /**
  设置回调, 接收媒体次要信息
 
- @param onMediaSideCallback 回调函数指针, buf 媒体数据, dataLen 数据长度
- @attention 观众端在此 API 设置的回调中获取主播端发送的次要信息（要求主播端开启发送媒体次要信息开关，并调用 [ZegoLiveRoomApi (Publisher) -sendMediaSideInfo:dataLen:bPacket:] 发送次要信息）
+ @param onMediaSideCallback 回调函数指针, index 拉流通道索引, buf 媒体数据, dataLen 数据长度
+ @attention 观众端在此 API 设置的回调中获取主播端发送的次要信息（要求主播端开启发送媒体次要信息开关，并调用 [ZegoLiveRoomApi (Publisher) -sendMediaSideInfo:dataLen:packet:] 发送次要信息）
  */
-- (void)setMediaSideCallback:(void(*)(const unsigned char* buf, int dataLen))onMediaSideCallback;
+- (void)setMediaSideCallback:(void(*)(int index, const unsigned char* buf, int dataLen))onMediaSideCallback;
 
 @end
 
@@ -342,21 +342,17 @@
  @param numOfChannels 通道数量，单通道
  @param bitDepth 位深度，16 bit
  @param type 音源类型，参考 ZegoAPIAudioRecordMask
- @attention 开启音频录制并设置成功代理对象后，用户调用此 API 获取 SDK 录制的音频数据
+ @attention 开启音频录制并设置成功代理对象后，用户调用此 API 获取 SDK 录制的音频数据。用户可自行对数据进行处理，例如：存储等
  @note SDK 发送音频数据的周期为 20ms
+ @note 存储数据时注意取 sampleRate、numOfChannels、bitDepth 参数写包头信息
  */
 - (void)onAudioRecord:(NSData *)audioData sampleRate:(int)sampleRate numOfChannels:(int)numOfChannels bitDepth:(int)bitDepth type:(unsigned int)type;
 
 /**
  音频录制回调
  
- @param audioData SDK 录制的音频源数据
- @param sampleRate 采样率，不固定，以当前值为准
- @param numOfChannels 通道数量，单通道
- @param bitDepth 位深度，16 bit
- @attention 开启音频录制并设置成功代理对象后，用户调用此 API 获取 SDK 录制的音频数据
- @note 已废弃，请使用 onAudioRecord:sampleRate:numOfChannels:bitDepth:type:
+ @warning Deprecated，请使用 onAudioRecord:sampleRate:numOfChannels:bitDepth:type:
  */
-- (void)onAudioRecord:(NSData *)audioData sampleRate:(int)sampleRate numOfChannels:(int)numOfChannels bitDepth:(int)bitDepth;
+- (void)onAudioRecord:(NSData *)audioData sampleRate:(int)sampleRate numOfChannels:(int)numOfChannels bitDepth:(int)bitDepth __attribute__ ((deprecated));
 @end
 

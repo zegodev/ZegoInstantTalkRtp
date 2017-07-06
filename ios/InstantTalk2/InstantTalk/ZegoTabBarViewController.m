@@ -46,10 +46,13 @@
 
 - (void)onLoginResult:(NSNotification *)notification
 {
-    if ([notification.userInfo[@"Result"] boolValue])
-        [self setViewControllersTitle:NSLocalizedString(@"ZEGO", nil)];
-    else
+    if ([notification.userInfo[@"Result"] boolValue]) {
+        NSString *title = [NSString stringWithFormat:@"ZEGO(%@)", [ZegoSettings sharedInstance].appTypeList[[ZegoInstantTalk appType]]];
+        [self setViewControllersTitle:NSLocalizedString(title, nil)];
+    }
+    else {
         [self setViewControllersTitle:NSLocalizedString(@"ZEGO(离线)", nil)];
+    }
 }
 
 - (void)onDisconneted:(NSNotification *)notification
@@ -96,7 +99,11 @@
 - (void)navigationTitleTap:(UIGestureRecognizer *)gestureRecognizer
 {
     if (![ZegoDataCenter sharedInstance].isLogin && ![ZegoDataCenter sharedInstance].isLoging)
+    {
+        [self setViewControllersTitle:NSLocalizedString(@"ZEGO(登录中...)", nil)];
+        
         [[ZegoDataCenter sharedInstance] loginRoom];
+    }
 }
 
 - (void)setViewControllersTitle:(NSString *)title

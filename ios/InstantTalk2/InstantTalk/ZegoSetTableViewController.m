@@ -14,6 +14,11 @@
 @interface ZegoSetTableViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *version;
 
+@property (weak, nonatomic) IBOutlet UISwitch *testEnvSwitch;
+@property (weak, nonatomic) IBOutlet UIPickerView *appTypePicker;
+@property (weak, nonatomic) IBOutlet UITextField *appIDText;
+@property (weak, nonatomic) IBOutlet UITextField *appSignText;
+
 @property (weak, nonatomic) IBOutlet UITextField *userID;
 @property (weak, nonatomic) IBOutlet UITextField *userName;
 
@@ -35,18 +40,26 @@
 
 @implementation ZegoSetTableViewController
 
+#pragma mark - Life cycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
     self.videoResolutionSlider.maximumValue = 5;
-    [self loadVideoSettings];
-    [self loadAccountSettings];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [self loadEnvironmentSettings];
+    [self loadVideoSettings];
+    [self loadAccountSettings];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -56,62 +69,16 @@
     [super viewWillDisappear:animated];
 }
 
+#pragma mark - Event response
+
+- (IBAction)toggleTestEnv:(id)sender {
+    UISwitch *s = (UISwitch *)sender;
+    [ZegoInstantTalk setUsingTestEnv:s.on];
+}
+
 - (IBAction)onContactUs:(id)sender
 {
     [[ZegoDataCenter sharedInstance] contactUs];
-}
-
-#pragma mark -- UIPickerViewDelegate, UIPickerViewDataSource
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return [ZegoSettings sharedInstance].presetVideoQualityList.count;
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    if (row >= [ZegoSettings sharedInstance].presetVideoQualityList.count) {
-        return ;
-    }
-    
-    NSLog(@"%s: %@", __func__, [ZegoSettings sharedInstance].presetVideoQualityList[row]);
-    
-    [[ZegoSettings sharedInstance] selectPresetQuality:row];
-    
-    [self updateViedoSettingUI];
-}
-
-//返回当前行的内容,此处是将数组中数值添加到滚动的那个显示栏上
--(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    if (row >= [ZegoSettings sharedInstance].presetVideoQualityList.count) {
-        return @"ERROR";
-    }
-    
-    return [[ZegoSettings sharedInstance].presetVideoQualityList objectAtIndex:row];
-}
-
-
-- (void)loadAccountSettings {
-    NSUInteger userIDInteger = [[ZegoSettings sharedInstance].userID integerValue];
-    if (userIDInteger == 0)
-    {
-        [[ZegoSettings sharedInstance] cleanLocalUser];
-    }
-    
-    self.userID.text = [ZegoSettings sharedInstance].userID;
-    self.userName.text = [ZegoSettings sharedInstance].userName;
-    NSString *imageName = [[ZegoSettings sharedInstance] getAvatarName:self.userID.text];
-    UIImage *avatar = [UIImage imageNamed:imageName];
-    [self.avatarView setImage:avatar];
-}
-
-- (void)loadVideoSettings {
-    self.version.text = [ZegoLiveRoomApi version];
-    [self.presetPicker selectRow:[ZegoSettings sharedInstance].presetIndex inComponent:0 animated:YES];
-    [self updateViedoSettingUI];
 }
 
 - (IBAction)sliderDidChange:(id)sender {
@@ -161,72 +128,6 @@
     [self updateViedoSettingUI];
 }
 
-
-- (void)updateViedoSettingUI {
-    ZegoAVConfig *config = [[ZegoSettings sharedInstance] currentConfig];
-    
-    CGSize r = [ZegoSettings sharedInstance].currentResolution;
-    self.videoResolution.text = [NSString stringWithFormat:@"%d X %d", (int)r.width, (int)r.height];
-    switch ((int)r.height) {
-        case 320:
-            self.videoResolutionSlider.value = 0;
-            break;
-        case 352:
-            self.videoResolutionSlider.value = 1;
-            break;
-        case 640:
-            if (r.width == 360) {
-                self.videoResolutionSlider.value = 2;
-            } else {
-                self.videoResolutionSlider.value = 3;
-            }
-            break;
-        case 1280:
-            self.videoResolutionSlider.value = 4;
-            break;
-        case 1920:
-            self.videoResolutionSlider.value = 5;
-            break;
-        default:
-            break;
-    }
-    
-    self.videoFrameRateSlider.value = config.fps;
-    self.videoFrameRate.text = [NSString stringWithFormat:@"%d", config.fps];
-    
-    self.videoBitRateSlider.value = config.bitrate;
-    self.videoBitRate.text = [NSString stringWithFormat:@"%d", config.bitrate];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if (indexPath.section == 0 && indexPath.row == 1)
-    {
-        [ZegoLiveRoomApi uploadLog];
-        [self showUploadAlertView];
-    }
-}
-
-- (void)showUploadAlertView
-{
-    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"日志上传成功", nil)];
-//    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)
-    {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
-    }
-}
-
-- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 3 || indexPath.section == 4)
-        return YES;
-    
-    if (indexPath.section == 0 && indexPath.row == 1)
-        return YES;
-    return NO;
-}
-
 - (IBAction)changeAvatar:(id)sender
 {
 #if TARGET_OS_SIMULATOR
@@ -264,42 +165,134 @@
         [self.view endEditing:YES];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [self.view endEditing:YES];
+- (void)keyboardWillHide:(NSNotification *)notification {
+    if ([ZegoInstantTalk appType] == ZegoAppTypeCustom) {
+        if (self.appIDText.text.length == 0 && self.appSignText.text.length == 0) {
+            [ZegoInstantTalk setAppType:ZegoAppTypeUDP];
+            [self.appTypePicker selectRow:2 inComponent:0 animated:NO];
+            [self loadAppID];
+        } else if (self.appIDText.text.length != 0 && self.appSignText.text.length != 0) {
+            NSString *strAppID = self.appIDText.text;
+            NSUInteger appID = (NSUInteger)[strAppID longLongValue];
+            [ZegoInstantTalk setCustomAppID:appID sign:self.appSignText.text];
+        
+        }
+        
+        // 重新登录房间
+        [[ZegoDataCenter sharedInstance] leaveRoom];
+        [ZegoInstantTalk releaseApi];
+        [[ZegoDataCenter sharedInstance] loginRoom];
+    }
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    if (textField.text.length != 0)
-    {
-        [textField resignFirstResponder];
-        return YES;
-    }
+#pragma mark - Private method
+
+- (void)loadEnvironmentSettings {
+    self.testEnvSwitch.on = [ZegoInstantTalk usingTestEnv];
+    [self.appTypePicker selectRow:[ZegoInstantTalk appType] inComponent:0 animated:NO];
     
-    return NO;
+    [self loadAppID];
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    if (self.tapGesture == nil)
-        self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapTableView:)];
+- (void)loadAppID {
+    // 自定义的 APPID 来源于用户输入
+    if ([ZegoInstantTalk appType] == ZegoAppTypeCustom) {
+        self.appIDText.placeholder = NSLocalizedString(@"请输入 AppID", nil);
+        self.appIDText.clearButtonMode = UITextFieldViewModeWhileEditing;
+        self.appIDText.keyboardType = UIKeyboardTypeDefault;
+        self.appIDText.returnKeyType = UIReturnKeyDone;
+        self.appSignText.placeholder = NSLocalizedString(@"请输入 AppSign", nil);
+        self.appSignText.clearButtonMode = UITextFieldViewModeWhileEditing;
+        self.appSignText.keyboardType = UIKeyboardTypeASCIICapable;
+        self.appSignText.returnKeyType = UIReturnKeyDone;
+        
+        if ([ZegoInstantTalk appID] && [ZegoInstantTalk zegoAppSignFromServer]) {
+            self.appIDText.enabled = YES;
+            [self.appIDText setText:[NSString stringWithFormat:@"%u", [ZegoInstantTalk appID]]];
+            
+            self.appSignText.enabled = YES;
+            [self.appSignText setText:NSLocalizedString(@"AppSign 已设置", nil)];
+        } else {
+            self.appIDText.enabled = YES;
+            [self.appIDText setText:@""];
+            
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+            
+            [self.appIDText becomeFirstResponder];
+            
+            self.appSignText.enabled = YES;
+        }
+    } else {
+        // 其他类型的 APPID 从本地加载
+        [self.appIDText resignFirstResponder];
+        [self.appSignText setText:@""];
+        self.appSignText.placeholder = NSLocalizedString(@"Demo已添加，无需设置", nil);
+        self.appSignText.enabled = NO;
+        
+        self.appIDText.enabled = NO;
+        [self.appIDText setText:[NSString stringWithFormat:@"%u", [ZegoInstantTalk appID]]];
+    }
     
-    [self.tableView addGestureRecognizer:self.tapGesture];
+    // 导航栏标题随设置变化
+    NSString *title = [NSString stringWithFormat:@"ZEGO(%@)", [ZegoSettings sharedInstance].appTypeList[[ZegoInstantTalk appType]]];
+    self.tabBarController.navigationItem.title =  NSLocalizedString(title, nil);
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    if (self.tapGesture)
+- (void)loadAccountSettings {
+    NSUInteger userIDInteger = [[ZegoSettings sharedInstance].userID integerValue];
+    if (userIDInteger == 0)
     {
-        [self.tableView removeGestureRecognizer:self.tapGesture];
-        self.tapGesture = nil;
+        [[ZegoSettings sharedInstance] cleanLocalUser];
     }
     
-    if (textField == self.userName && ![self.userName.text isEqualToString:[ZegoSettings sharedInstance].userName])
-    {
-        [self reloginRoom];
+    self.userID.text = [ZegoSettings sharedInstance].userID;
+    self.userName.text = [ZegoSettings sharedInstance].userName;
+    NSString *imageName = [[ZegoSettings sharedInstance] getAvatarName:self.userID.text];
+    UIImage *avatar = [UIImage imageNamed:imageName];
+    [self.avatarView setImage:avatar];
+}
+
+- (void)loadVideoSettings {
+    self.version.text = [ZegoLiveRoomApi version];
+    [self.presetPicker selectRow:[ZegoSettings sharedInstance].presetIndex inComponent:0 animated:YES];
+    [self updateViedoSettingUI];
+}
+
+- (void)updateViedoSettingUI {
+    ZegoAVConfig *config = [[ZegoSettings sharedInstance] currentConfig];
+    
+    CGSize r = [ZegoSettings sharedInstance].currentResolution;
+    self.videoResolution.text = [NSString stringWithFormat:@"%d X %d", (int)r.width, (int)r.height];
+    switch ((int)r.height) {
+        case 320:
+            self.videoResolutionSlider.value = 0;
+            break;
+        case 352:
+            self.videoResolutionSlider.value = 1;
+            break;
+        case 640:
+            if (r.width == 360) {
+                self.videoResolutionSlider.value = 2;
+            } else {
+                self.videoResolutionSlider.value = 3;
+            }
+            break;
+        case 1280:
+            self.videoResolutionSlider.value = 4;
+            break;
+        case 1920:
+            self.videoResolutionSlider.value = 5;
+            break;
+        default:
+            break;
     }
+    
+    self.videoFrameRateSlider.value = config.fps;
+    self.videoFrameRate.text = [NSString stringWithFormat:@"%d", config.fps];
+    
+    self.videoBitRateSlider.value = config.bitrate;
+    self.videoBitRate.text = [NSString stringWithFormat:@"%d", config.bitrate];
 }
 
 - (void)reloginRoom
@@ -327,6 +320,176 @@
     [self.indicatorView stopAnimating];
     [self.indicatorView removeFromSuperview];
     self.indicatorView = nil;
+}
+
+- (void)showAlert:(NSString *)title message:(NSString *)message {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                   message:message
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    [alert addAction:confirm];
+    [self presentViewController:alert animated:NO completion:nil];
+}
+
+- (void)showUploadAlertView
+{
+    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"日志上传成功", nil)];
+    //    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+}
+
+#pragma mark - UIPickerViewDelegate, UIPickerViewDataSource
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    if (pickerView == self.presetPicker) {
+        return [ZegoSettings sharedInstance].presetVideoQualityList.count;
+    } else if (pickerView == self.appTypePicker) {
+        return [ZegoSettings sharedInstance].appTypeList.count;
+    } else {
+        return 0;
+    }
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    if (pickerView == self.presetPicker)
+    {
+        if (row >= [ZegoSettings sharedInstance].presetVideoQualityList.count) {
+            return ;
+        }
+        
+        NSLog(@"%s: %@", __func__, [ZegoSettings sharedInstance].presetVideoQualityList[row]);
+        
+        [[ZegoSettings sharedInstance] selectPresetQuality:row];
+        
+        [self updateViedoSettingUI];
+    } else if (pickerView == self.appTypePicker) {
+        if (row >= [ZegoSettings sharedInstance].appTypeList.count) {
+            return ;
+        }
+        
+        NSLog(@"%s: %@", __func__, [ZegoSettings sharedInstance].appTypeList[row]);
+        
+        switch (row) {
+            case 0:
+                [ZegoInstantTalk setAppType:ZegoAppTypeCustom];
+                break;
+            case 1:
+                [ZegoInstantTalk setAppType:ZegoAppTypeRTMP];
+                break;
+            case 2:
+                [ZegoInstantTalk setAppType:ZegoAppTypeUDP];
+                break;
+            case 3:
+                [ZegoInstantTalk setAppType:ZegoAppTypeI18N];
+                break;
+            default:
+                break;
+        }
+        
+        if ([ZegoInstantTalk appType] != ZegoAppTypeCustom) {
+            // 重新登录房间
+            [ZegoInstantTalk releaseApi];
+            [[ZegoDataCenter sharedInstance] loginRoom];
+        }
+
+        [self loadAppID];
+    }
+    
+    return;
+}
+
+//返回当前行的内容,此处是将数组中数值添加到滚动的那个显示栏上
+-(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    if (pickerView == self.presetPicker)
+    {
+        if (row >= [ZegoSettings sharedInstance].presetVideoQualityList.count) {
+            return @"ERROR";
+        }
+        
+        return [[ZegoSettings sharedInstance].presetVideoQualityList objectAtIndex:row];
+    } else if (pickerView == self.appTypePicker) {
+        if (row >= [ZegoSettings sharedInstance].appTypeList.count) {
+            return @"ERROR";
+        }
+        
+        return [[ZegoSettings sharedInstance].appTypeList objectAtIndex:row];
+    }
+    return nil;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.section == 0 && indexPath.row == 1)
+    {
+        [ZegoLiveRoomApi uploadLog];
+        [self showUploadAlertView];
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 3 || indexPath.section == 4)
+        return YES;
+    
+    if (indexPath.section == 0 && indexPath.row == 1)
+        return YES;
+    return NO;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.view endEditing:YES];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField.text.length != 0)
+    {
+        [textField resignFirstResponder];
+        return YES;
+    } else {
+        [self showAlert:NSLocalizedString(@"请重新输入！", nil) message:NSLocalizedString(@"该字段不可为空", nil)];
+        [textField becomeFirstResponder];
+        return NO;
+    }
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (self.tapGesture == nil)
+        self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapTableView:)];
+    
+    [self.tableView addGestureRecognizer:self.tapGesture];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (self.tapGesture)
+    {
+        [self.tableView removeGestureRecognizer:self.tapGesture];
+        self.tapGesture = nil;
+    }
+    
+    if (textField == self.userName && ![self.userName.text isEqualToString:[ZegoSettings sharedInstance].userName])
+    {
+        [self reloginRoom];
+    }
 }
 
 @end

@@ -11,10 +11,17 @@
 #import "ZegoSettings.h"
 #import "ZegoDataCenter.h"
 
+#import <ZegoLiveRoom/ZegoLiveRoomApi-Publisher.h>
+
+#define ZEGO_TEST_RTP3
+
 static ZegoLiveRoomApi *g_ZegoApi = nil;
 
 NSData *g_signKey = nil;
 uint32_t g_appID = 0;
+
+// Demo 默认版本为 UDP
+ZegoAppType g_appType = ZegoAppTypeUDP;
 
 
 BOOL g_useTestEnv = NO;
@@ -27,6 +34,7 @@ BOOL g_requireHardwareAccelerated = YES;
 #endif
 
 BOOL g_enableVideoRateControl = NO;
+BOOL g_useInternationDomain = NO;
 
 
 static Byte toByte(NSString* c);
@@ -35,7 +43,7 @@ static NSData* ConvertStringToSign(NSString* strSign);
 @interface ZegoInstantTalk ()
 
 + (void)setupVideoCaptureDevice;
-+ (NSData *)zegoAppSignFromServer;
+
 
 @end
 
@@ -45,6 +53,14 @@ static NSData* ConvertStringToSign(NSString* strSign);
 {
     if (g_ZegoApi == nil)
     {
+        
+        // 国际版
+        if (g_appType == ZegoAppTypeI18N) {
+            g_useInternationDomain = YES;
+        } else {
+            g_useInternationDomain = NO;
+        }
+        
         [ZegoLiveRoomApi setUseTestEnv:g_useTestEnv];
         
 #ifdef DEBUG
@@ -57,16 +73,19 @@ static NSData* ConvertStringToSign(NSString* strSign);
         
         [self setupVideoCaptureDevice];
         
-        NSData * appSign = [self zegoAppSignFromServer];
-        g_ZegoApi = [[ZegoLiveRoomApi alloc] initWithAppID:[self appID] appSignature:appSign];
+        if ([self appID] > 0) {    // 手动输入为空的情况下容错
+            NSData * appSign = [self zegoAppSignFromServer];
+            if (appSign) {
+                g_ZegoApi = [[ZegoLiveRoomApi alloc] initWithAppID:[self appID] appSignature:appSign];
+            }
+        }
         
-        if ([self appID] == 1739272706)
-        {
+        if (g_appType == ZegoAppTypeUDP || g_appType == ZegoAppTypeI18N) {
             [g_ZegoApi setLatencyMode:ZEGOAPI_LATENCY_MODE_LOW];
+            [g_ZegoApi enableTrafficControl:YES properties:ZEGOAPI_TRAFFIC_FPS | ZEGOAPI_TRAFFIC_RESOLUTION];
         }
         
         [self setupHardwareAcceleratedAndRateControl];
-
     }
     
     return g_ZegoApi;
@@ -97,19 +116,23 @@ static NSData* ConvertStringToSign(NSString* strSign);
 
 + (uint32_t)appID
 {
-    if (g_appID != 0)
-    {
-        return g_appID;
-    }
-    else
-    {
-#ifdef ZEGO_TEST_RTP3
-#warning "ZEGO_TEST_RTP3"
-        return 1739272706;  // * rtp
-#else
-#warning "ZEGO_DEMO"
-        return 1;           // * demo
-#endif
+    switch (g_appType) {
+        case ZegoAppTypeCustom:
+            if (g_appID != 0) {
+                return g_appID;
+            } else {
+                return 0;
+            }
+            break;
+        case ZegoAppTypeRTMP:
+            return 1;           // RTMP版
+            break;
+        case ZegoAppTypeUDP:
+            return 1739272706;  // UDP版
+            break;
+        case ZegoAppTypeI18N:
+            return 3322882036;  // 国际版
+            break;
     }
 }
 
@@ -126,6 +149,11 @@ static NSData* ConvertStringToSign(NSString* strSign);
     else if ([self appID] == 1739272706)
     {
         Byte signkey[] = {0x1e,0xc3,0xf8,0x5c,0xb2,0xf2,0x13,0x70,0x26,0x4e,0xb3,0x71,0xc8,0xc6,0x5c,0xa3,0x7f,0xa3,0x3b,0x9d,0xef,0xef,0x2a,0x85,0xe0,0xc8,0x99,0xae,0x82,0xc0,0xf6,0xf8};
+        return [NSData dataWithBytes:signkey length:32];
+    }
+    else if ([self appID] == 3322882036)
+    {
+        Byte signkey[] = {0x5d,0xe6,0x83,0xac,0xa4,0xe5,0xad,0x43,0xe5,0xea,0xe3,0x70,0x6b,0xe0,0x77,0xa4,0x18,0x79,0x38,0x31,0x2e,0xcc,0x17,0x19,0x32,0xd2,0xfe,0x22,0x5b,0x6b,0x2b,0x2f};
         return [NSData dataWithBytes:signkey length:32];
     }
     else
@@ -169,6 +197,24 @@ static NSData* ConvertStringToSign(NSString* strSign);
 + (bool)requireHardwareAccelerated
 {
     return g_requireHardwareAccelerated;
+}
+
++ (void)setAppType:(ZegoAppType)type {
+    if (g_appType == type)
+        return;
+    
+    g_appType = type;
+    
+//    [self releaseApi];
+    
+    // 临时兼容 SDK 的 Bug，立即初始化 api 对象
+//    if ([self api] == nil) {
+//        [self api];
+//    }
+}
+
++ (ZegoAppType)appType {
+    return g_appType;
 }
 
 #pragma mark - private

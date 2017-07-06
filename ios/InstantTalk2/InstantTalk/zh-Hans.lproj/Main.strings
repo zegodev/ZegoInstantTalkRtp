@@ -140,8 +140,11 @@
 /* Class = "UIBarButtonItem"; title = "联系我们"; ObjectID = "j4p-WX-0E7"; */
 "j4p-WX-0E7.title" = "联系我们";
 
-/* Class = "UILabel"; text = "测试环境"; ObjectID = "jHL-Ox-jaN"; */
-"jHL-Ox-jaN.text" = "测试环境";
+/* Class = "UILabel"; text = "测试环境"; ObjectID = "v3u-TS-Bre"; */
+"v3u-TS-Bre.text" = "测试环境";
+
+/* Class = "UILabel"; text = "App 版本"; ObjectID = "9GF-o9-Fgf"; */
+"9GF-o9-Fgf.text" = "App 版本";
 
 /* Class = "UIButton"; normalTitle = "换一个"; ObjectID = "lU4-tT-pSC"; */
 "lU4-tT-pSC.normalTitle" = "换一个";
@@ -173,8 +176,8 @@
 /* Class = "UIButton"; normalTitle = "设置"; ObjectID = "t98-He-NMm"; */
 "t98-He-NMm.normalTitle" = "设置";
 
-/* Class = "UITableViewSection"; headerTitle = "VERSION"; ObjectID = "ud9-vb-eWY"; */
-"ud9-vb-eWY.headerTitle" = "VERSION";
+/* Class = "UITableViewSection"; headerTitle = "SDK VERSION"; ObjectID = "ud9-vb-eWY"; */
+"ud9-vb-eWY.headerTitle" = "SDK VERSION";
 
 /* Class = "UIBarButtonItem"; title = "关于"; ObjectID = "ut5-IL-YcK"; */
 "ut5-IL-YcK.title" = "关于";
