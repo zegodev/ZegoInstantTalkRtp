@@ -19,6 +19,7 @@ import android.widget.ToggleButton;
 import com.zego.instanttalk2.MainActivity;
 import com.zego.instanttalk2.R;
 import com.zego.instanttalk2.ZegoApiManager;
+import com.zego.instanttalk2.ZegoAppHelper;
 import com.zego.instanttalk2.presenters.BizLivePresenter;
 import com.zego.instanttalk2.ui.acivities.AboutZegoActivity;
 import com.zego.instanttalk2.ui.base.AbsBaseFragment;
@@ -80,8 +81,14 @@ public class SettingFragment extends AbsBaseFragment implements MainActivity.OnS
     @Bind(R.id.tb_modify_test_env)
     public ToggleButton tbTestEnv;
 
+    @Bind(R.id.sp_app_flavor)
+    public Spinner spAppFlavors;
+
     @Bind(R.id.et_appid)
     public EditText etAppID;
+
+    @Bind(R.id.ll_app_key)
+    public LinearLayout llAppKey;
 
     @Bind(R.id.et_appkey)
     public EditText etAppKey;
@@ -104,6 +111,8 @@ public class SettingFragment extends AbsBaseFragment implements MainActivity.OnS
             {640, 360}, {1280, 720}, {1920, 1080}};
 
     private boolean mNeedToReInitSDK = false;
+
+    private Runnable reInitTask;
 
     @Override
     protected int getContentViewLayout() {
@@ -207,6 +216,65 @@ public class SettingFragment extends AbsBaseFragment implements MainActivity.OnS
             }
         });
 
+        long appId = ZegoApiManager.getInstance().getAppID();
+        if (ZegoAppHelper.isUdpProduct(appId)) {
+            spAppFlavors.setSelection(0);
+        } else if (ZegoAppHelper.isRtmpProduct(appId)) {
+            spAppFlavors.setSelection(1);
+        } else if (ZegoAppHelper.isInternationalProduct(appId)) {
+            spAppFlavors.setSelection(2);
+        } else {
+            spAppFlavors.setSelection(3);
+        }
+
+        spAppFlavors.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            private String convertSignKey2String(byte[] signKey) {
+                StringBuilder buffer = new StringBuilder();
+                for (int b : signKey) {
+                    buffer.append("0x").append(Integer.toHexString((b & 0x000000FF) | 0xFFFFFF00).substring(6)).append(",");
+                }
+                buffer.setLength(buffer.length() - 1);
+                return buffer.toString();
+            }
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 3) {
+                    etAppID.setText("");
+                    etAppID.setEnabled(true);
+
+                    etAppKey.setText("");
+                    llAppKey.setVisibility(View.VISIBLE);
+                } else {
+                    long appId = 0;
+                    switch (position) {
+                        case 0:
+                            appId = ZegoAppHelper.UDP_APP_ID;
+                            break;
+                        case 1:
+                            appId = ZegoAppHelper.RTMP_APP_ID;
+                            break;
+                        case 2:
+                            appId = ZegoAppHelper.INTERNATIONAL_APP_ID;
+                            break;
+                    }
+
+                    etAppID.setEnabled(false);
+                    etAppID.setText(String.valueOf(appId));
+
+                    byte[] signKey = ZegoAppHelper.requestSignKey(appId);
+                    etAppKey.setText(convertSignKey2String(signKey));
+                    llAppKey.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         seekbarResolution.setEnabled(false);
         seekBarFps.setEnabled(false);
         seekBarBitrate.setEnabled(false);
@@ -215,16 +283,6 @@ public class SettingFragment extends AbsBaseFragment implements MainActivity.OnS
     @Override
     protected void loadData() {
 
-    }
-
-    private void reloginRoom(){
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                BizLivePresenter.getInstance().logoutChatRoom();
-                BizLivePresenter.getInstance().loginChatRoom();
-            }
-        }, 1000);
     }
 
     @OnClick(R.id.tv_switch_avatar)
@@ -243,10 +301,14 @@ public class SettingFragment extends AbsBaseFragment implements MainActivity.OnS
         // 更新用户头像
         ivAvatar.setImageBitmap(BizLiveUitl.getAvatarByUserID(userID));
 
+        // 退出聊天室
+        BizLivePresenter.getInstance().logoutChatRoom();
+
         // 更新用户信息
         ZegoLiveRoom.setUser(userID, userName);
 
-        reloginRoom();
+        // 重新登录聊天室
+        BizLivePresenter.getInstance().loginChatRoom();
     }
 
 
@@ -269,7 +331,7 @@ public class SettingFragment extends AbsBaseFragment implements MainActivity.OnS
     }
 
     @OnClick(R.id.tv_advanced)
-    public void showAdvaaced() {
+    public void showAdvanced() {
         llytHideOperation.setVisibility(View.VISIBLE);
         mHandler.post(new Runnable() {
             @Override
@@ -297,7 +359,10 @@ public class SettingFragment extends AbsBaseFragment implements MainActivity.OnS
     }
 
     @Override
-    public void onSetConfig() {
+    public int onSetConfig() {
+        if (reInitTask != null) {
+            ZegoAppHelper.removeTask(reInitTask);
+        }
 
         InputMethodManager imm = (InputMethodManager) mParentActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(mParentActivity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -334,47 +399,62 @@ public class SettingFragment extends AbsBaseFragment implements MainActivity.OnS
             ZegoApiManager.getInstance().setZegoConfig(zegoAvConfig);
         }
 
-        // 设置appID appKey
-        final String appID = etAppID.getText().toString().trim();
-        final String appKey = etAppKey.getText().toString().trim();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if ((!TextUtils.isEmpty(appID) && !TextUtils.isEmpty(appKey))) {
-                    // appID必须是数字
-                    if (!TextUtils.isDigitsOnly(appID)) {
-                        return;
-                    }
-                    // appKey长度必须等于32位
-                    String[] keys = appKey.split(",");
-                    if (keys.length != 32) {
-                        return;
-                    }
+        String newUserName = etUserName.getText().toString();
+        if (!newUserName.equals(PreferenceUtil.getInstance().getUserName())) {
+            PreferenceUtil.getInstance().setUserName(newUserName);
+            mNeedToReInitSDK = true;
+        }
 
-                    byte[] signKey = new byte[32];
-                    for (int i = 0; i < 32; i++) {
-                        int data = Integer.valueOf(keys[i].trim().replace("0x", ""), 16);
-                        signKey[i] = (byte) data;
-                    }
+        String strAppID = etAppID.getText().toString().trim();
+        String strSignKey = etAppKey.getText().toString().trim();
+        if (TextUtils.isEmpty(strAppID) || TextUtils.isEmpty(strSignKey)) {
+            Toast.makeText(mParentActivity, "AppId 或者 SignKey 格式非法", Toast.LENGTH_LONG).show();
+            return -1;
+        }
 
-                    // 重新初始化sdk
+        // appID必须是数字
+        if (!TextUtils.isDigitsOnly(strAppID)) {
+            Toast.makeText(mParentActivity, "AppId 格式非法", Toast.LENGTH_LONG).show();
+            etAppID.requestFocus();
+            return -1;
+        }
+        // appKey长度必须等于32位
+        String[] keys = strSignKey.split(",");
+        if (keys.length != 32) {
+            Toast.makeText(mParentActivity, "SignKey 格式非法", Toast.LENGTH_LONG).show();
+            etAppKey.requestFocus();
+            return -1;
+        }
+
+        final long newAppId = Long.valueOf(strAppID);
+        final byte[] newSignKey = new byte[32];
+        for (int i = 0; i < 32; i++) {
+            int data = Integer.valueOf(keys[i].trim().replace("0x", ""), 16);
+            newSignKey[i] = (byte) data;
+        }
+
+        if (newAppId != ZegoApiManager.getInstance().getAppID() && newSignKey != ZegoApiManager.getInstance().getAppSignKey()) {
+            mNeedToReInitSDK = true;
+        }
+
+        int returnCode = mNeedToReInitSDK ? 1 : 0;
+        if (mNeedToReInitSDK) {
+            mNeedToReInitSDK = false;
+
+            // 退出聊天室
+            BizLivePresenter.getInstance().logoutChatRoom();
+
+            reInitTask = new Runnable() {
+                @Override
+                public void run() {
                     ZegoApiManager.getInstance().releaseSDK();
-                    ZegoApiManager.getInstance().reInitSDK(Long.valueOf(appID), signKey);
-
-                    // 重新登陆房间
-                   reloginRoom();
-                } else if (mNeedToReInitSDK) {
-
-                    // 重新初始化sdk
-                    mNeedToReInitSDK = false;
-                    ZegoApiManager.getInstance().releaseSDK();
-                    ZegoApiManager.getInstance().initSDK();
-
-                    // 重新登陆房间
-                    reloginRoom();
+                    ZegoApiManager.getInstance().reInitSDK(newAppId, newSignKey);
                 }
-            }
-        }).start();
+            };
+            ZegoAppHelper.postTask(reInitTask);
+        }
+
+        return returnCode;
     }
 
     @OnCheckedChanged({R.id.tb_modify_test_env, R.id.tb_hardware_encode, R.id.tb_hardware_decode})

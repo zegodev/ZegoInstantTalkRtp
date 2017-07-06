@@ -54,20 +54,6 @@ android {
         main {
             jniLibs.srcDirs = ['libs']
         }
-        udp {
-            res.srcDirs = ["udp/res"]
-        }
-    }
-
-    productFlavors {
-        udp {
-            buildConfigField "int", "APP_ID", "1739272706"
-            applicationIdSuffix ".udp"
-            versionNameSuffix "-udp"
-        }
-        rtmp {
-            buildConfigField "int", "APP_ID", "1"
-        }
     }
 }
 

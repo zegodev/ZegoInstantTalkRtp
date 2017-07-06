@@ -20,6 +20,7 @@ import com.zego.zegoliveroom.entity.AuxData;
 import com.zego.zegoliveroom.entity.ZegoConversationMessage;
 import com.zego.zegoliveroom.entity.ZegoRoomMessage;
 import com.zego.zegoliveroom.entity.ZegoStreamInfo;
+import com.zego.zegoliveroom.entity.ZegoStreamQuality;
 import com.zego.zegoliveroom.entity.ZegoUserState;
 
 import java.util.HashMap;
@@ -170,10 +171,10 @@ public class BizLivePresenter {
             }
 
             @Override
-            public void onPublishQualityUpdate(String streamID, int quality, double videoFPS, double videoBitrate) {
+            public void onPublishQualityUpdate(String streamID, ZegoStreamQuality zegoStreamQuality) {
                 final OnVideoLiveListener videoLiveListener = mVideoLiveListener;
                 if (videoLiveListener != null) {
-                    videoLiveListener.onPublishQulityUpdate(streamID, quality, videoFPS, videoBitrate);
+                    videoLiveListener.onPublishQulityUpdate(streamID, zegoStreamQuality.quality, zegoStreamQuality.videoFPS, zegoStreamQuality.videoBitrate);
                 }
             }
 
@@ -207,10 +208,10 @@ public class BizLivePresenter {
             }
 
             @Override
-            public void onPlayQualityUpdate(String streamID, int quality, double videoFPS, double videoBitrate) {
+            public void onPlayQualityUpdate(String streamID, ZegoStreamQuality zegoStreamQuality) {
                 final OnVideoLiveListener videoLiveListener = mVideoLiveListener;
                 if (videoLiveListener != null) {
-                    videoLiveListener.onPlayQualityUpdate(streamID, quality, videoFPS, videoBitrate);
+                    videoLiveListener.onPlayQualityUpdate(streamID, zegoStreamQuality.quality, zegoStreamQuality.videoFPS, zegoStreamQuality.videoBitrate);
                 }
             }
 
@@ -274,7 +275,7 @@ public class BizLivePresenter {
 
     public void loginChatRoom() {
         // 登录聊天室
-        ZegoApiManager.getInstance().getZegoLiveRoom().loginChatRoomWithCompletion(new IZegoLoginChatRoomCallback() {
+        boolean success = ZegoApiManager.getInstance().getZegoLiveRoom().loginChatRoomWithCompletion(new IZegoLoginChatRoomCallback() {
             @Override
             public void onLoginChatRoom(int errorCode) {
                 if (errorCode == 0) {
@@ -286,6 +287,10 @@ public class BizLivePresenter {
                 }
             }
         });
+        if (!success) {
+            mHaveBeenLogined = false;
+            Toast.makeText(ZegoApplication.sApplicationContext, ZegoApplication.sApplicationContext.getString(R.string.login_chat_room_fail), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void logoutChatRoom(){

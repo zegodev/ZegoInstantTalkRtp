@@ -98,6 +98,27 @@ public class MainActivity extends AbsBaseActivity implements NavigationBar.Navig
         mSetConfigsCallback = (OnSetConfigsCallback) getSupportFragmentManager().findFragmentById(R.id.setting_fragment);
 
         drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            private CharSequence oldTitle;
+
+            private Runnable updateTask = new Runnable() {
+                @Override
+                public void run() {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateTitle();
+
+                            for (int position = 0; position < mPagerAdapter.getCount(); position++) {
+                                Fragment fragment = mPagerAdapter.getItem(position);
+                                ((OnReInitSDKCallback)fragment).onReInitSDK();
+                            }
+
+                            BizLivePresenter.getInstance().loginChatRoom();
+                        }
+                    });
+                }
+            };
+
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
 
@@ -105,15 +126,23 @@ public class MainActivity extends AbsBaseActivity implements NavigationBar.Navig
 
             @Override
             public void onDrawerOpened(View drawerView) {
+                oldTitle = toolBar.getTitle();
                 toolBar.setTitle(getString(R.string.action_settings));
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
-                toolBar.setTitle(getString(R.string.app_name));
                 // 当侧边栏关闭时, set配置
-                if(mSetConfigsCallback != null){
-                    mSetConfigsCallback.onSetConfig();
+                if(mSetConfigsCallback == null) return;
+
+                int errorCode = mSetConfigsCallback.onSetConfig();
+                if (errorCode == 1) {
+                    ZegoAppHelper.removeTask(updateTask);
+                    ZegoAppHelper.postTask(updateTask);
+                } else if (errorCode == -1) {
+                    drawerLayout.openDrawer(Gravity.LEFT);
+                } else {
+                    toolBar.setTitle(oldTitle);
                 }
             }
 
@@ -159,6 +188,8 @@ public class MainActivity extends AbsBaseActivity implements NavigationBar.Navig
 
             }
         });
+
+        updateTitle();
     }
 
     @Override
@@ -255,6 +286,12 @@ public class MainActivity extends AbsBaseActivity implements NavigationBar.Navig
         return super.onKeyDown(keyCode, event);
     }
 
+    private void updateTitle() {
+        long currentAppId = ZegoApiManager.getInstance().getAppID();
+        String title = ZegoAppHelper.getAppTitle(currentAppId, MainActivity.this);
+        toolBar.setTitle(title);
+    }
+
     /**
      * 用户连续点击两次返回键可以退出应用的时间间隔.
      */
@@ -324,8 +361,19 @@ public class MainActivity extends AbsBaseActivity implements NavigationBar.Navig
         return super.onOptionsItemSelected(item);
     }
 
-    public interface OnSetConfigsCallback{
-        void onSetConfig();
+    public interface OnSetConfigsCallback {
+        /**
+         * 需要更新 SDK 设置参数时调用
+         * @return < 0: 参数非法; 0: 无修改或者不需要重新初始化SDK; > 0: 需要重新初始化 SDK
+         */
+        int onSetConfig();
+    }
+
+    public interface OnReInitSDKCallback {
+        /**
+         * 当重新 initSDK 时调用
+         */
+        void onReInitSDK();
     }
 
     public NavigationBar getNavigationBar(){

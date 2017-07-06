@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
     <string name="app_name">InstantTalk2</string>
+    <string name="app_title">Talk(%1$s)</string>
 
     <string name="recent">just now</string>
     <string name="minutes_ago">&#160;minutes ago</string>
@@ -45,8 +46,9 @@
     <string name="close">Close</string>
     <string name="publish_setting">Settings</string>
     <string name="test_env">TestEnvironment:</string>
-    <string name="appid">appID:</string>
-    <string name="appkey">appKey:</string>
+    <string name="app_flavor">AppFlavor</string>
+    <string name="appid">AppID:</string>
+    <string name="appkey">AppKey:</string>
     <string name="front_camera">Front Camera</string>
     <string name="camera">Camera</string>
     <string name="speaker">Speaker</string>

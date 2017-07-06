@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.zego.instanttalk2.MainActivity;
 import com.zego.instanttalk2.R;
 import com.zego.instanttalk2.adapter.ListUserAdapter;
 import com.zego.instanttalk2.adapter.SpaceItemDecoration;
@@ -23,7 +24,7 @@ import butterknife.Bind;
  * Copyright © 2016 Zego. All rights reserved.
  * des:
  */
-public class UserListFragment extends AbsBaseFragment {
+public class UserListFragment extends AbsBaseFragment implements MainActivity.OnReInitSDKCallback {
 
     @Bind(R.id.rlv_user_list)
     public RecyclerView rlvUserList;
@@ -79,7 +80,6 @@ public class UserListFragment extends AbsBaseFragment {
         rlvUserList.setLayoutManager(mLinearLayoutManager);
         rlvUserList.addItemDecoration(new SpaceItemDecoration(mResources.getDimensionPixelSize(R.dimen.dimen_5)));
         rlvUserList.setAdapter(mListUserAdapter);
-
     }
 
     @Override
@@ -90,5 +90,13 @@ public class UserListFragment extends AbsBaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    /**
+     * @see MainActivity.OnReInitSDKCallback#onReInitSDK()
+     */
+    @Override
+    public void onReInitSDK() {
+        mListUserAdapter.setUserList(null);
     }
 }

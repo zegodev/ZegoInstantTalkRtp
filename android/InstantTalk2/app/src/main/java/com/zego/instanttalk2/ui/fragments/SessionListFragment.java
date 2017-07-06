@@ -29,7 +29,7 @@ import butterknife.Bind;
  * Copyright © 2016 Zego. All rights reserved.
  * des:
  */
-public class SessionListFragment extends AbsBaseFragment {
+public class SessionListFragment extends AbsBaseFragment implements MainActivity.OnReInitSDKCallback {
 
     @Bind(R.id.rlv_session_list)
     public RecyclerView rlvSessionList;
@@ -135,5 +135,13 @@ public class SessionListFragment extends AbsBaseFragment {
             mListSessionAdapter.notifyDataSetChanged();
             ((MainActivity) mParentActivity).getNavigationBar().showUnreadMessageCount(0);
         }
+    }
+
+    /**
+     * @see MainActivity.OnReInitSDKCallback#onReInitSDK()
+     */
+    @Override
+    public void onReInitSDK() {
+        mListSessionAdapter.setSessionList(null);
     }
 }

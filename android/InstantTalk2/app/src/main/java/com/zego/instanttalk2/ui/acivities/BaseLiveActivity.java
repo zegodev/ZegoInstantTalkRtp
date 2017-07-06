@@ -33,6 +33,7 @@ import com.zego.instanttalk2.ui.widgets.ViewLive;
 import com.zego.instanttalk2.utils.PreferenceUtil;
 import com.zego.instanttalk2.utils.ZegoRoomUtil;
 import com.zego.zegoliveroom.ZegoLiveRoom;
+import com.zego.zegoliveroom.constants.ZegoConstants;
 import com.zego.zegoliveroom.constants.ZegoVideoViewMode;
 
 import java.util.ArrayList;
@@ -410,6 +411,13 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
 
         // 输出发布状态
         recordLog(getString(R.string.myself, getString(R.string.start_to_publish_stream, mPublishStreamID)));
+
+        // 开启流量自动控制
+        int properties = ZegoConstants.ZegoTrafficControlProperty.ZEGOAPI_TRAFFIC_FPS
+                | ZegoConstants.ZegoTrafficControlProperty.ZEGOAPI_TRAFFIC_RESOLUTION;
+        mZegoLiveRoom.enableTrafficControl(properties, true);
+
+
 
         // 开始播放
         mZegoLiveRoom.setPreviewView(freeViewLive.getTextureView());

@@ -81,7 +81,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dimen_5"
                 android:textSize="@dimen/text_size_2"
-                android:enabled="false"
+                android:enabled="true"
                 />
         </LinearLayout>
 
@@ -317,6 +317,26 @@
                     />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_45"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_flavor"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_size_4"/>
+
+                <Spinner
+                    android:id="@+id/sp_app_flavor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_45"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:entries="@array/app_flavors" />
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -325,7 +345,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/dimen_60"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dimen_5"
 
@@ -345,13 +365,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_app_key"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_45"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/dimen_60"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dimen_5"
                     android:text="@string/appkey"
