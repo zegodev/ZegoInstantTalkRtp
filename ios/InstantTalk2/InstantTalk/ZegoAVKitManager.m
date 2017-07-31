@@ -15,14 +15,14 @@
 
 #define ZEGO_TEST_RTP3
 
-static ZegoLiveRoomApi *g_ZegoApi = nil;
+NSString *kZegoDemoAppTypeKey          = @"apptype";
+NSString *kZegoDemoAppIDKey            = @"appid";
+NSString *kZegoDemoAppSignKey          = @"appsign";
 
-NSData *g_signKey = nil;
-uint32_t g_appID = 0;
+static ZegoLiveRoomApi *g_ZegoApi = nil;
 
 // Demo 默认版本为 UDP
 ZegoAppType g_appType = ZegoAppTypeUDP;
-
 
 BOOL g_useTestEnv = NO;
 BOOL g_useAlphaEnv = NO;
@@ -73,10 +73,11 @@ static NSData* ConvertStringToSign(NSString* strSign);
         
         [self setupVideoCaptureDevice];
         
-        if ([self appID] > 0) {    // 手动输入为空的情况下容错
-            NSData * appSign = [self zegoAppSignFromServer];
+        uint32_t appID = [self appID];
+        if (appID > 0) {    // 手动输入为空的情况下容错
+            NSData *appSign = [self zegoAppSignFromServer];
             if (appSign) {
-                g_ZegoApi = [[ZegoLiveRoomApi alloc] initWithAppID:[self appID] appSignature:appSign];
+                g_ZegoApi = [[ZegoLiveRoomApi alloc] initWithAppID:appID appSignature:appSign];
             }
         }
         
@@ -102,13 +103,14 @@ static NSData* ConvertStringToSign(NSString* strSign);
 
 + (void)setCustomAppID:(uint32_t)appid sign:(NSString *)sign
 {
-    g_appID = appid;
     NSData *d = ConvertStringToSign(sign);
     
     if (d.length == 32 && appid != 0)
     {
-        g_appID = appid;
-        g_signKey = [[NSData alloc] initWithData:d];
+        // 本地持久化
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        [ud setObject:@(appid) forKey:kZegoDemoAppIDKey];
+        [ud setObject:sign forKey:kZegoDemoAppSignKey];
         
         [self releaseApi];
     }
@@ -116,13 +118,18 @@ static NSData* ConvertStringToSign(NSString* strSign);
 
 + (uint32_t)appID
 {
-    switch (g_appType) {
+    switch ([self appType]) {
         case ZegoAppTypeCustom:
-            if (g_appID != 0) {
-                return g_appID;
+        {
+            NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+            uint32_t appID = [[ud objectForKey:kZegoDemoAppIDKey] unsignedIntValue];
+            
+            if (appID != 0) {
+                return appID;
             } else {
                 return 0;
             }
+        }
             break;
         case ZegoAppTypeRTMP:
             return 1;           // RTMP版
@@ -158,7 +165,14 @@ static NSData* ConvertStringToSign(NSString* strSign);
     }
     else
     {
-        return g_signKey;
+        // 自定义模式下从本地持久化文件中加载
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        NSString *appSign = [ud objectForKey:kZegoDemoAppSignKey];
+        if (appSign) {
+            return ConvertStringToSign(appSign);
+        } else {
+            return nil;
+        }
     }
 }
 
@@ -203,6 +217,10 @@ static NSData* ConvertStringToSign(NSString* strSign);
     if (g_appType == type)
         return;
     
+    // 本地持久化
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setInteger:type forKey:kZegoDemoAppTypeKey];
+    
     g_appType = type;
     
 //    [self releaseApi];
@@ -214,7 +232,10 @@ static NSData* ConvertStringToSign(NSString* strSign);
 }
 
 + (ZegoAppType)appType {
-    return g_appType;
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSUInteger type = [ud integerForKey:kZegoDemoAppTypeKey];
+    g_appType = (ZegoAppType)type;
+    return (ZegoAppType)type;
 }
 
 #pragma mark - private

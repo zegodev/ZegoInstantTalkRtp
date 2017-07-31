@@ -69,6 +69,12 @@
     [super viewWillDisappear:animated];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+}
+
 #pragma mark - Event response
 
 - (IBAction)toggleTestEnv:(id)sender {
@@ -169,11 +175,11 @@
     if ([ZegoInstantTalk appType] == ZegoAppTypeCustom) {
         if (self.appIDText.text.length == 0 && self.appSignText.text.length == 0) {
             [ZegoInstantTalk setAppType:ZegoAppTypeUDP];
-            [self.appTypePicker selectRow:2 inComponent:0 animated:NO];
+            [self.appTypePicker selectRow:ZegoAppTypeUDP inComponent:0 animated:NO];
             [self loadAppID];
         } else if (self.appIDText.text.length != 0 && self.appSignText.text.length != 0) {
             NSString *strAppID = self.appIDText.text;
-            NSUInteger appID = (NSUInteger)[strAppID longLongValue];
+            NSUInteger appID = (uint32_t)[strAppID longLongValue];
             [ZegoInstantTalk setCustomAppID:appID sign:self.appSignText.text];
         
         }
@@ -195,33 +201,41 @@
 }
 
 - (void)loadAppID {
+    ZegoAppType type = [ZegoInstantTalk appType];
+    
+    // 导航栏标题随设置变化
+    NSString *title = [NSString stringWithFormat:@"ZEGO(%@)", [ZegoSettings sharedInstance].appTypeList[type]];
+    self.tabBarController.navigationItem.title =  NSLocalizedString(title, nil);
+    
     // 自定义的 APPID 来源于用户输入
-    if ([ZegoInstantTalk appType] == ZegoAppTypeCustom) {
-        self.appIDText.placeholder = NSLocalizedString(@"请输入 AppID", nil);
-        self.appIDText.clearButtonMode = UITextFieldViewModeWhileEditing;
-        self.appIDText.keyboardType = UIKeyboardTypeDefault;
-        self.appIDText.returnKeyType = UIReturnKeyDone;
-        self.appSignText.placeholder = NSLocalizedString(@"请输入 AppSign", nil);
-        self.appSignText.clearButtonMode = UITextFieldViewModeWhileEditing;
-        self.appSignText.keyboardType = UIKeyboardTypeASCIICapable;
-        self.appSignText.returnKeyType = UIReturnKeyDone;
-        
-        if ([ZegoInstantTalk appID] && [ZegoInstantTalk zegoAppSignFromServer]) {
+    uint32_t appID = [ZegoInstantTalk appID];
+    NSData *appSign = [ZegoInstantTalk zegoAppSignFromServer];
+    if (type == ZegoAppTypeCustom) {
+        if (appID && appSign) {
             self.appIDText.enabled = YES;
-            [self.appIDText setText:[NSString stringWithFormat:@"%u", [ZegoInstantTalk appID]]];
+            [self.appIDText setText:[NSString stringWithFormat:@"%u", appID]];
             
             self.appSignText.enabled = YES;
             [self.appSignText setText:NSLocalizedString(@"AppSign 已设置", nil)];
         } else {
-            self.appIDText.enabled = YES;
-            [self.appIDText setText:@""];
-            
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
             [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
             
-            [self.appIDText becomeFirstResponder];
+            self.appIDText.enabled = YES;
+            [self.appIDText setText:@""];
+            self.appIDText.placeholder = NSLocalizedString(@"请输入 AppID", nil);
+            self.appIDText.clearButtonMode = UITextFieldViewModeWhileEditing;
+            self.appIDText.keyboardType = UIKeyboardTypeDefault;
+            self.appIDText.returnKeyType = UIReturnKeyDone;
             
+            self.appSignText.placeholder = NSLocalizedString(@"请输入 AppSign", nil);
+            self.appSignText.clearButtonMode = UITextFieldViewModeWhileEditing;
+            self.appSignText.keyboardType = UIKeyboardTypeASCIICapable;
+            self.appSignText.returnKeyType = UIReturnKeyDone;
             self.appSignText.enabled = YES;
+            [self.appSignText setText:@""];
+            [self.appSignText becomeFirstResponder];
+            
         }
     } else {
         // 其他类型的 APPID 从本地加载
@@ -231,12 +245,8 @@
         self.appSignText.enabled = NO;
         
         self.appIDText.enabled = NO;
-        [self.appIDText setText:[NSString stringWithFormat:@"%u", [ZegoInstantTalk appID]]];
+        [self.appIDText setText:[NSString stringWithFormat:@"%u", appID]];
     }
-    
-    // 导航栏标题随设置变化
-    NSString *title = [NSString stringWithFormat:@"ZEGO(%@)", [ZegoSettings sharedInstance].appTypeList[[ZegoInstantTalk appType]]];
-    self.tabBarController.navigationItem.title =  NSLocalizedString(title, nil);
 }
 
 - (void)loadAccountSettings {
@@ -380,22 +390,7 @@
         
         NSLog(@"%s: %@", __func__, [ZegoSettings sharedInstance].appTypeList[row]);
         
-        switch (row) {
-            case 0:
-                [ZegoInstantTalk setAppType:ZegoAppTypeCustom];
-                break;
-            case 1:
-                [ZegoInstantTalk setAppType:ZegoAppTypeRTMP];
-                break;
-            case 2:
-                [ZegoInstantTalk setAppType:ZegoAppTypeUDP];
-                break;
-            case 3:
-                [ZegoInstantTalk setAppType:ZegoAppTypeI18N];
-                break;
-            default:
-                break;
-        }
+        [ZegoInstantTalk setAppType:(ZegoAppType)row];
         
         if ([ZegoInstantTalk appType] != ZegoAppTypeCustom) {
             // 重新登录房间
@@ -452,7 +447,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self.view endEditing:YES];
+//    [self.view endEditing:YES];
 }
 
 #pragma mark - UITextFieldDelegate

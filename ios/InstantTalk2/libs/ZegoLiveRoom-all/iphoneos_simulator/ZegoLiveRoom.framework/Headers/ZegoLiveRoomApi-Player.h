@@ -106,12 +106,23 @@
 - (bool)setBuiltInSpeakerOn:(bool)bOn;
 
 /**
- 设置播放音量
+ 统一设置所有拉流的播放音量
 
  @param volume 音量取值范围为(0, 100)，数值越大，音量越大。默认 100
+ @return true 成功, false 失败
  @attention 直播时通过此 API 软件调整音量
  */
-- (void)setPlayVolume:(int)volume;
+- (bool)setPlayVolume:(int)volume;
+
+/**
+ 设置指定拉流的播放音量
+ 
+ @param volume 音量取值范围为(0, 100)，数值越大，音量越大。默认 100
+ @streamID  流ID. ID为空时, 统一设置所有拉流的播放音量
+ @return true 成功, false 失败
+ @attention 直播时通过此 API 软件调整音量
+ */
+- (bool)setPlayVolume:(int)volume ofStream:(NSString *)streamID;
 
 /**
  获取当前播放视频的音量
@@ -221,6 +232,14 @@
  @attention 观众端在此 API 设置的回调中获取主播端发送的次要信息（要求主播端开启发送媒体次要信息开关，并调用 [ZegoLiveRoomApi (Publisher) -sendMediaSideInfo:dataLen:packet:] 发送次要信息）
  */
 - (void)setMediaSideCallback:(void(*)(int index, const unsigned char* buf, int dataLen))onMediaSideCallback;
+
+/**
+ 帧顺序检测开关
+ 
+ @param enable true 检测帧顺序，不支持B帧； false 不检测帧顺序，支持B帧，可能出现短暂花屏
+ @attention     必须在init sdk前调用
+ */
++ (void)enableCheckPoc:(bool)enable;
 
 @end
 

@@ -429,7 +429,7 @@
  @param bEnable true 打开 false 关闭
  @return true 成功 false 失败
  */
-- (bool)enableAEC:(bool)bEnable;
+- (bool)enableAEC:(bool)enable;
 
 /**
  音频采集自动增益开关
