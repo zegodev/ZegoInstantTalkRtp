@@ -88,6 +88,11 @@
     [[ZegoDataCenter sharedInstance] contactUs];
 }
 
+- (IBAction)onAbout:(id)sender
+{
+    [[ZegoDataCenter sharedInstance] about:self];
+}
+
 - (void)onMessageUpdate:(NSNotification *)notification
 {
     [self.tableView reloadData];

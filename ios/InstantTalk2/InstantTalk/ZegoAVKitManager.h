@@ -10,10 +10,9 @@
 #import <ZegoLiveRoom/ZegoLiveRoom.h>
 
 typedef enum : NSUInteger {
-    ZegoAppTypeUDP      = 0,    // UDP版
-    ZegoAppTypeRTMP     = 1,    // RTMP版
-    ZegoAppTypeI18N     = 2,    // 国际版
-    ZegoAppTypeCustom   = 3,    // 自定义
+    ZegoAppTypeUDP      = 0,    // 国内版
+    ZegoAppTypeI18N     = 1,    // 国际版
+    ZegoAppTypeCustom   = 2,    // 自定义
 } ZegoAppType;
 
 @interface ZegoInstantTalk : NSObject
@@ -38,6 +37,8 @@ typedef enum : NSUInteger {
 + (ZegoAppType)appType;
 
 + (NSData *)zegoAppSignFromServer;
+
++ (NSString *)customAppSign;
 
 @end
 

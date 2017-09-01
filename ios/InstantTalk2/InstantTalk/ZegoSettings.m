@@ -51,10 +51,10 @@ NSString *kZegoDemoVideoHeightKey       = @"resolution-height";
                                     NSLocalizedString(@"标准质量", nil),
                                     NSLocalizedString(@"高质量", nil),
                                     NSLocalizedString(@"超高质量", nil),
+                                    NSLocalizedString(@"极高质量", nil),
                                     NSLocalizedString(@"自定义", nil)];
         
-        _appTypeList = @[NSLocalizedString(@"UDP版", nil),
-                         NSLocalizedString(@"RTMP版", nil),
+        _appTypeList = @[NSLocalizedString(@"国内版", nil),
                          NSLocalizedString(@"国际版", nil),
                          NSLocalizedString(@"自定义", nil)];
         

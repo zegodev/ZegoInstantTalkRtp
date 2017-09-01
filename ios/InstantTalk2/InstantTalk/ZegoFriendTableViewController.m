@@ -183,7 +183,7 @@
         
         ZegoVideoTalkViewController *videoController = (ZegoVideoTalkViewController *)segue.destinationViewController;
         videoController.isRequester = YES;
-        videoController.userList = @[user, [[ZegoSettings sharedInstance] getZegoUser]];
+        videoController.userList = [NSMutableArray arrayWithArray:@[user, [[ZegoSettings sharedInstance] getZegoUser]]];
     }
     else if ([segue.identifier isEqualToString:@"friendPopoverSegue"])
     {

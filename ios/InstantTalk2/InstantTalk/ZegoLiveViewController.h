@@ -32,11 +32,16 @@
 
 //日志记录
 @property (nonatomic, strong) NSMutableArray *logArray;
+//帧率，码率信息
+@property (nonatomic, strong) NSMutableArray *qualityLogArray;
 
 - (void)setAnchorConfig:(UIView *)publishView;
 
+// 设置视频视图的约束
 - (BOOL)setContainerConstraints:(UIView *)view containerView:(UIView *)containerView viewCount:(NSUInteger)viewCount;
+// 点击切换视图，约束更新
 - (void)updateContainerConstraintsForTap:(UIView *)tapView containerView:(UIView *)containerView;
+// 流删减后视图，约束更新
 - (void)updateContainerConstraintsForRemove:(UIView *)removeView containerView:(UIView *)containerView;
 
 - (void)reportStreamAction:(BOOL)success streamID:(NSString *)streamID;
@@ -51,5 +56,9 @@
 - (void)addLogString:(NSString *)logString;
 
 - (BOOL)isDeviceiOS7;
+
+- (NSString *)addStaticsInfo:(BOOL)publish stream:(NSString *)streamID fps:(double)fps kbs:(double)kbs rtt:(int)rtt pktLostRate:(int)pktLostRate;
+
+- (void)updateQuality:(int)quality detail:(NSString *)detail onView:(UIView *)playerView;
 
 @end

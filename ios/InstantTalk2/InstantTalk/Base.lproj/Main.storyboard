@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -17,7 +17,7 @@
                 <navigationController id="teS-Ow-Jso" userLabel="Friend Navigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="好友" image="btn_home_normal" id="yNy-t1-iIT"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="0Uq-W0-Cq3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -104,7 +104,7 @@
                     <navigationItem key="navigationItem" title="ZEGO" id="4mu-4K-Gkl">
                         <barButtonItem key="leftBarButtonItem" title="关于" id="ut5-IL-YcK">
                             <connections>
-                                <segue destination="ksQ-Nc-juQ" kind="show" id="Egv-jq-VTF"/>
+                                <action selector="onAbout:" destination="ZZJ-rZ-AP4" id="XpA-PQ-Bvl"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="联系我们" id="94g-7X-QH0">
@@ -124,7 +124,7 @@
                 <navigationController id="V1h-7h-l5B" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="1" title="消息" image="btn_column_normal" id="sPe-nD-5Ik"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iOh-HF-JIB">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -224,7 +224,7 @@
                 <navigationController id="82k-2w-lUA" userLabel="Setting Navigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="2" title="设置" image="btn_user_normal" id="t6u-et-YnZ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bnK-zw-ujB">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -712,9 +712,6 @@
                                                 <constraint firstItem="8wJ-FN-ve8" firstAttribute="leading" secondItem="nDt-EK-28R" secondAttribute="leadingMargin" constant="8" id="xvW-Gd-MaD"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="ksQ-Nc-juQ" kind="show" id="s1i-Jg-SAf"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -728,7 +725,7 @@
                     <navigationItem key="navigationItem" title="ZEGO" id="yR0-cH-bgd">
                         <barButtonItem key="leftBarButtonItem" title="关于" id="bBQ-FT-RTp">
                             <connections>
-                                <segue destination="ksQ-Nc-juQ" kind="show" id="gMm-8F-fxm"/>
+                                <action selector="onAbout:" destination="NCT-97-Ir1" id="ofl-yG-Wdm"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="联系我们" id="vha-dx-OXJ">
@@ -753,6 +750,7 @@
                         <outlet property="videoFrameRateSlider" destination="wOm-df-Ppi" id="kaM-8F-g4Q"/>
                         <outlet property="videoResolution" destination="5tV-UO-QwD" id="bAD-Me-Fue"/>
                         <outlet property="videoResolutionSlider" destination="mAd-9q-Sud" id="s74-eS-CZC"/>
+                        <segue destination="hdb-ub-3qr" kind="presentation" identifier="shareLogIdentifier" id="xWV-j4-y4J"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MUE-k9-DiX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -814,6 +812,89 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y6p-o6-mKi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1477" y="1592"/>
+        </scene>
+        <!--Zego Share Log View Controller-->
+        <scene sceneID="6Cb-c6-oax">
+            <objects>
+                <viewController id="hdb-ub-3qr" customClass="ZegoShareLogViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="95H-6g-5yB"/>
+                        <viewControllerLayoutGuide type="bottom" id="V1L-fF-YxX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="U0W-pa-aVN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hb1-pq-lZA">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Log" id="Z5w-ef-sn5">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="NdI-GM-fXh">
+                                            <connections>
+                                                <action selector="close:" destination="hdb-ub-3qr" id="Djh-wS-KnK"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="oDv-Fq-g09">
+                                            <connections>
+                                                <action selector="share:" destination="hdb-ub-3qr" id="Pqg-d7-UhS"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wcd-U0-Lop">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="logFileIdentifier" textLabel="SIx-Fh-vCT" detailTextLabel="hyo-Ln-P59" style="IBUITableViewCellStyleSubtitle" id="v2u-1o-eui">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="v2u-1o-eui" id="YwY-Xj-aaA">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SIx-Fh-vCT">
+                                                    <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hyo-Ln-P59">
+                                                    <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="hdb-ub-3qr" id="qS6-a1-ur2"/>
+                                    <outlet property="delegate" destination="hdb-ub-3qr" id="QUR-oX-8o2"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Wcd-U0-Lop" firstAttribute="top" secondItem="Hb1-pq-lZA" secondAttribute="bottom" id="0Wz-G2-Vfh"/>
+                            <constraint firstItem="V1L-fF-YxX" firstAttribute="top" secondItem="Wcd-U0-Lop" secondAttribute="bottom" id="1PE-wJ-Sbu"/>
+                            <constraint firstAttribute="trailing" secondItem="Wcd-U0-Lop" secondAttribute="trailing" id="91B-sq-9Do"/>
+                            <constraint firstItem="Hb1-pq-lZA" firstAttribute="top" secondItem="95H-6g-5yB" secondAttribute="bottom" id="RCJ-1O-FOI"/>
+                            <constraint firstItem="Wcd-U0-Lop" firstAttribute="leading" secondItem="U0W-pa-aVN" secondAttribute="leading" id="TYC-GH-QFR"/>
+                            <constraint firstItem="Hb1-pq-lZA" firstAttribute="leading" secondItem="U0W-pa-aVN" secondAttribute="leading" id="qyJ-ef-Hci"/>
+                            <constraint firstAttribute="trailing" secondItem="Hb1-pq-lZA" secondAttribute="trailing" id="t53-YT-GWd"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="logTableView" destination="Wcd-U0-Lop" id="7mK-cX-xkr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c39-ng-PyK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2258" y="1593"/>
         </scene>
         <!--chat-->
         <scene sceneID="0GW-cT-o9S">
@@ -952,7 +1033,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="等待对方同意..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UrQ-uF-WOF">
                                 <rect key="frame" x="16" y="74" width="104.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -1038,7 +1119,7 @@
             <objects>
                 <navigationController storyboardIdentifier="friendSelectorStoryboard" id="9c8-zi-ZLv" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dws-fq-yaA">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -1156,42 +1237,6 @@
             </objects>
             <point key="canvasLocation" x="4559" y="-44"/>
         </scene>
-        <!--ZEGO-->
-        <scene sceneID="knm-td-fpk">
-            <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="ksQ-Nc-juQ" customClass="ZegoAboutViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="9KF-je-af7"/>
-                        <viewControllerLayoutGuide type="bottom" id="E1P-Xk-Hd9"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="GTN-x7-dc3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hlW-NH-UYA">
-                                <rect key="frame" x="-4" y="64" width="383" height="2"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="c7O-Oi-O2r"/>
-                                </constraints>
-                                <color key="progressTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </progressView>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="hlW-NH-UYA" firstAttribute="leading" secondItem="GTN-x7-dc3" secondAttribute="leadingMargin" constant="-20" id="O9t-LV-zJW"/>
-                            <constraint firstItem="hlW-NH-UYA" firstAttribute="top" secondItem="9KF-je-af7" secondAttribute="bottom" id="b0z-u8-dBo"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="hlW-NH-UYA" secondAttribute="trailing" constant="-20" id="gp6-Ey-q4l"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="ZEGO" id="BzJ-v8-Dpk"/>
-                    <connections>
-                        <outlet property="progressView" destination="hlW-NH-UYA" id="MTx-yL-3Cj"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XlC-90-Ayi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2336" y="776"/>
-        </scene>
         <!--Zego Anchor Option View Controller-->
         <scene sceneID="BFo-I3-A32">
             <objects>
@@ -1296,7 +1341,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ebr-Aq-eWs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3086" y="-1452"/>
+            <point key="canvasLocation" x="3068" y="-1621"/>
         </scene>
         <!--日志-->
         <scene sceneID="dyx-E8-tPy">
@@ -1365,9 +1410,9 @@
         <!--Navigation Controller-->
         <scene sceneID="ZlR-Yn-yWO">
             <objects>
-                <navigationController id="FoO-JG-AdL" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="logNavigationID" id="FoO-JG-AdL" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="o2s-wy-nTU">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -1385,8 +1430,7 @@
         <image name="btn_user_normal" width="27" height="27"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="gUn-aK-0L4"/>
         <segue reference="ZRp-iY-VOj"/>
-        <segue reference="Hhq-t2-T6p"/>
-        <segue reference="s1i-Jg-SAf"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -2,7 +2,6 @@
 //  ZegoLiveRoomApi-ReplayLive.h
 //  ZegoLiveRoom
 //
-//  Created by Strong on 2017/3/22.
 //  Copyright © 2017年 zego. All rights reserved.
 //
 
@@ -14,20 +13,20 @@
 /**
  初始化 ReplayLive
  
- @attention 必须在 InitSDK 前调用
+ @discussion 必须在 InitSDK 前调用
  */
 + (void)prepareReplayLiveCapture;
 
 /**
  处理视频数据
-
+ 
  @param sampleBuffer ReplayLiveKit 返回的视频数据
  */
 - (void)handleVideoInputSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 
 /**
  处理音频数据
-
+ 
  @param sampleBuffer ReplayLiveKit 返回的音频数据
  @param sampleBufferType 类型 RPSampleBufferTypeAudioApp, RPSampleBufferTypeAudioMic
  */

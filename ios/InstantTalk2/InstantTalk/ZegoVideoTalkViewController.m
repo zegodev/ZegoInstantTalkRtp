@@ -16,6 +16,7 @@
 
 @property (nonatomic, weak) IBOutlet UIView *playContainerView;
 @property (nonatomic, weak) IBOutlet UILabel *tipsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *qualityLabel;
 
 @property (nonatomic, strong) NSMutableArray<ZegoStream *> *playStreamList;
 @property (nonatomic, strong) NSMutableDictionary *viewContainersDict;
@@ -29,15 +30,18 @@
 
 @property (nonatomic, assign) NSUInteger refuseUserNumber;
 
-@property (nonatomic, assign) BOOL isPublishing;
 @property (nonatomic, assign) BOOL shouldInterrutped;
 
 @property (nonatomic, strong) NSMutableArray *retryStreamList;
 @property (nonatomic, strong) NSMutableArray *failedStreamList;
 
+//@property (nonatomic, assign) UIInterfaceOrientation orientation;
+
 @end
 
 @implementation ZegoVideoTalkViewController
+
+#pragma mark - Life cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -63,8 +67,11 @@
     }
     
     [self setupLiveKit];
+
     
-    //先创建一个小view进行preview
+//    self.orientation = [UIApplication sharedApplication].statusBarOrientation;
+    
+    //先创建一个小的 preview view
     UIView *publishView = [self createPublishView];
     if (publishView)
     {
@@ -78,7 +85,7 @@
         [self setVideoTalkRoom];
         
         //登录房间，登录成功后，等待对方回应
-        self.tipsLabel.text = NSLocalizedString(@"开始登录房间...", nil);
+        self.tipsLabel.text = NSLocalizedString(@"开始登录房间", nil);
         [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"开始登录房间 %@", nil), self.videoRoomId]];
         
         [[ZegoInstantTalk api] loginRoom:self.videoRoomId role:ZEGO_AUDIENCE withCompletionBlock:^(int errorCode, NSArray<ZegoStream *> *streamList) {
@@ -101,7 +108,7 @@
                     {
                         //监听消息
                         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRespondVideoTalk:) name:kUserRespondVideoTalkNotification object:nil];
-                        self.tipsLabel.text = NSLocalizedString(@"等待对方同意...", nil);
+                        self.tipsLabel.text = NSLocalizedString(@"等待对方同意", nil);
                         [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"等待对方同意", nil)]];
                     }
                 }];
@@ -122,7 +129,7 @@
         [[ZegoInstantTalk api] loginRoom:self.videoRoomId role:ZEGO_AUDIENCE withCompletionBlock:^(int errorCode, NSArray<ZegoStream *> *streamList) {
             if (errorCode == 0)
             {
-                self.tipsLabel.text = NSLocalizedString(@"登录房间成功...", nil);
+                self.tipsLabel.text = NSLocalizedString(@"登录房间成功", nil);
                 [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"登录房间成功 %@", nil), self.videoRoomId]];
                 
                 self.loginRoomSuccess = YES;
@@ -144,62 +151,6 @@
     }
 }
 
-- (void)setVideoTalkRoom
-{
-    unsigned int token = [[ZegoSettings sharedInstance].userID intValue];
-    if (token == 0 || token == 1)
-        token = rand() + token;
-    
-    NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
-    unsigned int below = (unsigned int)currentTime & 0xFFFF;
-    unsigned int high = (unsigned int)((token << 16) & 0xFFFFF0000);
-    
-    unsigned int random = high | below;
-    
-    self.videoRoomId = [NSString stringWithFormat:@"%@-%u", [ZegoSettings sharedInstance].userID, random];
-}
-
-- (void)openSetting
-{
-    NSURL *settingURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-    if ([[UIApplication sharedApplication] canOpenURL:settingURL])
-        [[UIApplication sharedApplication] openURL:settingURL];
-}
-
-- (void)showAuthorizationAlert:(NSString *)message title:(NSString *)title
-{
-    if ([self isDeviceiOS7])
-    {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:NSLocalizedString(@"取消", nil) otherButtonTitles:NSLocalizedString(@"设置权限", nil), nil];
-        [alertView show];
-    }
-    else
-    {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"取消", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        }];
-        UIAlertAction *settingAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"设置权限", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self openSetting];
-        }];
-        
-        [alertController addAction:settingAction];
-        [alertController addAction:cancelAction];
-        
-        alertController.preferredAction = settingAction;
-        
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
-}
-
-#pragma mark alert view delegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1)
-    {
-        [self openSetting];
-    }
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -209,49 +160,16 @@
 {
     [super viewWillDisappear:animated];
     
-//    if (self.isMovingFromParentViewController)
-//    {
-//        [self.checkTimer invalidate];
-//        self.checkTimer = nil;
-//    }
+    //    if (self.isMovingFromParentViewController)
+    //    {
+    //        [self.checkTimer invalidate];
+    //        self.checkTimer = nil;
+    //    }
 }
 
-//检查相机权限
-- (BOOL)checkVideoAuthorization
-{
-    AVAuthorizationStatus videoAuthStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    if (videoAuthStatus == AVAuthorizationStatusDenied || videoAuthStatus == AVAuthorizationStatusRestricted)
-        return NO;
-    if (videoAuthStatus == AVAuthorizationStatusNotDetermined)
-    {
-        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-        }];
-    }
-    return YES;
-}
+#pragma mark - Event response
 
-- (BOOL)checkAudioAuthorization
-{
-    AVAuthorizationStatus audioAuthStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
-    if (audioAuthStatus == AVAuthorizationStatusDenied || audioAuthStatus == AVAuthorizationStatusRestricted)
-        return NO;
-    if (audioAuthStatus == AVAuthorizationStatusNotDetermined)
-    {
-        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
-        }];
-    }
-    
-    return YES;
-}
-
-- (void)setupLiveKit
-{
-    [[ZegoInstantTalk api] setRoomDelegate:self];
-    [[ZegoInstantTalk api] setPublisherDelegate:self];
-    [[ZegoInstantTalk api] setPlayerDelegate:self];
-    
-}
-
+// 收到视频请求响应
 - (void)onRespondVideoTalk:(NSNotification *)notification
 {
     BOOL agreed = [notification.userInfo[@"result"] boolValue];
@@ -259,6 +177,20 @@
 
     if (agreed)
     {
+        // 如果收到之前发出的视频通话同意响应时，当前正在直播，且直播的对方正是之前响应之人，则忽略此次响应
+        if ([ZegoDataCenter sharedInstance].waitingRequestUserList.count == 1) {
+            ZegoUser *requestUser = [ZegoDataCenter sharedInstance].waitingRequestUserList[0];
+            if (self.isPublishing && [user.userId isEqualToString:requestUser.userId]) {
+                return;
+            }
+        }
+        
+//        for (ZegoUser *requestUser in [ZegoDataCenter sharedInstance].waitingRequestUserList) {
+//            if (self.isPublishing && [user.userId isEqualToString:requestUser.userId]) {
+//                return;
+//            }
+//        }
+        
         [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"%@同意了你的请求", nil), user.userId]];
         
         //开始推流
@@ -271,6 +203,7 @@
     else
     {
         //有用户拒绝
+        [self.userList removeObject:user];
         self.refuseUserNumber += 1;
         if (self.refuseUserNumber == self.userList.count - 1)
         {
@@ -352,7 +285,6 @@
     
 }
 
-
 - (void)onTapView:(UIGestureRecognizer *)recognizer
 {
     if (self.playContainerView.subviews.count < 2)
@@ -365,7 +297,107 @@
     [self updateContainerConstraintsForTap:view containerView:self.playContainerView];
 }
 
-#pragma mark publishView & playView
+#pragma mark -- Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"logSegueIdentifier"])
+    {
+        UINavigationController *navigationController = [segue destinationViewController];
+        ZegoLogTableViewController *logViewController = (ZegoLogTableViewController *)[navigationController.viewControllers firstObject];
+        logViewController.logArray = self.logArray;
+    }
+}
+
+#pragma mark - Private Method
+
+#pragma mark -- Setting
+
+- (void)setupLiveKit
+{
+    [[ZegoInstantTalk api] setRoomDelegate:self];
+    [[ZegoInstantTalk api] setPublisherDelegate:self];
+    [[ZegoInstantTalk api] setPlayerDelegate:self];
+    
+}
+
+- (void)setVideoTalkRoom
+{
+    unsigned int token = [[ZegoSettings sharedInstance].userID intValue];
+    if (token == 0 || token == 1)
+        token = rand() + token;
+    
+    NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
+    unsigned int below = (unsigned int)currentTime & 0xFFFF;
+    unsigned int high = (unsigned int)((token << 16) & 0xFFFFF0000);
+    
+    unsigned int random = high | below;
+    
+    self.videoRoomId = [NSString stringWithFormat:@"%@-%u", [ZegoSettings sharedInstance].userID, random];
+}
+
+- (void)openSetting
+{
+    NSURL *settingURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+    if ([[UIApplication sharedApplication] canOpenURL:settingURL])
+        [[UIApplication sharedApplication] openURL:settingURL];
+}
+
+#pragma mark -- Authorization
+
+//检查相机权限
+- (BOOL)checkVideoAuthorization
+{
+    AVAuthorizationStatus videoAuthStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (videoAuthStatus == AVAuthorizationStatusDenied || videoAuthStatus == AVAuthorizationStatusRestricted)
+        return NO;
+    if (videoAuthStatus == AVAuthorizationStatusNotDetermined)
+    {
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+        }];
+    }
+    return YES;
+}
+
+- (BOOL)checkAudioAuthorization
+{
+    AVAuthorizationStatus audioAuthStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+    if (audioAuthStatus == AVAuthorizationStatusDenied || audioAuthStatus == AVAuthorizationStatusRestricted)
+        return NO;
+    if (audioAuthStatus == AVAuthorizationStatusNotDetermined)
+    {
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+        }];
+    }
+    
+    return YES;
+}
+
+- (void)showAuthorizationAlert:(NSString *)message title:(NSString *)title
+{
+    if ([self isDeviceiOS7])
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:NSLocalizedString(@"取消", nil) otherButtonTitles:NSLocalizedString(@"设置权限", nil), nil];
+        [alertView show];
+    }
+    else
+    {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"取消", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        }];
+        UIAlertAction *settingAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"设置权限", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self openSetting];
+        }];
+        
+        [alertController addAction:settingAction];
+        [alertController addAction:cancelAction];
+        
+        alertController.preferredAction = settingAction;
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+}
+
+#pragma mark -- Publish view
 
 - (UIView *)createPublishView
 {
@@ -404,6 +436,9 @@
     self.viewContainersDict[self.liveStreamID] = self.publishView;
 }
 
+
+#pragma mark -- Play view
+
 - (UIView *)createPlayView:(NSString *)streamID
 {
     UIView *playView = [[UIView alloc] init];
@@ -440,7 +475,8 @@
     bool ret = [[ZegoInstantTalk api] startPlayingStream:streamID inView:playView];
     assert(ret);
     
-    [[ZegoInstantTalk api] setViewMode:ZegoVideoViewModeScaleToFill ofStream:streamID];
+    [[ZegoInstantTalk api] setViewMode:ZegoVideoViewModeScaleAspectFit ofStream:streamID];
+    
     if (self.firstPlayStream == NO)
     {
         self.firstPlayStream = YES;
@@ -459,7 +495,8 @@
     [self.viewContainersDict removeObjectForKey:streamID];
 }
 
-#pragma mark Stream Update
+#pragma mark -- Stream update
+
 - (void)onStreamUpdateForAdd:(NSArray<ZegoStream *> *)streamList
 {
     for (ZegoStream *stream in streamList)
@@ -496,6 +533,13 @@
         
         [self removeStreamViewContainer:streamID];
         [self removeStreamInfo:streamID];
+        
+        for (int i = self.userList.count - 1; i >= 0; i--) {
+            ZegoUser *logoutUser = self.userList[i];
+            if ([logoutUser.userId isEqualToString:stream.userID]) {
+                [self.userList removeObject:logoutUser];
+            }
+        }
         
         NSString *logString = [NSString stringWithFormat:NSLocalizedString(@"删除一条流, 流ID:%@", nil), streamID];
         [self addLogString:logString];
@@ -534,7 +578,67 @@
     }
 }
 
-#pragma mark ZegoRoomDelegate
+#pragma mark -- Rotate
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        [self setRotateFromInterfaceOrientation:orientation];
+    } completion:nil];
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    
+    [self setRotateFromInterfaceOrientation:toInterfaceOrientation];
+}
+
+- (void)setRotateFromInterfaceOrientation:(UIInterfaceOrientation)orientation
+{
+    for (NSString *streamID in self.viewContainersDict.allKeys)
+    {
+        // 自己的推流画面不随设备旋转
+        int rotate = 0;
+        switch (orientation)
+        {
+            case UIInterfaceOrientationPortrait:
+                rotate = 0;
+                break;
+                
+            case UIInterfaceOrientationPortraitUpsideDown:
+                rotate = 180;
+                break;
+                
+            case UIInterfaceOrientationLandscapeLeft:
+                rotate = 270;
+                break;
+                
+            case UIInterfaceOrientationLandscapeRight:
+                rotate = 90;
+                break;
+                
+            default:
+                return;
+        }
+        
+        [[ZegoInstantTalk api] setViewMode:ZegoVideoViewModeScaleAspectFit ofStream:streamID];
+//        [[ZegoInstantTalk api] setViewRotation:rotate ofStream:streamID];
+    
+//        for (NSLayoutConstraint *constraint in self.playContainerView.constraints) {
+//            if (constraint.firstAttribute == NSLayoutAttributeWidth || constraint.firstAttribute == NSLayoutAttributeHeight) {
+//                [self.playContainerView removeConstraint:constraint];
+//            }
+//        }
+//        [self setContainerConstraints:self.publishView containerView:self.playContainerView viewCount:self.playContainerView.subviews.count - 1 orientation:orientation];
+    }
+}
+
+#pragma mark - ZegoRoomDelegate
+
 - (void)onDisconnect:(int)errorCode roomID:(NSString *)roomID
 {
     NSString *logString = [NSString stringWithFormat:NSLocalizedString(@"连接失败, error: %d", nil), errorCode];
@@ -549,7 +653,8 @@
         [self onStreamUpdateForDelete:streamList];
 }
 
-#pragma mark ZegoLivePlayerDelegate
+#pragma mark - ZegoLivePlayerDelegate
+
 - (void)onPlayStateUpdate:(int)stateCode streamID:(NSString *)streamID
 {
     NSLog(@"%s, streamID:%@", __func__, streamID);
@@ -566,7 +671,17 @@
     }
 }
 
-#pragma mark ZegoLivePublisherDelegate
+- (void)onPlayQualityUpate:(NSString *)streamID quality:(ZegoApiPlayQuality)quality
+{
+    NSString *detail = [self addStaticsInfo:NO stream:streamID fps:quality.fps kbs:quality.kbps rtt:quality.rtt pktLostRate:quality.pktLostRate];
+    
+    UIView *view = self.viewContainersDict[streamID];
+    if (view)
+        [self updateQuality:quality.quality detail:detail onView:view];
+}
+
+#pragma mark - ZegoLivePublisherDelegate
+
 - (void)onPublishStateUpdate:(int)stateCode streamID:(NSString *)streamID streamInfo:(NSDictionary *)info
 {
     if (stateCode == 0)
@@ -591,17 +706,22 @@
     }
 }
 
-#pragma mark - Navigation
+- (void)onPublishQualityUpdate:(NSString *)streamID quality:(ZegoApiPublishQuality)quality
+{
+    NSString *detail = [self addStaticsInfo:YES stream:streamID fps:quality.fps kbs:quality.kbps rtt:quality.rtt pktLostRate:quality.pktLostRate];
+    
+    UIView *view = self.viewContainersDict[streamID];
+    if (view) {
+        [self updateQuality:quality.quality detail:detail onView:view];
+    }
+}
+#pragma mark - UIAlertView delegate
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"logSegueIdentifier"])
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
     {
-        UINavigationController *navigationController = [segue destinationViewController];
-        ZegoLogTableViewController *logViewController = (ZegoLogTableViewController *)[navigationController.viewControllers firstObject];
-        logViewController.logArray = self.logArray;
+        [self openSetting];
     }
 }
 

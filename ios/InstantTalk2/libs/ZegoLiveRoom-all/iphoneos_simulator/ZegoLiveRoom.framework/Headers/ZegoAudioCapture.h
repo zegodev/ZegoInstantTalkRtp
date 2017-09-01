@@ -2,7 +2,6 @@
 //  ZegoAudioCapture.h
 //  ZegoLiveRoom
 //
-//  Created by Strong on 2017/3/16.
 //  Copyright © 2017年 zego. All rights reserved.
 //
 

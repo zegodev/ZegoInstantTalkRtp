@@ -46,40 +46,42 @@ extern NSString *const kUserUnreadCountUpdateNotification;
 
 @property (nonatomic, assign, readonly) BOOL isLogin;
 @property (nonatomic, assign, readonly) BOOL isLoging;
+@property (nonatomic, strong, readonly) NSMutableArray<ZegoUser*> *userList;        //当前在线用户列表
+@property (nonatomic, strong, readonly) NSMutableArray<ZegoSession *> *sessionList; //聊天记录
 
-//当前在线用户列表
-@property (nonatomic, strong, readonly) NSMutableArray<ZegoUser*> *userList;
+@property (nonatomic, strong) NSMutableArray *waitingRequestUserList;   // 发送的视频请求用户列表
 
-//聊天记录
-@property (nonatomic, strong, readonly) NSMutableArray<ZegoSession *> *sessionList;
+#pragma mark - Room
 
+// 登录房间
 - (void)loginRoom;
+
+// 离开房间
 - (void)leaveRoom;
 
-#pragma mark Message
+#pragma mark - Session
+
 //创建一个session (发起多人会话时每次都创建一个sesssion，单人会话从历史记录中查找）
 - (BOOL)createSessionWithMemberList:(NSArray<ZegoUser *> *)memberList completion:(void (^)(NSString *sessionId))completionBlock;
 
-//一个session中删除成员
-//- (void)removeMember:(NSArray<ZegoUser *> *)removeMemberList sessionID:(NSString *)sessionID;
-//一个session中增加成员
-//- (void)addMember:(NSArray<ZegoUser *> *)addMemberList  sessionID:(NSString *)sessionID;
+//删除一个session
+- (void)deleteSession:(ZegoSession *)session;
+
+//删除所有session
+- (void)clearAllSession;
 
 //向一个session发送消息
 - (BOOL)sendMessage:(NSString *)sessionID messageContent:(NSString *)messageContent completion:(void (^)(int errorCode))completionBlock;
 
 //清除一个session的未读计数
 - (void)clearUnreadCount:(NSString *)sessionID;
+
 //获取所有的未读计数
 - (NSUInteger)getTotalUnreadCount;
 
-//删除一个session
-- (void)deleteSession:(ZegoSession *)session;
-//删除所有session
-- (void)clearAllSession;
-
 //根据session获取当前成员列表
 - (NSArray<ZegoUser *> *)getMemberList:(NSString *)sessionID;
+
 //根据session获取当前聊天记录
 - (NSArray<ZegoConversationMessage*> *)getMessageList:(NSString *)sessionID;
 
@@ -92,24 +94,34 @@ extern NSString *const kUserUnreadCountUpdateNotification;
 //检查是否存在memberlist相同的session
 - (ZegoSession *)isSessionExistWithSameMemberList:(NSArray<ZegoUser *> *)memberList;
 
-#pragma mark User
+#pragma mark - User
+
 //判断用户是否在线
 - (BOOL)isUserOnline:(NSString *)userID;
-//判断成员列表是否有人在线
-//YES: 至少有人在线(除用户自己外)
-//NO: 没有任何人在线
+
+//判断成员列表是否有人在线。YES: 至少有人在线(除用户自己外)。NO: 没有任何人在线
 - (BOOL)isMemberOnline:(NSArray<ZegoUser *> *)userList;
 
-#pragma mark VideoTalk
+//判断 userID 是否是当前登录的账号
+- (BOOL)isUserSelf:(NSString *)userID;
+
+#pragma mark - VideoTalk
+
 //用户发起视频聊天请求
 - (void)requestVideoTalk:(NSArray<ZegoUser *> *)userList videoRoomId:(NSString *)videoRoomId completion:(void (^)(int errorCode))completionBlock;
 
 //取消视频聊天请求
 - (void)cancelVideoTalk;
+
 //用户同意/拒绝视频聊天
 - (void)agreedVideoTalk:(BOOL)agreed requestSeq:(int)seq;
 
+#pragma mark - Other
+
+// 联系我们
 - (void)contactUs;
 
+// 关于我们
+- (void)about:(UIViewController *)viewController;
 
 @end

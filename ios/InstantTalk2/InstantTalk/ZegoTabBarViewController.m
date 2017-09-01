@@ -44,6 +44,11 @@
     [self addObserver];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 - (void)onLoginResult:(NSNotification *)notification
 {
     if ([notification.userInfo[@"Result"] boolValue]) {
@@ -153,6 +158,7 @@
     }
 }
 
+// 收到视频通话邀请通知
 - (void)onReceiveRequestVideoTalk:(NSNotification *)notification
 {
     ZegoRequestTalkInfo *requestInfo = notification.userInfo[@"requestInfo"];
@@ -162,6 +168,7 @@
     [self showRequestVideoAlert:requestInfo];
 }
 
+// 收到取消视频通话的通知
 - (void)onReceiveCancelVideoTalk:(NSNotification *)notification
 {
     NSNumber *requestSeq = notification.userInfo[@"requestSeq"];
@@ -184,28 +191,36 @@
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
+// 自己同意视频通话后处理
 - (void)onAcceptVideoTalk:(NSNotification *)notification
 {
     ZegoRequestTalkInfo *requestInfo = notification.userInfo[@"requestInfo"];
+    
     if (requestInfo == nil)
         return;
     
-    if (self.presentedViewController)
-        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    // 如果正在直播，同意视频的新会话成员，已经在直播成员列表中，则忽略此次请求
+    if (self.presentedViewController) {
+        ZegoVideoTalkViewController *controller = (ZegoVideoTalkViewController *)self.presentedViewController;
+        for (ZegoUser *user in controller.userList) {
+            if (controller.isPublishing && [user.userId isEqualToString:requestInfo.fromUserId]) {
+                return;
+//                [[ZegoDataCenter sharedInstance] cancelVideoTalk];
+            }
+        }
+    }
     
+    // 正在直播时，同意其他直播，则重新创建新的直播界面
+    if (self.presentedViewController) {
+         [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    }
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZegoVideoTalkViewController *videoController = (ZegoVideoTalkViewController *)[storyboard instantiateViewControllerWithIdentifier:@"videoTalkStoryboardID"];
     videoController.isRequester = NO;
     videoController.videoRoomId = requestInfo.preferedRoomId;
-    
     [self presentViewController:videoController animated:YES completion:nil];
     
-    //已经同意了一个视频通话的请求，拒绝其他的请求
+    // 已经同意了一个视频通话的请求，拒绝其他的请求
     if ([[ZegoSettings sharedInstance] isDeviceiOS7])
     {
         for (NSNumber *requestSeq in self.requestAlertContextDict.allKeys)

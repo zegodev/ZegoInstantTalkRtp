@@ -25,75 +25,108 @@
 #endif
 
 /** 流信息列表项 */
-ZEGO_EXTERN NSString *const kZegoRtmpUrlListKey;        /**< rtmp 播放 url 列表，值为 NSArray<NSString *> */
-ZEGO_EXTERN NSString *const kZegoHlsUrlListKey;         /**< hls 播放 url 列表，值为 NSArray<NSString *> */
-ZEGO_EXTERN NSString *const kZegoFlvUrlListKey;         /**< flv 播放 url 列表，值为 NSArray<NSString *> */
+/** rtmp 播放 url 列表，值为 <NSArrayNSString *> */
+ZEGO_EXTERN NSString *const kZegoRtmpUrlListKey;
+/** hls 播放 url 列表，值为 <NSArrayNSString *> */
+ZEGO_EXTERN NSString *const kZegoHlsUrlListKey;
+/** flv 播放 url 列表，值为 <NSArrayNSString *> */
+ZEGO_EXTERN NSString *const kZegoFlvUrlListKey;
 
-ZEGO_EXTERN NSString *const kZegoMixNonExistsStreamIDKey;   /**< 混流不存在的流名，值为 NSString* */
-ZEGO_EXTERN NSString *const kZegoMixStreamReqSeqKey;        /**< 混流请求 seq，值为 @(int) */
+/** 混流不存在的流名，值为 NSString* */
+ZEGO_EXTERN NSString *const kZegoMixNonExistsStreamIDKey;
+/** 混流请求 seq，值为 @(int) */
+ZEGO_EXTERN NSString *const kZegoMixStreamReqSeqKey;
 
 /** 混流配置项，调用 [ZegoLiveRoomApi (Publisher) -setMixStreamConfig:] 设置 */
-ZEGO_EXTERN NSString *const kZegoMixStreamIDKey;        /**< 混流ID，值为 NSString */
-ZEGO_EXTERN NSString *const kZegoMixStreamResolution;   /**< 混流输出大小，值为 NSValue */
+/** 混流ID，值为 NSString */
+ZEGO_EXTERN NSString *const kZegoMixStreamIDKey;
+/** 混流输出大小，值为 NSValue */
+ZEGO_EXTERN NSString *const kZegoMixStreamResolution;
 
 
 /** 自定义推流配置项，调用 [ZegoLiveRoomApi (Publisher) -setPublishConfig:] 设置 */
-ZEGO_EXTERN NSString *const kPublishCustomTarget;       /**< 自定义转推 RTMP 地址 */
+/** 自定义转推 RTMP 地址 */
+ZEGO_EXTERN NSString *const kPublishCustomTarget;
 
 /** 设备项 */
-ZEGO_EXTERN NSString *const kZegoDeviceCameraName;      /**< 摄像头设备 */
-ZEGO_EXTERN NSString *const kZegoDeviceMicrophoneName;  /**< 麦克风设备 */
+/** 摄像头设备 */
+ZEGO_EXTERN NSString *const kZegoDeviceCameraName;
+/** 麦克风设备 */
+ZEGO_EXTERN NSString *const kZegoDeviceMicrophoneName;
 
-ZEGO_EXTERN NSString *const kZegoConfigKeepAudioSesionActive;  /**< AudioSession相关配置信息的key, 值为 NSString */
+/** AudioSession相关配置信息的key, 值为 NSString */
+ZEGO_EXTERN NSString *const kZegoConfigKeepAudioSesionActive;
 
 /** 成员角色 */
 typedef enum
 {
-    ZEGO_ANCHOR = 1,    /**< 主播 */
-    ZEGO_AUDIENCE = 2,  /**< 观众 */
+    /** 主播 */
+    ZEGO_ANCHOR = 1,
+    /** 观众 */
+    ZEGO_AUDIENCE = 2,
 } ZegoRole;
 
 /** 流变更类型 */
 typedef enum
 {
-    ZEGO_STREAM_ADD     = 2001,     /**< 新增流 */
-    ZEGO_STREAM_DELETE  = 2002,     /**< 删除流 */
+    /** 新增流 */
+    ZEGO_STREAM_ADD     = 2001,
+    /** 删除流 */
+    ZEGO_STREAM_DELETE  = 2002,
 } ZegoStreamType;
 
 /** 本地预览视频视图的模式 */
 typedef enum {
-    ZegoVideoViewModeScaleAspectFit     = 0,    /**< 等比缩放，可能有黑边 */
-    ZegoVideoViewModeScaleAspectFill    = 1,    /**< 等比缩放填充整View，可能有部分被裁减 */
-    ZegoVideoViewModeScaleToFill        = 2,    /**< 填充整个View */
+    /** 等比缩放，可能有黑边 */
+    ZegoVideoViewModeScaleAspectFit     = 0,
+    /** 等比缩放填充整View，可能有部分被裁减 */
+    ZegoVideoViewModeScaleAspectFill    = 1,
+    /** 填充整个View */
+    ZegoVideoViewModeScaleToFill        = 2,
 } ZegoVideoViewMode;
 
 /** 发布直播模式 */
 enum ZegoApiPublishFlag
 {
-    ZEGO_JOIN_PUBLISH   = 0,        /**< 连麦模式 */
-    ZEGO_MIX_STREAM     = 1 << 1,   /**< 混流模式 */
-    ZEGO_SINGLE_ANCHOR  = 1 << 2,   /**< 单主播模式 */
+    /** 连麦模式 */
+    ZEGO_JOIN_PUBLISH   = 0,
+    /** 混流模式 */
+    ZEGO_MIX_STREAM     = 1 << 1,
+    /** 单主播模式 */
+    ZEGO_SINGLE_ANCHOR  = 1 << 2,
 };
 
+/** 发布直播质量 */
 typedef struct
 {
+    /** 视频帧率 */
     double fps;
+    /** 视频码率(kb/s) */
     double kbps;
+    /** 音频码率(kb/s) */
+    double akbps;
+    /** 延时(ms) */
     int rtt;
-    int pktLostRate;            ///< 丢包率: 0 ~ 255
-    
+    /** 丢包率(0~255) */
+    int pktLostRate;
+    /** 直播质量(0~3) */
     int quality;
     
 } ZegoApiPublishQuality;
 
 typedef ZegoApiPublishQuality ZegoApiPlayQuality;
 
+/** 流信息 */
 @interface ZegoStream : NSObject
 
-@property (nonatomic, copy) NSString *userID;       /**< 用户 ID */
-@property (nonatomic, copy) NSString *userName;     /**< 用户名 */
-@property (nonatomic, copy) NSString *streamID;     /**< 流 ID */
-@property (nonatomic, copy) NSString *extraInfo;    /**< 流附加信息 */
+/** 用户 ID */
+@property (nonatomic, copy) NSString *userID;
+/** 用户名 */
+@property (nonatomic, copy) NSString *userName;
+/** 流 ID */
+@property (nonatomic, copy) NSString *streamID;
+/** 流附加信息 */
+@property (nonatomic, copy) NSString *extraInfo;
 @end
 
 typedef void(^ZegoSnapshotCompletionBlock)(ZEGOImage* img);
@@ -101,15 +134,35 @@ typedef void(^ZegoSnapshotCompletionBlock)(ZEGOImage* img);
 /** 设备模块类型 */
 enum ZegoAPIModuleType
 {
-    ZEGOAPI_MODULE_AUDIO            = 0x4 | 0x8,    /**< 音频采集播放设备 */
+    /** 音频采集播放设备 */
+    ZEGOAPI_MODULE_AUDIO            = 0x4 | 0x8,
 };
 
+/** 音频录制时，指定音源类型 */
 enum ZegoAPIAudioRecordMask
 {
-    ZEGOAPI_AUDIO_RECORD_NONE      = 0x0,  ///< 关闭音频录制
-    ZEGOAPI_AUDIO_RECORD_CAP       = 0x01, ///< 打开采集录制
-    ZEGOAPI_AUDIO_RECORD_RENDER    = 0x02, ///< 打开渲染录制
-    ZEGOAPI_AUDIO_RECORD_MIX       = 0x04  ///< 打开采集和渲染混音结果录制
+    /** 关闭音频录制 */
+    ZEGOAPI_AUDIO_RECORD_NONE      = 0x0,
+    /** 打开采集录制 */
+    ZEGOAPI_AUDIO_RECORD_CAP       = 0x01,
+    /** 打开渲染录制 */
+    ZEGOAPI_AUDIO_RECORD_RENDER    = 0x02,
+    /** 打开采集和渲染混音结果录制 */
+    ZEGOAPI_AUDIO_RECORD_MIX       = 0x04
 };
+
+/** 音频录制配置信息 */
+typedef struct
+{
+    /** 启用音频源选择，参考 ZegoAVAPIAudioRecordMask */
+    unsigned int mask;
+    
+    /** 采样率 8000, 16000, 22050, 24000, 32000, 44100, 48000 */
+    int sampleRate;
+    
+    /** 声道数 1(单声道) 或 2(双声道) */
+    int channels;
+    
+} ZegoAPIAudioRecordConfig;
 
 #endif /* ZegoLiveRoomApiDefines_h */

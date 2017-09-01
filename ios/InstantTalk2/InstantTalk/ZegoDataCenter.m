@@ -10,6 +10,8 @@
 #import "ZegoSettings.h"
 #import "ZegoAVKitManager.h"
 
+#import <SafariServices/SFSafariViewController.h>
+
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <TencentOpenAPI/QQApiInterfaceObject.h>
 
@@ -55,9 +57,7 @@ NSString *const kUserUnreadCountUpdateNotification  = @"unreadCountUpdate";
 // 接收到的请求视频列表
 @property (nonatomic, strong) NSMutableDictionary<NSNumber*, ZegoRequestTalkInfo*> *receivedRequestList;
 
-// 发送的视频请求用户列表
-@property (nonatomic, strong) NSMutableArray *waitingRequestUserList;
-// 发送的视频seq, 如果requestSeq不为0，再次请求其他通话，需要先cancel
+// 发送的视频seq, 如果 requestSeq 不为 0。再次请求其他通话，需要先 cancel
 @property (nonatomic, assign) NSUInteger requestSeq;
 
 @end
@@ -65,6 +65,8 @@ NSString *const kUserUnreadCountUpdateNotification  = @"unreadCountUpdate";
 @implementation ZegoDataCenter
 
 static ZegoDataCenter *gInstance;
+
+#pragma mark - Init
 
 + (instancetype)sharedInstance {
     static dispatch_once_t onceToken;
@@ -98,29 +100,9 @@ static ZegoDataCenter *gInstance;
     return self;
 }
 
-- (void)onChangeAppID:(NSNotification *)notification
-{
-    _isLogin = NO;
-    _isLoging = NO;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kUserDisconnectNotification object:self userInfo:nil];
-}
+#pragma mark - Public method
 
-- (NSString *)getCurrentTime
-{
-//    return [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970] * 1000];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"[HH-mm-ss:SSS]";
-    return [formatter stringFromDate:[NSDate date]];
-}
-
-- (void)addLogString:(NSString *)logString
-{
-    if (logString.length != 0)
-    {
-        NSString *totalString = [NSString stringWithFormat:@"%@: %@", [self getCurrentTime], logString];
-        [self.logArray insertObject:totalString atIndex:0];
-    }
-}
+#pragma mark -- Room
 
 - (void)loginRoom
 {
@@ -144,7 +126,7 @@ static ZegoDataCenter *gInstance;
         if (errorCode == 0)
         {
             _isLogin = YES;
-            NSString *logString = [NSString stringWithFormat:NSLocalizedString(@"登录房间成功.", nil)];
+            NSString *logString = [NSString stringWithFormat:NSLocalizedString(@"登录房间成功", nil)];
             [self addLogString:logString];
         }
         else
@@ -179,90 +161,171 @@ static ZegoDataCenter *gInstance;
     [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"离开房间", nil)]];
 }
 
-#pragma mark VideoTalk Function
-- (void)requestVideoTalk:(NSArray<ZegoUser *> *)userList videoRoomId:(NSString *)videoRoomId completion:(void (^)(int))completionBlock
+#pragma mark -- Session & Message
+
+- (BOOL)createSessionWithMemberList:(NSArray<ZegoUser *> *)memberList completion:(void (^)(NSString *sessionId))completionBlock
 {
-    if (self.requestSeq != 0)
-    {
-        [self cancelVideoTalk];
-    }
+    if (memberList.count < 1)
+        return NO;
     
-    int requestSeq = [[ZegoInstantTalk api] requestVideoTalk:userList videoRoomId:videoRoomId completion:^(int errorCode) {
-        if (errorCode != 0)
-        {
-            self.requestSeq = 0;
-            [self.waitingRequestUserList removeAllObjects];
-            
-            NSString *logString = [NSString stringWithFormat:NSLocalizedString(@"请求视频通话错误, %d", nil), errorCode];
-            [self addLogString:logString];
-        }
+    //检查session是否存在
+    NSString *groupName = nil;
+    ZegoSession *session = [self isSessionExistWithSameMemberList:memberList];
+    if (session)
+    {
+        [self.sessionList removeObject:session];
+        [self.sessionList insertObject:session atIndex:0];
         
         if (completionBlock)
-            completionBlock(errorCode);
-        
-    }];
-
-    self.requestSeq = requestSeq;
-    self.waitingRequestUserList = [NSMutableArray arrayWithArray:userList];
-}
-
-- (void)cancelVideoTalk
-{
-    if (self.requestSeq == 0)
-        return;
+            completionBlock(session.sessionId);
+    }
     
-    [[ZegoInstantTalk api] cancelVideoTalk:(int)self.requestSeq completion:^(int errorCode) {
+    if (memberList.count == 2)
+    {
+        ZegoUser *user = [self getOtherMember:memberList];
+        groupName = user.userName;
+    }
+    else
+    {
+        groupName = @"群聊";
+    }
+    
+    [[ZegoInstantTalk api] createGroupChat:groupName memberList:memberList completion:^(int errorCode, NSString *groupId) {
         if (errorCode == 0)
         {
-            self.requestSeq = 0;
-            [self.waitingRequestUserList removeAllObjects];
+            ZegoSession *session = [self createSession:groupId sessionName:groupName memberList:memberList];
+            [self.sessionList insertObject:session atIndex:0];
+            
+            if (completionBlock)
+                completionBlock(groupId);
         }
-    }];
-}
-
-- (void)agreedVideoTalk:(BOOL)agreed requestSeq:(int)seq
-{
-    if (self.receivedRequestList[@(seq)] == nil)
-        return;
-    
-    [[ZegoInstantTalk api] respondVideoTalk:seq respondResult:agreed completion:^(int errorCode) {
-        if (agreed)
+        else
         {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kUserAcceptVideoTalkNotification object:nil userInfo:@{@"requestInfo": self.receivedRequestList[@(seq)]}];
+            if (completionBlock)
+                completionBlock(nil);
         }
-        
-        [self.receivedRequestList removeObjectForKey:@(seq)];
     }];
-}
-
-#pragma mark User Help Function
-- (BOOL)isUserSelf:(NSString *)userID
-{
-    if ([[ZegoSettings sharedInstance].userID isEqualToString:userID])
-        return YES;
-    
-    return NO;
-}
-
-- (BOOL)isUserExist:(NSString *)userID
-{
-    NSArray *filterArray = [self.userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"userId == %@", userID]];
-    if (filterArray.count == 0)
-        return NO;
     
     return YES;
 }
 
-- (void)removeUser:(NSString *)userID
+- (BOOL)sendMessage:(NSString *)sessionID messageContent:(NSString *)messageContent completion:(void (^)(int))completionBlock
 {
-    NSArray *filterArray = [self.userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"userId == %@", userID]];
-    if (filterArray.count == 0)
-        return;
+    if (sessionID.length == 0 || messageContent.length == 0)
+        return NO;
     
-    [self.userList removeObjectsInArray:filterArray];
+    ZegoSession *session = [self getSessionById:sessionID];
+    if (session == nil)
+        return NO;
+    
+    ZegoConversationMessage *message = [ZegoConversationMessage new];
+    message.fromUserId = [ZegoSettings sharedInstance].userID;
+    message.fromUserName = [ZegoSettings sharedInstance].userName;
+    message.content = messageContent;
+    message.type = ZEGO_TEXT;
+    message.sendTime = [[NSDate date] timeIntervalSince1970];
+    [session.messageHistory addObject:message];
+    [self updateSessionIndex:session];
+    
+    [[ZegoInstantTalk api] sendGroupChatMessage:messageContent type:ZEGO_TEXT groupId:sessionID completion:^(int errorCode, NSString *groupId, unsigned long long messageId) {
+        if (errorCode == 0)
+            message.messageId = messageId;
+        
+        if (completionBlock)
+            completionBlock(errorCode);
+    }];
+    
+    return YES;
 }
 
-#pragma mark Session Help
+- (void)clearUnreadCount:(NSString *)sessionID
+{
+    ZegoSession *session = [self getSessionById:sessionID];
+    if (session == nil)
+        return;
+    
+    session.unreadCount = 0;
+}
+
+- (NSUInteger)getTotalUnreadCount
+{
+    NSUInteger totalCount = 0;
+    for (ZegoSession *session in self.sessionList)
+    {
+        totalCount += session.unreadCount;
+    }
+    
+    return totalCount;
+}
+
+- (void)deleteSession:(ZegoSession *)session
+{
+    if (session != nil)
+    {
+        session.unreadCount = 0;
+        
+        [self.sessionList removeObject:session];
+    }
+}
+
+- (void)clearAllSession
+{
+    [self.sessionList removeAllObjects];
+    [self saveSessionList];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kUserClearAllSessionNotification object:nil userInfo:nil];
+}
+
+- (NSArray<ZegoUser *> *)getMemberList:(NSString *)sessionID
+{
+    if (sessionID.length == 0)
+        return nil;
+    
+    ZegoSession *session = [self getSessionById:sessionID];
+    if (session == nil)
+        return nil;
+    
+    return session.memberList;
+}
+
+- (NSArray<ZegoConversationMessage*> *)getMessageList:(NSString *)sessionID
+{
+    if (sessionID.length == 0)
+        return nil;
+    
+    ZegoSession *session = [self getSessionById:sessionID];
+    if (session == nil)
+        return nil;
+    
+    return session.messageHistory;
+}
+
+- (ZegoUser *)getOtherMember:(NSArray<ZegoUser *> *)memberList
+{
+    if (memberList.count != 2)
+        return nil;
+    
+    NSArray *notSelfMemberArray = [memberList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"userId != %@", [ZegoSettings sharedInstance].userID]];
+    if (notSelfMemberArray.count != 1)
+        return nil;
+    
+    return notSelfMemberArray.firstObject;
+}
+
+- (void)saveSessionList
+{
+    //    NSString *sessionListPath = [[self documentPath] stringByAppendingPathComponent:@"session"];
+    //    [NSKeyedArchiver archiveRootObject:self.sessionList toFile:sessionListPath];
+}
+
+- (void)loadSessionList
+{
+    //    NSString *sessionListPath = [[self documentPath] stringByAppendingPathComponent:@"session"];
+    //    NSArray *sessionList = [NSKeyedUnarchiver unarchiveObjectWithFile:sessionListPath];
+    
+    //    _sessionList = [NSMutableArray arrayWithArray:sessionList];
+}
+
 - (ZegoSession *)getSessionById:(NSString *)sessionId
 {
     if (sessionId.length == 0)
@@ -314,18 +377,6 @@ static ZegoDataCenter *gInstance;
     return session;
 }
 
-- (ZegoUser *)getOtherMember:(NSArray<ZegoUser *> *)memberList
-{
-    if (memberList.count != 2)
-        return nil;
-    
-    NSArray *notSelfMemberArray = [memberList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"userId != %@", [ZegoSettings sharedInstance].userID]];
-    if (notSelfMemberArray.count != 1)
-        return nil;
-    
-    return notSelfMemberArray.firstObject;
-}
-
 - (BOOL)isUserExist:(NSString *)userID memberList:(NSArray<ZegoUser *> *)memberList
 {
     NSArray *filterArray = [memberList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"userId == %@", userID]];
@@ -358,83 +409,187 @@ static ZegoDataCenter *gInstance;
     return nil;
 }
 
-#pragma mark GroupChat Message
-- (BOOL)createSessionWithMemberList:(NSArray<ZegoUser *> *)memberList completion:(void (^)(NSString *sessionId))completionBlock
-{
-    if (memberList.count < 1)
-        return NO;
-    
-    //检查session是否存在
-    NSString *groupName = nil;
-    ZegoSession *session = [self isSessionExistWithSameMemberList:memberList];
-    if (session)
-    {
-        [self.sessionList removeObject:session];
-        [self.sessionList insertObject:session atIndex:0];
-        
-        if (completionBlock)
-            completionBlock(session.sessionId);
-    }
-    
-    if (memberList.count == 2)
-    {
-        ZegoUser *user = [self getOtherMember:memberList];
-        groupName = user.userName;
-    }
-    else
-    {
-        groupName = @"群聊";
-    }
+#pragma mark -- VideoTalk
 
-    [[ZegoInstantTalk api] createGroupChat:groupName memberList:memberList completion:^(int errorCode, NSString *groupId) {
-        if (errorCode == 0)
+// 请求视频通话
+- (void)requestVideoTalk:(NSArray<ZegoUser *> *)userList videoRoomId:(NSString *)videoRoomId completion:(void (^)(int))completionBlock
+{
+    if (self.requestSeq != 0)
+    {
+        [self cancelVideoTalk];
+    }
+    
+    int requestSeq = [[ZegoInstantTalk api] requestVideoTalk:userList videoRoomId:videoRoomId completion:^(int errorCode) {
+        if (errorCode != 0)
         {
-            ZegoSession *session = [self createSession:groupId sessionName:groupName memberList:memberList];
-            [self.sessionList insertObject:session atIndex:0];
+            self.requestSeq = 0;
+            [self.waitingRequestUserList removeAllObjects];
             
-            if (completionBlock)
-                completionBlock(groupId);
+            NSString *logString = [NSString stringWithFormat:NSLocalizedString(@"请求视频通话错误, %d", nil), errorCode];
+            [self addLogString:logString];
         }
-        else
-        {
-            if (completionBlock)
-                completionBlock(nil);
-        }
-    }];
-    
-    return YES;
-}
-
-- (BOOL)sendMessage:(NSString *)sessionID messageContent:(NSString *)messageContent completion:(void (^)(int))completionBlock
-{
-    if (sessionID.length == 0 || messageContent.length == 0)
-        return NO;
-    
-    ZegoSession *session = [self getSessionById:sessionID];
-    if (session == nil)
-        return NO;
-    
-    ZegoConversationMessage *message = [ZegoConversationMessage new];
-    message.fromUserId = [ZegoSettings sharedInstance].userID;
-    message.fromUserName = [ZegoSettings sharedInstance].userName;
-    message.content = messageContent;
-    message.type = ZEGO_TEXT;
-    message.sendTime = [[NSDate date] timeIntervalSince1970];
-    [session.messageHistory addObject:message];
-    [self updateSessionIndex:session];
-    
-    [[ZegoInstantTalk api] sendGroupChatMessage:messageContent type:ZEGO_TEXT groupId:sessionID completion:^(int errorCode, NSString *groupId, unsigned long long messageId) {
-        if (errorCode == 0)
-            message.messageId = messageId;
         
         if (completionBlock)
             completionBlock(errorCode);
+        
     }];
+    
+    self.requestSeq = requestSeq;
+    self.waitingRequestUserList = [NSMutableArray arrayWithArray:userList];
+}
+
+// 取消视频通话
+- (void)cancelVideoTalk
+{
+    if (self.requestSeq == 0)
+        return;
+    
+    [[ZegoInstantTalk api] cancelVideoTalk:(int)self.requestSeq completion:^(int errorCode) {
+        if (errorCode == 0)
+        {
+            self.requestSeq = 0;
+            [self.waitingRequestUserList removeAllObjects];
+        }
+    }];
+}
+
+// 响应视频通话，同意或拒绝
+- (void)agreedVideoTalk:(BOOL)agreed requestSeq:(int)seq
+{
+    if (self.receivedRequestList[@(seq)] == nil)
+        return;
+    
+    [[ZegoInstantTalk api] respondVideoTalk:seq respondResult:agreed completion:^(int errorCode) {
+        if (agreed)
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kUserAcceptVideoTalkNotification
+                                                                object:nil
+                                                              userInfo:@{@"requestInfo": self.receivedRequestList[@(seq)]}];
+        }
+        
+        [self.receivedRequestList removeObjectForKey:@(seq)];
+    }];
+}
+
+#pragma mark -- User
+
+- (BOOL)isUserOnline:(NSString *)userID
+{
+    NSArray *filterArray = [self.userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"userId == %@", userID]];
+    if (filterArray.count > 0)
+        return YES;
+    
+    return NO;
+}
+
+- (BOOL)isMemberOnline:(NSArray<ZegoUser *> *)userList
+{
+    if (!self.isLogin)
+        return NO;
+    
+    NSArray *filterArray = [userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"userId != %@", [ZegoSettings sharedInstance].userID]];
+    if (filterArray.count == 0)
+        return NO;
+    
+    for (ZegoUser *user in filterArray)
+    {
+        if ([self isUserOnline:user.userId])
+            return YES;
+    }
+    
+    return NO;
+}
+
+#pragma mark -- Other
+
+- (void)contactUs
+{
+#if defined(__i386__)
+#else
+    if (![QQApiInterface isQQInstalled])
+    {
+        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"联系我们", nil)];
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"没有安装QQ", nil) message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+        
+        return;
+    }
+    
+    QQApiWPAObject *wpaObject = [QQApiWPAObject objectWithUin:@"84328558"];
+    SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:wpaObject];
+    QQApiSendResultCode result = [QQApiInterface sendReq:req];
+    NSLog(@"share result %d", result);
+#endif
+}
+
+- (void)about:(UIViewController *)viewController
+{
+    SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://www.zego.im"]];
+    [viewController presentViewController:safariViewController animated:YES completion:nil];
+}
+
+
+#pragma mark - Private method
+
+- (BOOL)isUserSelf:(NSString *)userID
+{
+    if ([[ZegoSettings sharedInstance].userID isEqualToString:userID])
+        return YES;
+    
+    return NO;
+}
+
+- (BOOL)isUserExist:(NSString *)userID
+{
+    NSArray *filterArray = [self.userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"userId == %@", userID]];
+    if (filterArray.count == 0)
+        return NO;
     
     return YES;
 }
 
-#pragma mark ZegoChatRoomDelegate
+- (void)removeUser:(NSString *)userID
+{
+    NSArray *filterArray = [self.userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"userId == %@", userID]];
+    if (filterArray.count == 0)
+        return;
+    
+    [self.userList removeObjectsInArray:filterArray];
+}
+
+- (void)onChangeAppID:(NSNotification *)notification
+{
+    _isLogin = NO;
+    _isLoging = NO;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kUserDisconnectNotification object:self userInfo:nil];
+}
+
+- (NSString *)getCurrentTime
+{
+    //    return [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970] * 1000];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"[HH-mm-ss:SSS]";
+    return [formatter stringFromDate:[NSDate date]];
+}
+
+- (void)addLogString:(NSString *)logString
+{
+    if (logString.length != 0)
+    {
+        NSString *totalString = [NSString stringWithFormat:@"%@: %@", [self getCurrentTime], logString];
+        [self.logArray insertObject:totalString atIndex:0];
+    }
+}
+
+- (NSString *)documentPath
+{
+    NSArray *documents = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    return [documents firstObject];
+}
+
+#pragma mark - ZegoChatRoomDelegate
+
 - (void)onConnectState:(ZegoChatRoomConnectState)state
 {
     if (state == Disconnected)
@@ -500,9 +655,10 @@ static ZegoDataCenter *gInstance;
 {
     NSString *logString = [NSString stringWithFormat:NSLocalizedString(@"收到广播消息", nil)];
     [self addLogString:logString];
-
+    
 }
 
+// 收到其他成员的视频通话请求
 - (void)onRecvRequestVideoTalk:(int)respondSeq fromUserId:(NSString *)fromUserId fromUserName:(NSString *)fromUserName videoRoomId:(NSString *)videoRoomId
 {
     if (respondSeq < 0)
@@ -522,6 +678,7 @@ static ZegoDataCenter *gInstance;
     self.receivedRequestList[@(respondSeq)] = info;
 }
 
+// 收到其他成员取消视频通话
 - (void)onRecvCancelVideoTalk:(int)respondSeq fromUserId:(NSString *)fromUserId fromUserName:(NSString *)fromUserName
 {
     if (self.receivedRequestList[@(respondSeq)] == nil)
@@ -533,6 +690,7 @@ static ZegoDataCenter *gInstance;
     [[NSNotificationCenter defaultCenter] postNotificationName:kUserCancelVideoTalkNotification object:nil userInfo:@{@"requestSeq": @(respondSeq)}];
 }
 
+// 收到视频通话请求的回应
 - (void)onRecvRespondVideoTalk:(int)requestSeq fromUserId:(NSString *)fromUserId fromUserName:(NSString *)fromUserName respondResult:(bool)result
 {
     if (self.requestSeq != requestSeq)
@@ -595,145 +753,11 @@ static ZegoDataCenter *gInstance;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserMessageReceiveNotification object:nil userInfo:@{@"session": groupId}];
     }
-
-}
-
-- (NSArray<ZegoUser *> *)getMemberList:(NSString *)sessionID
-{
-    if (sessionID.length == 0)
-        return nil;
     
-    ZegoSession *session = [self getSessionById:sessionID];
-    if (session == nil)
-        return nil;
-    
-    return session.memberList;
-}
-
-- (NSArray<ZegoConversationMessage*> *)getMessageList:(NSString *)sessionID
-{
-    if (sessionID.length == 0)
-        return nil;
-    
-    ZegoSession *session = [self getSessionById:sessionID];
-    if (session == nil)
-        return nil;
-    
-    return session.messageHistory;
-}
-
-- (void)clearUnreadCount:(NSString *)sessionID
-{
-    ZegoSession *session = [self getSessionById:sessionID];
-    if (session == nil)
-        return;
-    
-    session.unreadCount = 0;
-}
-
-- (NSUInteger)getTotalUnreadCount
-{
-    NSUInteger totalCount = 0;
-    for (ZegoSession *session in self.sessionList)
-    {
-        totalCount += session.unreadCount;
-    }
-    
-    return totalCount;
-}
-
-- (void)deleteSession:(ZegoSession *)session
-{
-    if (session != nil)
-    {
-        session.unreadCount = 0;
-        
-        [self.sessionList removeObject:session];
-    }
-}
-
-- (void)clearAllSession
-{
-    [self.sessionList removeAllObjects];
-    [self saveSessionList];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kUserClearAllSessionNotification object:nil userInfo:nil];
-}
-
-- (NSString *)documentPath
-{
-    NSArray *documents = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    return [documents firstObject];
-}
-
-- (void)saveSessionList
-{
-//    NSString *sessionListPath = [[self documentPath] stringByAppendingPathComponent:@"session"];
-//    [NSKeyedArchiver archiveRootObject:self.sessionList toFile:sessionListPath];
-}
-
-- (void)loadSessionList
-{
-//    NSString *sessionListPath = [[self documentPath] stringByAppendingPathComponent:@"session"];
-//    NSArray *sessionList = [NSKeyedUnarchiver unarchiveObjectWithFile:sessionListPath];
-    
-//    _sessionList = [NSMutableArray arrayWithArray:sessionList];
-}
-
-- (BOOL)isUserOnline:(NSString *)userID
-{
-    NSArray *filterArray = [self.userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"userId == %@", userID]];
-    if (filterArray.count > 0)
-        return YES;
-    
-    return NO;
-}
-
-- (BOOL)isMemberOnline:(NSArray<ZegoUser *> *)userList
-{
-    if (!self.isLogin)
-        return NO;
-    
-    NSArray *filterArray = [userList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"userId != %@", [ZegoSettings sharedInstance].userID]];
-    if (filterArray.count == 0)
-        return NO;
-    
-    for (ZegoUser *user in filterArray)
-    {
-        if ([self isUserOnline:user.userId])
-            return YES;
-    }
-    
-    return NO;
-}
-
-- (void)stopVideoTalk
-{
-
-}
-
-- (void)contactUs
-{
-#if defined(__i386__)
-#else
-    if (![QQApiInterface isQQInstalled])
-    {
-        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"联系我们", nil)];
-        
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"没有安装QQ", nil) message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
-        
-        return;
-    }
-    
-    QQApiWPAObject *wpaObject = [QQApiWPAObject objectWithUin:@"84328558"];
-    SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:wpaObject];
-    QQApiSendResultCode result = [QQApiInterface sendReq:req];
-    NSLog(@"share result %d", result);
-#endif
 }
 
 #pragma mark - Getter
+
 - (NSMutableArray *)userList {
     if (!_userList) {
         _userList = [[NSMutableArray alloc] initWithCapacity:1];

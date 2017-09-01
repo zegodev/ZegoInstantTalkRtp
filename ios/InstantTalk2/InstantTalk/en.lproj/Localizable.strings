@@ -14,8 +14,11 @@
 "%@ 请求与你视频聊天" = "%@ Request Video Chat";
 "当前已登录" = "Already Login";
 "开始登录房间" = "Logining";
+"开始登录房间 %@" = "Logining %@";
 "当前未登录或进入了私聊房间" = "Not Login or in Private Room";
 "离开房间" = "Leave Room";
+"登录房间成功" = "Login Room Succeeded";
+"登录房间成功 %@" = "Login Room Succeeded %@";
 "登录房间成功. token %d, id %d" = "Login Room Success. token %d, id %d";
 "登录房间失败. error: %d" = "Login Room Failed. error: %d";
 "离开房间结果. error: %d" = "Leave Room. error: %d";
@@ -30,8 +33,9 @@
 "日志上传成功" = "Log Upload Success";
 "没有用户在线，可能无法进行视频聊天" = "No User Online";
 "继续" = "Continue";
+"发送视频通话信令" = "Send Video Talk Command";
 
-"等待对方同意..." = "Waiting for Response...";
+"等待对方同意" = "Waiting for Response...";
 "退出大厅..." = "Leave Public Room...";
 "创建断开之前相同的流" = "Create Same Stream";
 "所有人都退出了聊天" = "All the People Leave";
@@ -59,15 +63,18 @@
 "登录channel" = "Login Channel";
 "登录channel失败, error:%d" = "Login Channel Failed, error:%d";
 "登录channel成功" = "Login Channel Success";
+"开始发布直播 %@" = "Start Publishing %@";
 "开始直播，流ID:%@" = "Video Chatting，Stream ID:%@";
 "继续播放之前的流, 流ID:%@" = "Play Private Stream, Stream ID:%@";
 "发布直播成功,流ID:%@" = "Publish Success, Stream ID:%@";
 "视频结束,流ID:%@" = "Video Chat End, Stream ID:%@";
 "视频结束,流ID：%@, error:%d" = "Video Chat End, Stream ID：%@, error:%d";
 "与对方连接中断..." = "Disconnected...";
-"播放流成功, 流ID: %@" = "Play Success, Stream ID: %@";
+"播放流成功, 流ID:%@" = "Play Success, Stream ID:%@";
 "播放流失败, 流ID:%@, error: %d" = "Play Failed, Stream ID:%@, error: %d";
 "重新播放, 流ID:%@" = "Replay, Stream ID:%@";
+"%@同意了你的请求" = "%@ agreed your request";
+"%@拒绝了你的请求" = "%@ refused your request";
 
 "无美颜" = "DEFAULT";
 "磨皮" = "POLISH";
@@ -101,7 +108,8 @@
 "低质量" = "Low";
 "标准质量" = "Standard";
 "高质量" = "High";
-"超高质量" = "Highest";
+"超高质量" = "VeryHigh";
+"极高质量" = "SuperHigh";
 "自定义" = "Customize";
 
 "Zego Only" = "Zego Only, Others Cannot Use this framework";
@@ -115,12 +123,28 @@
 "联系我们" = "QQ:84328558\nWeChat:84328558";
 
 "自定义" = "Custom";
-"RTMP版" = "RTMP";
-"UDP版" = "UDP";
-"国际版" = "internationalization";
+"国内版" = "Chinese";
+"国际版" = "International";
 "请重新输入！" = "Please Input Again!";
 "该字段不可为空" = "Input Should Not Be Empty";
 "请输入 AppID" = "Input AppID";
 "请输入 AppSign" = "Input AppSign";
 "AppSign 已设置" = "AppSign's Been Configured";
 "Demo已添加，无需设置" = "AppSign's Been Configured";
+
+"推流" = "Publish";
+"拉流" = "Play";
+"[%@] 帧率: %.3f, 视频码率: %.3f kb/s, 延时: %d ms, 丢包率: %d%%" = "[%@] fps: %.3f, bitrate: %.3f kb/s, rtt: %d ms, package loss: %d%%";
+"[%@] 流ID: %@, 帧率: %.3f, 视频码率: %.3f kb/s, 延时: %d ms, 丢包率: %d%%" = "[%@] Stream ID: %@, fps: %.3f, bitrate: %.3f kb/s, rtt: %d ms, package loss: %d%%";
+
+"当前质量:" = " ";
+"优" = "Excellent";
+"良" = "Good";
+"中" = "Medium";
+"差" = "Bad";
+
+"分享日志文件失败" = "Share log file failed!";
+"压缩日志文件失败，请稍后重试" = "Zip log file failed, please retry it later";
+
+
+

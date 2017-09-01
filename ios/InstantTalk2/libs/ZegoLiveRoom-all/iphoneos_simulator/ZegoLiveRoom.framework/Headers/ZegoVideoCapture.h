@@ -5,6 +5,9 @@
 //  Copyright © 2016 Zego. All rights reserved.
 //
 
+#ifndef ZegoVideoCapture_h
+#define ZegoVideoCapture_h
+
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #if TARGET_OS_IPHONE
@@ -13,11 +16,17 @@
 #import <AppKit/AppKit.h>
 #endif
 
-typedef NS_ENUM(NSInteger, ZegoVideoFillMode) {
+typedef enum : NSUInteger {
     ZegoVideoFillModeBlackBar,
     ZegoVideoFillModeCrop,
     ZegoVideoFillModeStretch,
-};
+} ZegoVideoFillMode;
+
+/** 视频采集设备输出格式 */
+typedef enum : NSUInteger {
+    ZegoVideoCaptureDeviceOutputBufferTypeCVPixelBuffer,    /**< CVImageBufferRef */
+    ZegoVideoCaptureDeviceOutputBufferTypeGlTexture2D,      /**< GLuint */
+} ZegoVideoCaptureDeviceOutputBufferType;
 
 /** 视频外部采集代理 */
 @protocol ZegoVideoCaptureDelegate <NSObject>
@@ -30,6 +39,16 @@ typedef NS_ENUM(NSInteger, ZegoVideoFillMode) {
  @attention 设置成功视频外部采集对象，并启动采集后，在此通知中获取视频帧数据
  */
 - (void)onIncomingCapturedData:(nonnull CVImageBufferRef)image withPresentationTimeStamp:(CMTime)time;
+
+/**
+ 接收视频帧数据
+
+ @param textureID texture ID, 可以通过 CVOpenGLESTextureGetName(texture) 取得
+ @param width 帧宽
+ @param height 帧高
+ @param time 采集时间戳
+ */
+- (void)onIncomingCapturedData:(GLuint)textureID width:(int)width height:(int)height withPresentationTimeStamp:(CMTime)time;
 
 @optional
 
@@ -101,6 +120,16 @@ typedef NS_ENUM(NSInteger, ZegoVideoFillMode) {
  @attention 一定要实现
  */
 - (int)zego_stopCapture;
+
+
+@optional
+/**
+ 支持的 buffer 类型
+
+ @return 支持的 buffer 类型
+ @attention 如果不实现，则为 ZegoVideoCaptureDeviceOutputBufferTypeCVPixelBuffer
+ */
+- (ZegoVideoCaptureDeviceOutputBufferType)zego_supportBufferType;
 
 @end
 
@@ -354,3 +383,5 @@ typedef NS_ENUM(NSInteger, ZegoVideoBufferType) {
 - (int)zego_setPowerlineFreq:(unsigned int)freq __attribute__ ((deprecated));
 
 @end
+
+#endif

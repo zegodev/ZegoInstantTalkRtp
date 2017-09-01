@@ -14,7 +14,9 @@
 
 //YES 请求方， NO 应答方
 @property (nonatomic, assign) BOOL isRequester;
-@property (nonatomic, strong) NSArray<ZegoUser *> *userList;
+@property (nonatomic, strong) NSMutableArray<ZegoUser *> *userList;
 @property (nonatomic, assign) NSString *videoRoomId;
+
+@property (nonatomic, assign) BOOL isPublishing;
 
 @end
