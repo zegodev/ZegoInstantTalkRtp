@@ -81,6 +81,8 @@ public class ZegoApiManager {
 
         mAppID = appID;
         mAppSignKey = signKey;
+        PreferenceUtil.getInstance().setAppId(mAppID);
+        PreferenceUtil.getInstance().setAppKey(mAppSignKey);
 
         // 业务类型
         ZegoLiveRoom.setBusinessType(2);
@@ -128,8 +130,14 @@ public class ZegoApiManager {
     public void initSDK(){
         // 即构分配的key与id, 默认使用 UDP 协议的 AppId
         if (mAppID <= 0) {
-            mAppID = ZegoAppHelper.UDP_APP_ID;
-            mAppSignKey = requestSignKey(mAppID);
+            long storedAppId = PreferenceUtil.getInstance().getAppId();
+            if (storedAppId > 0) {
+                mAppID = storedAppId;
+                mAppSignKey = PreferenceUtil.getInstance().getAppKey();
+            } else {
+                mAppID = ZegoAppHelper.UDP_APP_ID;
+                mAppSignKey = requestSignKey(mAppID);
+            }
         }
 
         init(mAppID, mAppSignKey);

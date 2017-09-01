@@ -2,8 +2,10 @@ package com.zego.instanttalk2.utils;
 
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Base64;
 
+import com.zego.instanttalk2.ZegoAppHelper;
 import com.zego.instanttalk2.ZegoApplication;
 
 import java.io.ByteArrayInputStream;
@@ -34,6 +36,8 @@ public class PreferenceUtil {
 
     public static final String PREFERENCE_KEY_SERVER_KEY = "PREFERENCE_KEY_SERVER_KEY";
 
+    private static final String Pref_key_App_Id = "zego_app_id";
+    private static final String Pref_key_App_Key = "zego_app_key";
 
     private SharedPreferences mSharedPreferences;
 
@@ -124,6 +128,31 @@ public class PreferenceUtil {
 
     public long getServerKey(){
         return getLongValue(PREFERENCE_KEY_SERVER_KEY, 0);
+    }
+
+    public void setAppId(long appId) {
+        setLongValue(Pref_key_App_Id, appId);
+    }
+
+    public long getAppId() {
+        return getLongValue(Pref_key_App_Id, -1);
+    }
+
+    public void setAppKey(byte[] signKey) {
+        String strSignKey = ZegoAppHelper.convertSignKey2String(signKey);
+        setStringValue(Pref_key_App_Key, strSignKey);
+    }
+
+    public byte[] getAppKey() {
+        String strSignKey = getStringValue(Pref_key_App_Key, null);
+        if (TextUtils.isEmpty(strSignKey)) {
+            return null;
+        }
+        try {
+            return ZegoAppHelper.parseSignKeyFromString(strSignKey);
+        } catch (NumberFormatException e) {
+        }
+        return null;
     }
 
     public Object getObjectFromString(String key){

@@ -229,15 +229,6 @@ public class SettingFragment extends AbsBaseFragment implements MainActivity.OnS
 
         spAppFlavors.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-            private String convertSignKey2String(byte[] signKey) {
-                StringBuilder buffer = new StringBuilder();
-                for (int b : signKey) {
-                    buffer.append("0x").append(Integer.toHexString((b & 0x000000FF) | 0xFFFFFF00).substring(6)).append(",");
-                }
-                buffer.setLength(buffer.length() - 1);
-                return buffer.toString();
-            }
-
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 3) {
@@ -264,7 +255,7 @@ public class SettingFragment extends AbsBaseFragment implements MainActivity.OnS
                     etAppID.setText(String.valueOf(appId));
 
                     byte[] signKey = ZegoAppHelper.requestSignKey(appId);
-                    etAppKey.setText(convertSignKey2String(signKey));
+                    etAppKey.setText(ZegoAppHelper.convertSignKey2String(signKey));
                     llAppKey.setVisibility(View.GONE);
                 }
             }
@@ -419,19 +410,17 @@ public class SettingFragment extends AbsBaseFragment implements MainActivity.OnS
             return -1;
         }
         // appKey长度必须等于32位
-        String[] keys = strSignKey.split(",");
-        if (keys.length != 32) {
+        byte[] byteSignKey;
+        try {
+            byteSignKey = ZegoAppHelper.parseSignKeyFromString(strSignKey);
+        } catch (NumberFormatException e) {
             Toast.makeText(mParentActivity, "SignKey 格式非法", Toast.LENGTH_LONG).show();
             etAppKey.requestFocus();
             return -1;
         }
 
         final long newAppId = Long.valueOf(strAppID);
-        final byte[] newSignKey = new byte[32];
-        for (int i = 0; i < 32; i++) {
-            int data = Integer.valueOf(keys[i].trim().replace("0x", ""), 16);
-            newSignKey[i] = (byte) data;
-        }
+        final byte[] newSignKey = byteSignKey;
 
         if (newAppId != ZegoApiManager.getInstance().getAppID() && newSignKey != ZegoApiManager.getInstance().getAppSignKey()) {
             mNeedToReInitSDK = true;
