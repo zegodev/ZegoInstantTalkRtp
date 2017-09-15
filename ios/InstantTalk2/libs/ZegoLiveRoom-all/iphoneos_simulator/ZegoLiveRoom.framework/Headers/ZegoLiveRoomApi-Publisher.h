@@ -444,19 +444,19 @@
 /**
  发送媒体次要信息开关
  
- @param start true 开启, false 关闭
- @param onlyAudioPublish true 纯音频直播，不传输视频数据, false 音视频直播，传输视频数据
- @discussion onlyAudioPublish 开关在 start 开关开启时才生效
+ @param start true 开启媒体次要信息传输, false 关闭媒体次要信息传输。start 为 true 时，onlyAudioPublish 开关才有效
+ @param onlyAudioPublish true 纯音频直播，不传输视频数据，false 音视频直播，传输视频数据。默认为 false。如果本次只有音频直播，必须将 onlyAudioPublish 置为 true，此时会由音频来驱动次要信息的传输，同时忽略视频流传输
+ @discussion 初始化 SDK 后，开始推流前调用。
  */
 - (void)setMediaSideFlags:(bool)start onlyAudioPublish:(bool)onlyAudioPublish;
 
 /**
  发送媒体次要信息
  
- @param inData 媒体次要信息数据
- @param dataLen 数据长度
- @param packet 是否外部已经打包好包头，true 已打包, false 未打包
- @discussion 主播端开启媒体次要信息开关，并调用此 API 发送媒体次要信息后，观众端在 [ZegoLiveRoomApi (Player) -setMediaSideCallback:] 设置的回调中获取媒体次要信息
+ @param inData 需要传输的音视频次要信息数据，外部输入
+ @param dataLen 传入的 inData 长度，不能大于 1000 Bytes
+ @param packet 是否外部已经打包好包头，true 已打包, false 未打包。
+ @discussion 主播端开启媒体次要信息开关，开始推流后调用。调用此 API 发送媒体次要信息后，观众端在 [ZegoLiveRoomApi (Player) -setMediaSideCallback:] 设置的回调中获取媒体次要信息。不需要发送媒体次要信息时，可调用 [ZegoLiveRoomApi (Publisher) setMediaSideFlags:false onlyAudioPublish:false] 关闭通道
  */
 - (void)sendMediaSideInfo:(const unsigned char *)inData dataLen:(int)dataLen packet:(bool)packet;
 
