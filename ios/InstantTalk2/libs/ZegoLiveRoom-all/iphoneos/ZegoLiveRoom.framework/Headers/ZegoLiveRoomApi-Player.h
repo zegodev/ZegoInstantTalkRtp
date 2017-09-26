@@ -27,7 +27,7 @@
 /**
  播放直播流
  
- @param streamID 流 ID
+ @param streamID 流 ID，该参数仅能传入流 ID，不可在流 ID 后添加播放参数。如果想指定播放参数，请使用 [ZegoLiveRoomApi (Player) startPlayingStream:inView:params:] 播放流
  @param view 用来渲染播放视频的视图
  @return true 成功，false 失败
  @discussion 播放直播流调用此 API。播放成功后，等待 [ZegoLivePlayerDelegate -onPlayStateUpdate:streamID:] 回调
@@ -35,12 +35,23 @@
 - (bool)startPlayingStream:(NSString *)streamID inView:(ZEGOView *)view;
 
 /**
+ 指定播放参数，播放直播流
+
+ @param streamID 流 ID，该参数仅能传入流 ID，不可在流 ID 后添加播放参数。
+ @param view 用来渲染播放视频的视图
+ @param params 播放参数
+ @return true 成功，false 失败
+ @discussion 播放直播流调用此 API。播放成功后，等待 [ZegoLivePlayerDelegate -onPlayStateUpdate:streamID:] 回调
+ */
+- (bool)startPlayingStream:(NSString *)streamID inView:(ZEGOView *)view params:(NSString *)params;
+
+/**
  更新播放视图
  
  @param view 播放视图
  @param streamID 流 ID
  @return true 成功，false 失败
- @discussion 调用 [self -startPlayingStream:inView:] 播放流成功以后，如果要切换流播放 View 或者停止显示流画面，调用该 API 变更
+ @discussion 调用 [self -startPlayingStream:inView:] 或 [self -startPlayingStream:inView:params:] 播放流成功以后，如果要切换流播放 View 或者停止显示流画面，调用该 API 变更
  */
 - (bool)updatePlayView:(ZEGOView *)view ofStream:(NSString *)streamID;
 
@@ -248,7 +259,7 @@
  
  @param stateCode 播放状态码，0 表示拉流成功
  @param streamID 流 ID
- @discussion 观众调用 [ZegoLiveRoomApi (Player) -startPlayingStream:inView:] 拉流成功后，通过该 API 通知
+ @discussion 观众调用 [ZegoLiveRoomApi (Player) -startPlayingStream:inView:] 或 [ZegoLiveRoomApi (Player) -startPlayingStream:inView:params:] 拉流成功后，通过该 API 通知
  @note 拉流状态码及其含义如下:
  stateCode = 0，直播开始。
  stateCode = 3，直播遇到严重问题（如出现，请联系 ZEGO 技术支持）。

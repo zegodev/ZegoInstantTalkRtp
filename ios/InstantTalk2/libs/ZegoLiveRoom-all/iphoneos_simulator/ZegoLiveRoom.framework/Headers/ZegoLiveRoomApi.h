@@ -291,6 +291,9 @@ typedef enum : NSUInteger {
     Play_TempDisconnected = 5,
     /** 推流临时中断 */
     Publish_TempDisconnected = 6,
+    
+    /** 拉流视频卡顿 */
+    Play_VideoBreak = 7,
 } ZegoLiveEvent;
 
 

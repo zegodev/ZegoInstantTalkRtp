@@ -461,6 +461,14 @@
 - (void)sendMediaSideInfo:(const unsigned char *)inData dataLen:(int)dataLen packet:(bool)packet;
 
 /**
+ 设置视频采集缩放时机
+ 
+ @param mode 视频采集缩放时机，请参考 ZegoAPICapturePipelineScaleMode 定义。默认为 ZEGOAPI_CAPTURE_PIPELINE_SCALE_MODE_PRE
+ @discussion 初始化 SDK 后，startPreview 前调用。startPreview 之后设置不会立即生效，而是在下次摄像头启动预览时生效。
+ */
+- (void)SetCapturePipelineScaleMode:(ZegoAPICapturePipelineScaleMode)mode;
+
+/**
  设置延迟模式
  
  @param mode 延迟模式，默认 ZEGOAPI_LATENCY_MODE_NORMAL
@@ -472,8 +480,7 @@
  设置推流音频声道数
  
  @param count 声道数，1 或 2，默认为 1（单声道）
- @attention 必须在调用推流前设置
- @note setLatencyMode设置为 ZEGOAPI_LATENCY_MODE_NORMAL 或 ZEGOAPI_LATENCY_MODE_NORMAL2 才能设置双声道，在移动端双声道通常需要配合音频前处理才能体现效果
+ @discussion 必须在初始化 SDK 后，调用推流前设置。setLatencyMode 设置为 ZEGOAPI_LATENCY_MODE_NORMAL 或 ZEGOAPI_LATENCY_MODE_NORMAL2 才能设置双声道，在移动端双声道通常需要配合音频前处理才能体现效果
  */
 - (void)setAudioChannelCount:(int)count;
 

@@ -26,11 +26,11 @@
 		</data>
 		<key>Headers/ZegoLiveRoomApi-Player.h</key>
 		<data>
-		og9E/pyL8gp0jw5X1XaKgkYtMns=
+		+R0XFyi5OLMmhq8odv5iCRyEDB0=
 		</data>
 		<key>Headers/ZegoLiveRoomApi-Publisher.h</key>
 		<data>
-		tsc84dL543nE5YsEn+A7TXZWxio=
+		D15gLriW08msvLNreLHxin6DKkk=
 		</data>
 		<key>Headers/ZegoLiveRoomApi-Publisher2.h</key>
 		<data>
@@ -42,7 +42,7 @@
 		</data>
 		<key>Headers/ZegoLiveRoomApi.h</key>
 		<data>
-		DZyH4wwBJwbUHrESkLvbWtyIRZ8=
+		RL6hqGWF7AaGQmUxEtqp1ymGT7A=
 		</data>
 		<key>Headers/ZegoLiveRoomApiDefines-IM.h</key>
 		<data>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Headers/ZegoLiveRoomApiDefines-Publisher.h</key>
 		<data>
-		j+VXHPINO/CSamtiNU3R0OM5kYM=
+		AeRECcdgnzz+D+8cb6k2/Tmk6XA=
 		</data>
 		<key>Headers/ZegoLiveRoomApiDefines.h</key>
 		<data>
@@ -66,7 +66,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		6vJj+oXxNFn7wv8zspEPfJEpG7Q=
+		71SjHgcYBQ1K+GTAWWGQuwQUZGM=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -134,22 +134,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			og9E/pyL8gp0jw5X1XaKgkYtMns=
+			+R0XFyi5OLMmhq8odv5iCRyEDB0=
 			</data>
 			<key>hash2</key>
 			<data>
-			+QEXHhW9TEvBY5ORpCaRLDHhLVekLJEOQ7cuW+N6QHw=
+			uiR0lRxUSDlOLIF1DPhailNguukgDoXu6/v9XeQjOUw=
 			</data>
 		</dict>
 		<key>Headers/ZegoLiveRoomApi-Publisher.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			tsc84dL543nE5YsEn+A7TXZWxio=
+			D15gLriW08msvLNreLHxin6DKkk=
 			</data>
 			<key>hash2</key>
 			<data>
-			IoyUo8WKsyCQh153qVtXxwJjJP636slFMazvP8uA4zc=
+			yDY5C1RBZeWIjNX588qMB5t8TZwFTrP2bWF1u1DZZuY=
 			</data>
 		</dict>
 		<key>Headers/ZegoLiveRoomApi-Publisher2.h</key>
@@ -178,11 +178,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			DZyH4wwBJwbUHrESkLvbWtyIRZ8=
+			RL6hqGWF7AaGQmUxEtqp1ymGT7A=
 			</data>
 			<key>hash2</key>
 			<data>
-			Rmn2PJqGImksYYyQw8+Zte24pfqfPA+O/SQJhiGSE1w=
+			wQA2WNSIkLSroY4VE0GbsyqpuDcc1EjVDPYXx8nEg9A=
 			</data>
 		</dict>
 		<key>Headers/ZegoLiveRoomApiDefines-IM.h</key>
@@ -200,11 +200,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			j+VXHPINO/CSamtiNU3R0OM5kYM=
+			AeRECcdgnzz+D+8cb6k2/Tmk6XA=
 			</data>
 			<key>hash2</key>
 			<data>
-			FfIpWumbn35ju9cR0FS5EZA2vkKWEOQDCH41cbdrbqo=
+			fIlAK2l4ckJhyqPb6e3GkiKEbYEiSQNW51i1QnUQkyA=
 			</data>
 		</dict>
 		<key>Headers/ZegoLiveRoomApiDefines.h</key>

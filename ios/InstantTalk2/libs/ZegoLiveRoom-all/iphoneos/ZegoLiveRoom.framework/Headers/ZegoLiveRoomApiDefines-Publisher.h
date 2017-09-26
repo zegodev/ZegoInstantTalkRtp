@@ -136,6 +136,8 @@ enum ZegoAPIPublishFlag
 @property (strong) NSMutableArray<ZegoMixStreamInfo*> *inputStreamList;
 /** 用户自定义数据 */
 @property NSData* userData;
+/** 混流声道数，默认为单声道*/
+@property int channels;
 
 @end
 
@@ -209,20 +211,28 @@ typedef enum : NSUInteger {
 
 /** 流量控制属性 */
 typedef enum : NSUInteger {
-    /** 无*/
+    /** 无 */
     ZEGOAPI_TRAFFIC_NONE = 0,
-    /** 帧率*/
+    /** 帧率 */
     ZEGOAPI_TRAFFIC_FPS = 1,
-    /** 分辨率*/
+    /** 分辨率 */
     ZEGOAPI_TRAFFIC_RESOLUTION = 1 << 1,
 } ZegoAPITrafficControlProperty;
 
 /** 推流通道 */
 typedef enum :  NSUInteger {
-    /** 主推流通道，默认*/
+    /** 主推流通道，默认 */
     ZEGOAPI_CHN_MAIN        =   0,
-    /** 第二路推流通道, 无法推出声音*/
+    /** 第二路推流通道, 无法推出声音 */
     ZEGOAPI_CHN_AUX,
 } ZegoAPIPublishChannelIndex;
+
+/** 视频采集缩放时机 */
+typedef enum : NSUInteger {
+    /** 采集后立即进行缩放，默认 */
+    ZEGOAPI_CAPTURE_PIPELINE_SCALE_MODE_PRE = 0,
+    /** 编码时进行缩放 */
+    ZEGOAPI_CAPTURE_PIPELINE_SCALE_MODE_POST = 1,
+} ZegoAPICapturePipelineScaleMode;
 
 #endif /* ZegoLiveRoomApiDefines_Publisher_h */
