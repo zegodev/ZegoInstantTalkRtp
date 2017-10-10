@@ -24,9 +24,23 @@ typedef enum : NSUInteger {
 
 /** 视频采集设备输出格式 */
 typedef enum : NSUInteger {
-    ZegoVideoCaptureDeviceOutputBufferTypeCVPixelBuffer,    /**< CVImageBufferRef */
-    ZegoVideoCaptureDeviceOutputBufferTypeGlTexture2D,      /**< GLuint */
+    ZegoVideoCaptureDeviceOutputBufferTypeCVPixelBuffer,    /** CVImageBufferRef */
+    ZegoVideoCaptureDeviceOutputBufferTypeGlTexture2D,      /** GLuint */
+    ZegoVideoCaptureDeviceOutputBufferTypeEncodedFrame,     /** EncodedFrame */
 } ZegoVideoCaptureDeviceOutputBufferType;
+
+/** 视频编码器格式 */
+typedef enum : NSUInteger {
+    ZegoVideoCodecTypeAVCAVCC    = 0,   /** AVC_AVCC 格式 */
+    ZegoVideoCodecTypeAVCANNEXB  = 1,   /** AVC_ANNEXB 格式 */
+} ZegoVideoCodecType;
+
+/** 视频编码配置 */
+typedef struct {
+    int width;
+    int height;
+    ZegoVideoCodecType codecType;
+} ZegoVideoCodecConfig;
 
 /** 视频外部采集代理 */
 @protocol ZegoVideoCaptureDelegate <NSObject>
@@ -50,8 +64,17 @@ typedef enum : NSUInteger {
  */
 - (void)onIncomingCapturedData:(GLuint)textureID width:(int)width height:(int)height withPresentationTimeStamp:(CMTime)time;
 
-@optional
+/**
+ 接受已编码的视频帧数据
 
+ @param data 已编码数据
+ @param config 编码配置，请参考 ZegoVideoCodecConfig 定义
+ @param bKeyframe 是否为关键帧
+ @param time 采集到该帧的时间戳，用于音画同步，如果采集实现是摄像头，最好使用系统采集回调的原始时间戳。如果不是，最好是生成该帧的UTC时间戳
+ */
+- (void)OnEncodedFrame:(nonnull NSData *)data config:(ZegoVideoCodecConfig)config bKeyframe:(bool)bKeyframe withPresentationTimeStamp:(CMTime)time;
+
+@optional
 /**
  
  @warning Deprecated
