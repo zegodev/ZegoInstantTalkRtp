@@ -134,8 +134,8 @@
 
 "推流" = "Publish";
 "拉流" = "Play";
-"[%@] 帧率: %.3f, 视频码率: %.3f kb/s, 延时: %d ms, 丢包率: %d%%" = "[%@] fps: %.3f, bitrate: %.3f kb/s, rtt: %d ms, package loss: %d%%";
-"[%@] 流ID: %@, 帧率: %.3f, 视频码率: %.3f kb/s, 延时: %d ms, 丢包率: %d%%" = "[%@] Stream ID: %@, fps: %.3f, bitrate: %.3f kb/s, rtt: %d ms, package loss: %d%%";
+"[%@] 帧率: %.3f, 视频码率: %.3f kb/s, 延时: %d ms, 丢包率: %.3f%%" = "[%@] fps: %.3f, bitrate: %.3f kb/s, rtt: %d ms, package loss: %.3f%%";
+"[%@] 流ID: %@, 帧率: %.3f, 视频码率: %.3f kb/s, 延时: %d ms, 丢包率: %.3f%%" = "[%@] Stream ID: %@, fps: %.3f, bitrate: %.3f kb/s, rtt: %d ms, package loss: %.3f%%";
 
 "当前质量:" = " ";
 "优" = "Excellent";

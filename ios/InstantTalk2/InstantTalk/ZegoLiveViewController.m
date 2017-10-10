@@ -313,8 +313,9 @@
     if (streamID.length == 0)
         return nil;
     
-    NSString *qualityString = [NSString stringWithFormat:NSLocalizedString(@"[%@] 帧率: %.3f, 视频码率: %.3f kb/s, 延时: %d ms, 丢包率: %d%%", nil), publish ? NSLocalizedString(@"推流", nil): NSLocalizedString(@"拉流", nil), fps, kbs, rtt, pktLostRate];
-    NSString *totalString =[NSString stringWithFormat:NSLocalizedString(@"[%@] 流ID: %@, 帧率: %.3f, 视频码率: %.3f kb/s, 延时: %d ms, 丢包率: %d%%", nil), publish ? NSLocalizedString(@"推流", nil): NSLocalizedString(@"拉流", nil), streamID, fps, kbs, rtt, pktLostRate];
+    // 丢包率的取值为 0~255，需要除以 256.0 得到丢包率百分比
+    NSString *qualityString = [NSString stringWithFormat:NSLocalizedString(@"[%@] 帧率: %.3f, 视频码率: %.3f kb/s, 延时: %d ms, 丢包率: %.3f%%", nil), publish ? NSLocalizedString(@"推流", nil): NSLocalizedString(@"拉流", nil), fps, kbs, rtt, pktLostRate/256.0 * 100];
+    NSString *totalString =[NSString stringWithFormat:NSLocalizedString(@"[%@] 流ID: %@, 帧率: %.3f, 视频码率: %.3f kb/s, 延时: %d ms, 丢包率: %.3f%%", nil), publish ? NSLocalizedString(@"推流", nil): NSLocalizedString(@"拉流", nil), streamID, fps, kbs, rtt, pktLostRate/256.0 * 100];
     [self.qualityLogArray insertObject:totalString atIndex:0];
     
     // 通知 log 界面更新
