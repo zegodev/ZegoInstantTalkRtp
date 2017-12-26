@@ -265,6 +265,17 @@ public class BizLivePresenter {
             public void onRecvCustomCommand(String userID, String userName, String content, String roomID) {
 
             }
+
+            @Override
+            public void onTempBroken(int errorCode, String s) {
+
+            }
+
+            @Override 
+            public void onReconnect(int var1, String var2){
+
+            }
+
         });
 
     }

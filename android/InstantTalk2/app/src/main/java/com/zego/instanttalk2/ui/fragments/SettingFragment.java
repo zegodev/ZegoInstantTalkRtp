@@ -26,6 +26,7 @@ import com.zego.instanttalk2.presenters.BizLivePresenter;
 import com.zego.instanttalk2.ui.acivities.AboutZegoActivity;
 import com.zego.instanttalk2.ui.base.AbsBaseFragment;
 import com.zego.instanttalk2.utils.BizLiveUitl;
+import com.zego.instanttalk2.utils.ByteSizeUnit;
 import com.zego.instanttalk2.utils.PreferenceUtil;
 import com.zego.instanttalk2.utils.ShareUtils;
 import com.zego.instanttalk2.utils.SystemUtil;
@@ -162,14 +163,14 @@ public class SettingFragment extends AbsBaseFragment implements MainActivity.OnS
                         tvFps.setText(getString(R.string.fps_prefix, progress + ""));
                         break;
                     case R.id.sb_bitrate:
-                        tvBitrate.setText(getString(R.string.bitrate_prefix, progress + ""));
+                        tvBitrate.setText(getString(R.string.bitrate_prefix, ByteSizeUnit.toHumanString(progress, ByteSizeUnit.RADIX_TYPE.K, 2)) + "ps");
                         break;
                 }
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                spinnerResolutions.setSelection(5);
+
             }
 
             @Override
@@ -182,7 +183,7 @@ public class SettingFragment extends AbsBaseFragment implements MainActivity.OnS
         int defaultLevel = ZegoAvConfig.Level.High;
 
         // 初始化分辨率, 默认为640x480
-        seekbarResolution.setMax(5);
+        seekbarResolution.setMax(ZegoAvConfig.VIDEO_BITRATES.length - 1);
         seekbarResolution.setProgress(defaultLevel);
         seekbarResolution.setOnSeekBarChangeListener(seekBarChangeListener);
         tvResolution.setText(getString(R.string.resolution_prefix, mResolutionTexts[defaultLevel]));
@@ -194,16 +195,16 @@ public class SettingFragment extends AbsBaseFragment implements MainActivity.OnS
         tvFps.setText(getString(R.string.fps_prefix, "15"));
 
         // 初始化码率, 默认为600 * 1000
-        seekBarBitrate.setMax(1000000);
+        seekBarBitrate.setMax(ZegoAvConfig.VIDEO_BITRATES[ZegoAvConfig.VIDEO_BITRATES.length - 1] + 1000 * 1000);
         seekBarBitrate.setProgress(ZegoAvConfig.VIDEO_BITRATES[defaultLevel]);
         seekBarBitrate.setOnSeekBarChangeListener(seekBarChangeListener);
-        tvBitrate.setText(getString(R.string.bitrate_prefix, "" + ZegoAvConfig.VIDEO_BITRATES[defaultLevel]));
+        tvBitrate.setText(getString(R.string.bitrate_prefix, ByteSizeUnit.toHumanString(ZegoAvConfig.VIDEO_BITRATES[defaultLevel], ByteSizeUnit.RADIX_TYPE.K, 2)) + "ps");
 
         spinnerResolutions.setSelection(defaultLevel);
         spinnerResolutions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position <= ZegoAvConfig.Level.VeryHigh) {
+                if (position <= ZegoAvConfig.VIDEO_BITRATES.length) {
                     int level = position;
                     seekbarResolution.setProgress(level);
                     // 预设级别中,帧率固定为"15"
@@ -404,6 +405,9 @@ public class SettingFragment extends AbsBaseFragment implements MainActivity.OnS
                 zegoAvConfig = new ZegoAvConfig(ZegoAvConfig.Level.VeryHigh);
                 break;
             case 5:
+                zegoAvConfig = new ZegoAvConfig(ZegoAvConfig.Level.SuperHigh);
+                break;
+            case 6:
                 // 自定义设置
                 zegoAvConfig = new ZegoAvConfig(ZegoAvConfig.Level.High);
                 int progress = seekbarResolution.getProgress();

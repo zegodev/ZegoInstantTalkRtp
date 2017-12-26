@@ -417,7 +417,8 @@ public abstract class BaseLiveActivity extends AbsBaseLiveActivity {
                 | ZegoConstants.ZegoTrafficControlProperty.ZEGOAPI_TRAFFIC_RESOLUTION;
         mZegoLiveRoom.enableTrafficControl(properties, true);
 
-
+        // 设置音频延迟模式
+        mZegoLiveRoom.setLatencyMode(ZegoConstants.LatencyMode.Low2);
 
         // 开始播放
         mZegoLiveRoom.setPreviewView(freeViewLive.getTextureView());

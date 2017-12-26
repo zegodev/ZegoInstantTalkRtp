@@ -3,7 +3,6 @@
 buildscript {
     repositories {
         jcenter()
-        maven { url "http://192.168.1.229:8081/repository/maven-public/" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.0'
@@ -16,7 +15,6 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven { url "http://192.168.1.229:8081/repository/maven-public/" }
     }
 }
 

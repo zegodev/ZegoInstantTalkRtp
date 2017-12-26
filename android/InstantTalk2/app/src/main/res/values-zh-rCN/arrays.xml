@@ -6,14 +6,15 @@
         <item>标准质量</item>
         <item>高质量</item>
         <item>超高质量</item>
+        <item>特高质量</item>
         <item>自定义</item>
     </string-array>
 
     <string-array name="resolutions">
-        <item >320 x 240</item>
-        <item >352 x 288</item>
+        <item >320 x 180</item>
+        <item >480 x 270</item>
         <item >640 x 360</item>
-        <item >640 x 360</item>
+        <item >960 x 540</item>
         <item >1280 x 720</item>
         <item >1920 x 1080</item>
     </string-array>
