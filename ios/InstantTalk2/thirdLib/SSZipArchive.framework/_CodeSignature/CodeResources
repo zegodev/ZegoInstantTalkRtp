@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>.DS_Store</key>
+		<data>
+		3y++sUAKzaCQmjLBz2v0kvESHgc=
+		</data>
 		<key>Headers/SSZipArchive.h</key>
 		<data>
 		V5HX86KKavEdVVlt7ztFbVgGNPQ=
@@ -18,7 +22,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		bqlIIeLf6seAetWmVjRqpagR1Hg=
+		XyseY44NUCSmgFsfADGmbSBQ4kI=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>

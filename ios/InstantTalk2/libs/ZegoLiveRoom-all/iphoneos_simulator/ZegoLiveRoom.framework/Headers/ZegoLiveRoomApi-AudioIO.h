@@ -31,8 +31,8 @@
 /**
  耳机插入状态下是否使用回声消除
  
- @param enable true 使用，false 不使用。默认 false
- @discussion 初始化 SDK 后，推流之前调用
+ @param enable true 使用，false 不使用。默认 true
+ @discussion 初始化 SDK 之前调用
  */
 - (void)enableAECWhenHeadsetDetected:(bool)enable;
 
@@ -48,7 +48,7 @@
  
  @param prepSet 预处理的采样率等参数设置
  @param callback 采样数据回调
- @discussion 调用者调用此 API 设置音频前处理函数。SDK 会在音频编码前调用，inFrame 为采集的音频数据，outFrame 为处理后返回给SDK的数据
+ @discussion 必须在初始化 SDK 前调用。inFrame 为采集的音频数据，outFrame 为处理后返回给SDK的数据
  */
 + (void)setAudioPrep2:(AVE::ExtPrepSet)prepSet dataCallback:(void(*)(const AVE::AudioFrame& inFrame, AVE::AudioFrame& outFrame))callback;
 

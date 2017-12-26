@@ -72,7 +72,10 @@
 "KR4-oS-ioH.text" = "V1.0.0";
 
 /* Class = "UILabel"; text = "Upload Log"; ObjectID = "M7Z-nC-fxt"; */
-"M7Z-nC-fxt.text" = "Upload Log";
+"M7Z-nC-fxt.text" = "上传日志";
+
+/* Class = "UILabel"; text = "Share Log"; ObjectID = "flE-6x-MHJ"; */
+"flE-6x-MHJ.text" = "分享日志";
 
 /* Class = "UINavigationItem"; title = "日志"; ObjectID = "NhF-dW-V9B"; */
 "NhF-dW-V9B.title" = "日志";

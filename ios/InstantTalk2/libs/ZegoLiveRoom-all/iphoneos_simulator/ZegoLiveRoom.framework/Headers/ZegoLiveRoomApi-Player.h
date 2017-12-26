@@ -170,6 +170,26 @@
 - (bool)takeSnapshotOfStream:(NSString *)streamID withCompletionBlock:(ZegoSnapshotCompletionBlock)blk;
 
 /**
+ 拉流是否接收音频数据
+
+ @param streamID 播放流 ID
+ @param active true 接收，false 不接收
+ @return 0 成功，否则失败
+ @discussion 仅拉 UDP 流有效
+ */
+- (int)activateAudioPlayStream:(NSString *)streamID active:(bool)active;
+
+/**
+ 拉流是否接收视频数据
+ 
+ @param streamID 播放流 ID
+ @param active true 接收，false 不接收
+ @return 0 成功，否则失败
+ @discussion 仅拉 UDP 流有效
+ */
+- (int)activateVedioPlayStream:(NSString *)streamID active:(bool)active;
+
+/**
  设置拉流质量监控周期
  
  @param timeInMS 时间周期，单位为毫秒，取值范围为(500, 60000)。默认为 3000
@@ -216,7 +236,7 @@
  @return true 成功，false 失败
  @discussion 初始化 SDK 后调用。开启音频录制后，调用方需要设置音频录制回调代理对象，并通过 [ZegoLiveRoomApi (Player) -onAudioRecord:sampleRate:numOfChannels:bitDepth:type:] 获取 SDK 录制的数据
  */
--(bool)enableSelectedAudioRecord:(ZegoAPIAudioRecordConfig)config;
+- (bool)enableSelectedAudioRecord:(ZegoAPIAudioRecordConfig)config;
 
 /**
  设置音频录制回调代理对象

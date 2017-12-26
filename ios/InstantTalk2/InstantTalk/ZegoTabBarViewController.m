@@ -200,7 +200,7 @@
         return;
     
     // 如果正在直播，同意视频的新会话成员，已经在直播成员列表中，则忽略此次请求
-    if (self.presentedViewController) {
+    if (self.presentedViewController && [self.presentedViewController isKindOfClass:[ZegoVideoTalkViewController class]]) {
         ZegoVideoTalkViewController *controller = (ZegoVideoTalkViewController *)self.presentedViewController;
         for (ZegoUser *user in controller.userList) {
             if (controller.isPublishing && [user.userId isEqualToString:requestInfo.fromUserId]) {

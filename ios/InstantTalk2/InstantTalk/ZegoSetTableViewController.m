@@ -57,9 +57,9 @@
     self.videoResolutionSlider.maximumValue = 5;
     
     // 发送日志邮件彩蛋
-    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shareLogFile)];
-    gesture.numberOfTapsRequired = 5;
-    [self.tableView addGestureRecognizer:gesture];
+//    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shareLogFile)];
+//    gesture.numberOfTapsRequired = 5;
+//    [self.tableView addGestureRecognizer:gesture];
 
 }
 
@@ -534,10 +534,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 0 && indexPath.row == 1)
+    if (indexPath.section == 0)
     {
-        [ZegoLiveRoomApi uploadLog];
-        [self showUploadAlertView];
+        if (indexPath.row == 1) {
+            [ZegoLiveRoomApi uploadLog];
+            [self showUploadAlertView];
+        } else if (indexPath.row == 2) {
+            [self shareLogFile];
+        }
     }
     else if (indexPath.section == [self.tableView numberOfSections] - 1)
     {
@@ -550,7 +554,7 @@
     if (sectionCount >= 2 && (indexPath.section == sectionCount - 2 || indexPath.section == sectionCount - 1))
         return YES;
     
-    if (indexPath.section == 0 && indexPath.row == 1)
+    if (indexPath.section == 0 && (indexPath.row == 1 || indexPath.row == 2))
         return YES;
     return NO;
 }

@@ -74,6 +74,9 @@
 /* Class = "UILabel"; text = "Upload Log"; ObjectID = "M7Z-nC-fxt"; */
 "M7Z-nC-fxt.text" = "Upload Log";
 
+/* Class = "UILabel"; text = "Share Log"; ObjectID = "flE-6x-MHJ"; */
+"flE-6x-MHJ.text" = "Share Log";
+
 /* Class = "UINavigationItem"; title = "日志"; ObjectID = "NhF-dW-V9B"; */
 "NhF-dW-V9B.title" = "Log";
 

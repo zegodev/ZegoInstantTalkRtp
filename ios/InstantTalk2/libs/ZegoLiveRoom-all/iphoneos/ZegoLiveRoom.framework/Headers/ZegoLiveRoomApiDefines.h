@@ -18,6 +18,8 @@
 #define ZEGOImage NSImage
 #endif
 
+#import "zego-api-defines-oc.h"
+
 #ifdef __cplusplus
 #define ZEGO_EXTERN     extern "C"
 #else
@@ -75,15 +77,6 @@ typedef enum
     ZEGO_STREAM_DELETE  = 2002,
 } ZegoStreamType;
 
-/** 本地预览视频视图的模式 */
-typedef enum {
-    /** 等比缩放，可能有黑边 */
-    ZegoVideoViewModeScaleAspectFit     = 0,
-    /** 等比缩放填充整View，可能有部分被裁减 */
-    ZegoVideoViewModeScaleAspectFill    = 1,
-    /** 填充整个View */
-    ZegoVideoViewModeScaleToFill        = 2,
-} ZegoVideoViewMode;
 
 /** 发布直播模式 */
 enum ZegoApiPublishFlag
@@ -114,7 +107,25 @@ typedef struct
     
 } ZegoApiPublishQuality;
 
-typedef ZegoApiPublishQuality ZegoApiPlayQuality;
+/** 拉流质量 */
+typedef struct
+{
+    /** 视频帧率 */
+    double fps;
+    /** 视频码率(kb/s) */
+    double kbps;
+    /** 音频码率(kb/s) */
+    double akbps;
+    /** 音频卡顿率(次/min) */
+    double audioBreakRate;
+    /** 延时(ms) */
+    int rtt;
+    /** 丢包率(0~255) */
+    int pktLostRate;
+    /** 直播质量(0~3) */
+    int quality;
+    
+} ZegoApiPlayQuality;
 
 /** 流信息 */
 @interface ZegoStream : NSObject
@@ -131,38 +142,5 @@ typedef ZegoApiPublishQuality ZegoApiPlayQuality;
 
 typedef void(^ZegoSnapshotCompletionBlock)(ZEGOImage* img);
 
-/** 设备模块类型 */
-enum ZegoAPIModuleType
-{
-    /** 音频采集播放设备 */
-    ZEGOAPI_MODULE_AUDIO            = 0x4 | 0x8,
-};
-
-/** 音频录制时，指定音源类型 */
-enum ZegoAPIAudioRecordMask
-{
-    /** 关闭音频录制 */
-    ZEGOAPI_AUDIO_RECORD_NONE      = 0x0,
-    /** 打开采集录制 */
-    ZEGOAPI_AUDIO_RECORD_CAP       = 0x01,
-    /** 打开渲染录制 */
-    ZEGOAPI_AUDIO_RECORD_RENDER    = 0x02,
-    /** 打开采集和渲染混音结果录制 */
-    ZEGOAPI_AUDIO_RECORD_MIX       = 0x04
-};
-
-/** 音频录制配置信息 */
-typedef struct
-{
-    /** 启用音频源选择，参考 ZegoAVAPIAudioRecordMask */
-    unsigned int mask;
-    
-    /** 采样率 8000, 16000, 22050, 24000, 32000, 44100, 48000 */
-    int sampleRate;
-    
-    /** 声道数 1(单声道) 或 2(双声道) */
-    int channels;
-    
-} ZegoAPIAudioRecordConfig;
 
 #endif /* ZegoLiveRoomApiDefines_h */

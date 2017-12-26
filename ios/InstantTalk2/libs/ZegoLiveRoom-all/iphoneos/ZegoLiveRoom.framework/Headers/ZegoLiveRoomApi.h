@@ -147,7 +147,7 @@ typedef void(^ZegoCustomCommandBlock)(int errorCode, NSString *roomID);
  发送自定义信令
  
  @param memberList 发送对象列表
- @param content 消息内容
+ @param content 消息内容。长度不超过 1024 字节
  @param block 消息发送结果
  @return true 成功，false 失败
  @discussion 信令内容由用户自定义。发送结果通过 block 回调
@@ -242,6 +242,22 @@ typedef void(^ZegoCustomCommandBlock)(int errorCode, NSString *roomID);
  @discussion 建议开发者在此通知中进行重新登录、推/拉流、报错、友好性提示等其他恢复逻辑。与 server 断开连接后，SDK 会进行重试，重试失败抛出此错误。请注意，此时 SDK 与服务器的所有连接均会断开
  */
 - (void)onDisconnect:(int)errorCode roomID:(NSString *)roomID;
+
+/**
+ 与 server 重连成功通知
+ 
+ @param errorCode 错误码，0 表示无错误
+ @param roomID 房间 ID
+ */
+- (void)onReconnect:(int)errorCode roomID:(NSString *)roomID;
+
+/**
+ 与 server 连接中断通知，SDK会尝试自动重连
+ 
+ @param errorCode 错误码，0 表示无错误
+ @param roomID 房间 ID
+ */
+- (void)onTempBroken:(int)errorCode roomID:(NSString *)roomID;
 
 /**
  流信息更新
