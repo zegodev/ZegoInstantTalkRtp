@@ -26,38 +26,12 @@
 #define ZEGO_EXTERN     extern
 #endif
 
-/** 流信息列表项 */
-/** rtmp 播放 url 列表，值为 <NSArrayNSString *> */
-ZEGO_EXTERN NSString *const kZegoRtmpUrlListKey;
-/** hls 播放 url 列表，值为 <NSArrayNSString *> */
-ZEGO_EXTERN NSString *const kZegoHlsUrlListKey;
-/** flv 播放 url 列表，值为 <NSArrayNSString *> */
-ZEGO_EXTERN NSString *const kZegoFlvUrlListKey;
-
-/** 混流不存在的流名，值为 NSString* */
-ZEGO_EXTERN NSString *const kZegoMixNonExistsStreamIDKey;
-/** 混流请求 seq，值为 @(int) */
-ZEGO_EXTERN NSString *const kZegoMixStreamReqSeqKey;
 
 /** 混流配置项，调用 [ZegoLiveRoomApi (Publisher) -setMixStreamConfig:] 设置 */
 /** 混流ID，值为 NSString */
 ZEGO_EXTERN NSString *const kZegoMixStreamIDKey;
 /** 混流输出大小，值为 NSValue */
 ZEGO_EXTERN NSString *const kZegoMixStreamResolution;
-
-
-/** 自定义推流配置项，调用 [ZegoLiveRoomApi (Publisher) -setPublishConfig:] 设置 */
-/** 自定义转推 RTMP 地址 */
-ZEGO_EXTERN NSString *const kPublishCustomTarget;
-
-/** 设备项 */
-/** 摄像头设备 */
-ZEGO_EXTERN NSString *const kZegoDeviceCameraName;
-/** 麦克风设备 */
-ZEGO_EXTERN NSString *const kZegoDeviceMicrophoneName;
-
-/** AudioSession相关配置信息的key, 值为 NSString */
-ZEGO_EXTERN NSString *const kZegoConfigKeepAudioSesionActive;
 
 /** 成员角色 */
 typedef enum
@@ -77,55 +51,50 @@ typedef enum
     ZEGO_STREAM_DELETE  = 2002,
 } ZegoStreamType;
 
+/**
+ 如何确定错误码
+ 
+ 1. 先通过错误掩码 ZegoErrorMask 来判断是什么类型的错误（应该从 ROOM_SERVER_ERROR_MASK 开始判断）
+ 2. 如果符合房间服务错误掩码 ROOM_SERVER_ERROR_MASK，用 ROOM_SERVER_ERROR_MASK 异或原始错误码，再对应房间错误码 ZegoRoomError 查看是什么错误
+ */
 
-/** 发布直播模式 */
-enum ZegoApiPublishFlag
+/** 房间错误码 */
+typedef enum ZegoRoomError
 {
-    /** 连麦模式 */
-    ZEGO_JOIN_PUBLISH   = 0,
-    /** 混流模式 */
-    ZEGO_MIX_STREAM     = 1 << 1,
-    /** 单主播模式 */
-    ZEGO_SINGLE_ANCHOR  = 1 << 2,
+    /** HTTP 连接错误 */
+    LOGIN_NETWORK_ERROR     = 101,
+    /** TCP 连接错误 */
+    LOGIN_PUSH_ERROR        = 102,
+    /** 服务器错误 */
+    LOGIN_SERVER_ERROR      = 103,
+    /** 网络切换临时状态，网络恢复后会自动重连 */
+    LOGIN_NET_CHANGE_ERROR  = 104,
+    /** 用户没有登录 */
+    NOT_LOGIN_ERROR         = 105,
+    /** 请求参数错误 */
+    REQUEST_PARAM_ERROR     = 106,
+    
+    /** 会话错误 */
+    SESSION_ERROR           = 141,
+    
+    /** 答题服务故障 */
+    DATI_COMMIT_ERROR       = 3001,
+    /** 答题时间已过 */
+    DATI_TIMEOUT_ERROR      = 3002,
+    /** 重复答题 */
+    DATI_REPEAT_ERROR       = 3003,
 };
 
-/** 发布直播质量 */
-typedef struct
+/** 错误掩码 */
+typedef enum ZegoErrorMask
 {
-    /** 视频帧率 */
-    double fps;
-    /** 视频码率(kb/s) */
-    double kbps;
-    /** 音频码率(kb/s) */
-    double akbps;
-    /** 延时(ms) */
-    int rtt;
-    /** 丢包率(0~255) */
-    int pktLostRate;
-    /** 直播质量(0~3) */
-    int quality;
-    
-} ZegoApiPublishQuality;
-
-/** 拉流质量 */
-typedef struct
-{
-    /** 视频帧率 */
-    double fps;
-    /** 视频码率(kb/s) */
-    double kbps;
-    /** 音频码率(kb/s) */
-    double akbps;
-    /** 音频卡顿率(次/min) */
-    double audioBreakRate;
-    /** 延时(ms) */
-    int rtt;
-    /** 丢包率(0~255) */
-    int pktLostRate;
-    /** 直播质量(0~3) */
-    int quality;
-    
-} ZegoApiPlayQuality;
+    /** 网络连接错误掩码 */
+    NETWORK_ERROR_MASK      = 0x1000,
+    /** SDK重登录错误掩码 */
+    RELOGIN_ERROR_MASK      = 0x10000,
+    /** 房间服务错误掩码 */
+    ROOM_SERVER_ERROR_MASK  = 0x100000,
+};
 
 /** 流信息 */
 @interface ZegoStream : NSObject
@@ -141,6 +110,7 @@ typedef struct
 @end
 
 typedef void(^ZegoSnapshotCompletionBlock)(ZEGOImage* img);
+
 
 
 #endif /* ZegoLiveRoomApiDefines_h */

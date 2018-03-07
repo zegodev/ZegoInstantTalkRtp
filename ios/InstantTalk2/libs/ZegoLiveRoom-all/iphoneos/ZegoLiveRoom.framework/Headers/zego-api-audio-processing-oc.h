@@ -21,7 +21,7 @@ typedef enum : NSUInteger
  @param enable true 开启，false 关闭
  @param angle 虚拟立体声中声源的角度，范围为0～180，90为正前方，0和180分别对应最右边和最左边
  @return true 成功，false 失败
- @discussion 必须在初始化 SDK 后调用，并且需要设置双声道 [ZegoLiveRoomApi (Publisher) setAudioChannelCount:2]，
+ @discussion 必须在初始化 SDK 后调用，并且需要设置双声道(参考 setAudioChannelCount)，
              推流成功后动态设置不同的 angle 都会生效
  */
 + (bool)enableVirtualStereo:(bool)enable angle:(int)angle;

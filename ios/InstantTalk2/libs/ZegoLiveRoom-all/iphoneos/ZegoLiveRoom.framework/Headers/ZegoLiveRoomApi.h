@@ -214,7 +214,12 @@ typedef void(^ZegoCustomCommandBlock)(int errorCode, NSString *roomID);
  设置配置信息
  
  @param config 配置信息
- @discussion  必须在初始化 SDK 前调用
+ 
+ @discussion 配置项的写法，例如 "keep_audio_session_active=true", 等号后面值的类型要看下面每一项的定义
+ @discussion "prefer_play_ultra_source", int value, 确保在 InitSDK 前调用，但开启拉流加速(config为“prefer_play_ultra_source=1”)可在 InitSDK 之后，拉流之前调用
+ @discussion "keep_audio_session_active", bool value, default: false, must be setting before engine started. if set true, app need to set the session inactive yourself. just be available for iOS
+ @discussion "enforce_audio_loopback_in_sync", bool value, default: false. enforce audio loopback in synchronous method for iOS
+ @discussion "audio_session_mix_with_others", bool value, default: true. set AVAudioSessionCategoryOptionMixWithOthers for iOS
  */
 + (void)setConfig:(NSString *)config;
 
