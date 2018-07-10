@@ -116,6 +116,8 @@ static NSData* ConvertStringToSign(NSString* strSign);
     }
 }
 
+//!! Please contact ZEGO support to get the AppID and signKey
+//!! 请开发者联系 ZEGO support 获取 APPID 与 key
 + (uint32_t)appID
 {
     switch ([self appType]) {
@@ -132,34 +134,29 @@ static NSData* ConvertStringToSign(NSString* strSign);
         }
             break;
         case ZegoAppTypeUDP:
-            return 1739272706;  // UDP版
+            return 10;  // UDP版
             break;
         case ZegoAppTypeI18N:
-            return 3322882036;  // 国际版
+            return 100;  // 国际版
             break;
     }
 }
 
+//!! Please contact ZEGO support to get the AppID and signKey
+//!! 请开发者联系 ZEGO support 获取 APPID 与 key
+//!! 规范用法：这个signKey需要从server下发到App，避免在App中存储，防止盗用
 + (NSData *)zegoAppSignFromServer
 {
-    //!! Demo 把signKey先写到代码中
-    //!! 规范用法：这个signKey需要从server下发到App，避免在App中存储，防止盗用
     ZegoAppType type = [self appType];
     
-//    if ([self appID] == 1)
-//    {
-//        Byte signkey[] = {0x91, 0x93, 0xcc, 0x66, 0x2a, 0x1c, 0x0e, 0xc1, 0x35, 0xec, 0x71, 0xfb, 0x07, 0x19, 0x4b, 0x38, 0x41, 0xd4, 0xad, 0x83, 0x78, 0xf2, 0x59, 0x90, 0xe0, 0xa4, 0x0c, 0x7f, 0xf4, 0x28, 0x41, 0xf7};
-//        return [NSData dataWithBytes:signkey length:32];
-//    }
-//    else
     if (type == ZegoAppTypeUDP)
     {
-        Byte signkey[] = {0x1e,0xc3,0xf8,0x5c,0xb2,0xf2,0x13,0x70,0x26,0x4e,0xb3,0x71,0xc8,0xc6,0x5c,0xa3,0x7f,0xa3,0x3b,0x9d,0xef,0xef,0x2a,0x85,0xe0,0xc8,0x99,0xae,0x82,0xc0,0xf6,0xf8};
+        Byte signkey[] = {};
         return [NSData dataWithBytes:signkey length:32];
     }
     else if (type == ZegoAppTypeI18N)
     {
-        Byte signkey[] = {0x5d,0xe6,0x83,0xac,0xa4,0xe5,0xad,0x43,0xe5,0xea,0xe3,0x70,0x6b,0xe0,0x77,0xa4,0x18,0x79,0x38,0x31,0x2e,0xcc,0x17,0x19,0x32,0xd2,0xfe,0x22,0x5b,0x6b,0x2b,0x2f};
+        Byte signkey[] = {};
         return [NSData dataWithBytes:signkey length:32];
     }
     else
